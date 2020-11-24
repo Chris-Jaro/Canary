@@ -9,19 +9,19 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Sign Up Controller-->
         <scene sceneID="n19-X2-p8d">
             <objects>
-                <viewController id="fdP-tL-JqT" sceneMemberID="viewController">
+                <viewController id="fdP-tL-JqT" customClass="SignUpController" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MMt-wH-84s">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hdk-G2-n46" userLabel="main">
-                                <rect key="frame" x="35" y="128" width="344" height="714"/>
+                                <rect key="frame" x="35" y="128" width="344" height="715"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="muB-u4-eSF" userLabel="top">
-                                        <rect key="frame" x="0.0" y="0.0" width="344" height="357"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="344" height="357.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sRD-EM-KvT">
                                                 <rect key="frame" x="0.0" y="0.0" width="344" height="102.5"/>
@@ -42,20 +42,17 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="09R-zG-0JT" userLabel="entries">
-                                                <rect key="frame" x="0.0" y="127.5" width="344" height="102"/>
+                                                <rect key="frame" x="0.0" y="127.5" width="344" height="102.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Adress Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lNY-Rt-4Qi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="344" height="36"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="344" height="36.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="kTo-wf-eld"/>
-                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hasło" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZRc-Ig-grR">
-                                                        <rect key="frame" x="0.0" y="66" width="344" height="36"/>
+                                                        <rect key="frame" x="0.0" y="66.5" width="344" height="36"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="ZOD-RI-u0d"/>
@@ -66,7 +63,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HY4-Bg-bWs" userLabel="checkboxView">
-                                                <rect key="frame" x="0.0" y="254.5" width="344" height="102.5"/>
+                                                <rect key="frame" x="0.0" y="255" width="344" height="102.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smo-BQ-lvE">
                                                         <rect key="frame" x="5" y="14" width="19.5" height="74.5"/>
@@ -109,7 +106,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WSZ-po-Xst" userLabel="bottom">
-                                        <rect key="frame" x="0.0" y="357" width="344" height="357"/>
+                                        <rect key="frame" x="0.0" y="357.5" width="344" height="357.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BP-9x-9yo">
                                                 <rect key="frame" x="78" y="70" width="188" height="48"/>
@@ -117,6 +114,9 @@
                                                 <state key="normal" title="Zarejestruj się">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="AIp-nZ-MyS" kind="presentation" modalPresentationStyle="fullScreen" id="OdF-Bg-bpq"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.066957175729999999" green="0.50148802999999997" blue="0.7403153777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -144,10 +144,10 @@
             </objects>
             <point key="canvasLocation" x="-146.37681159420291" y="-589.28571428571422"/>
         </scene>
-        <!--View Controller-->
+        <!--Terms Controller-->
         <scene sceneID="ceS-qc-68o">
             <objects>
-                <viewController id="IBc-Fq-ebW" sceneMemberID="viewController">
+                <viewController id="IBc-Fq-ebW" customClass="TermsController" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R0b-VF-0Yw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,10 +180,10 @@
             </objects>
             <point key="canvasLocation" x="764" y="-984"/>
         </scene>
-        <!--View Controller-->
+        <!--Main Controller-->
         <scene sceneID="qsp-mn-Sbj">
             <objects>
-                <viewController id="cvH-zo-2sH" sceneMemberID="viewController">
+                <viewController id="cvH-zo-2sH" customClass="MainController" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1hc-mj-aAl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -249,10 +249,10 @@
             </objects>
             <point key="canvasLocation" x="2873.913043478261" y="-208.25892857142856"/>
         </scene>
-        <!--View Controller-->
+        <!--Report Controller One-->
         <scene sceneID="dcZ-b6-ubE">
             <objects>
-                <viewController id="OPa-87-HV6" sceneMemberID="viewController">
+                <viewController id="OPa-87-HV6" customClass="ReportControllerOne" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zVs-4A-hRP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -288,10 +288,10 @@
             </objects>
             <point key="canvasLocation" x="3807.2463768115945" y="-208.25892857142856"/>
         </scene>
-        <!--View Controller-->
+        <!--Report Controller Two-->
         <scene sceneID="4hp-Jg-DkX">
             <objects>
-                <viewController id="9sC-0S-nMH" sceneMemberID="viewController">
+                <viewController id="9sC-0S-nMH" customClass="ReportControllerTwo" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wVb-o4-Mhx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -327,10 +327,10 @@
             </objects>
             <point key="canvasLocation" x="4673.913043478261" y="-208.25892857142856"/>
         </scene>
-        <!--View Controller-->
+        <!--Report Controller Three-->
         <scene sceneID="eat-3Y-ngd">
             <objects>
-                <viewController id="fCm-jF-uDb" sceneMemberID="viewController">
+                <viewController id="fCm-jF-uDb" customClass="ReportControllerThree" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XEx-LX-uZe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -398,10 +398,10 @@
             </objects>
             <point key="canvasLocation" x="5668.115942028986" y="-208.25892857142856"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings Controller-->
         <scene sceneID="Swd-lV-eK6">
             <objects>
-                <viewController id="wt1-fQ-TY4" sceneMemberID="viewController">
+                <viewController id="wt1-fQ-TY4" customClass="SettingsController" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lgk-6W-giW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -444,10 +444,10 @@
             </objects>
             <point key="canvasLocation" x="2874" y="-984"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign In Controller-->
         <scene sceneID="oKK-ze-oHM">
             <objects>
-                <viewController id="L7H-Zc-fKu" customClass="ViewController" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="L7H-Zc-fKu" customClass="SignInController" customModule="Kanarek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1sf-m2-WDm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -603,6 +603,9 @@
             <point key="canvasLocation" x="-146.37681159420291" y="182.8125"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="OdF-Bg-bpq"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Kanarek_Logo_1_trans" width="1024" height="1024"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
