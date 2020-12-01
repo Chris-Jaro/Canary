@@ -9,8 +9,12 @@ import UIKit
 
 class ReportControllerTwo: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
 
         // Do any additional setup after loading the view.
     }
@@ -26,4 +30,21 @@ class ReportControllerTwo: UIViewController {
     }
     */
 
+}
+
+extension ReportControllerTwo: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+    
+}
+
+extension ReportControllerTwo: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "GoToReportThree" , sender: self)
+    }
 }

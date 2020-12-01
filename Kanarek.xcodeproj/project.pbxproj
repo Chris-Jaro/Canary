@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831105122576CA1100B1B1A2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105112576CA1000B1B1A2 /* Constants.swift */; };
 		835BFD6A256D3E3A00C97772 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD69256D3E3A00C97772 /* SignUpController.swift */; };
 		835BFD6D256D3EB600C97772 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD6C256D3EB600C97772 /* SignInController.swift */; };
 		835BFD70256D3EC800C97772 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD6F256D3EC800C97772 /* SettingsController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		831105112576CA1000B1B1A2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		835BFD69256D3E3A00C97772 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		835BFD6C256D3EB600C97772 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		835BFD6F256D3EC800C97772 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				83E5BFBC256AB64C005C56B0 /* Assets.xcassets */,
 				83E5BFBE256AB64C005C56B0 /* LaunchScreen.storyboard */,
 				83E5BFC1256AB64C005C56B0 /* Info.plist */,
+				831105112576CA1000B1B1A2 /* Constants.swift */,
 			);
 			path = Kanarek;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				835BFD70256D3EC800C97772 /* SettingsController.swift in Sources */,
+				831105122576CA1100B1B1A2 /* Constants.swift in Sources */,
 				83E5BFB8256AB648005C56B0 /* MainController.swift in Sources */,
 				83E5BFB4256AB648005C56B0 /* AppDelegate.swift in Sources */,
 				835BFD79256D3F1300C97772 /* ReportControllerThree.swift in Sources */,

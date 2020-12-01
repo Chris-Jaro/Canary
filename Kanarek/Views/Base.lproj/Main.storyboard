@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hdk-G2-n46" userLabel="main">
-                                <rect key="frame" x="35" y="128" width="344" height="715"/>
+                                <rect key="frame" x="35" y="128" width="344" height="714"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="muB-u4-eSF" userLabel="top">
-                                        <rect key="frame" x="0.0" y="0.0" width="344" height="357.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="344" height="357"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sRD-EM-KvT">
                                                 <rect key="frame" x="0.0" y="0.0" width="344" height="102.5"/>
@@ -42,28 +42,25 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="09R-zG-0JT" userLabel="entries">
-                                                <rect key="frame" x="0.0" y="127.5" width="344" height="102.5"/>
+                                                <rect key="frame" x="0.0" y="127.5" width="344" height="102"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Adress Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lNY-Rt-4Qi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="344" height="36.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="344" height="36"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hasło" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZRc-Ig-grR">
-                                                        <rect key="frame" x="0.0" y="66.5" width="344" height="36"/>
+                                                        <rect key="frame" x="0.0" y="66" width="344" height="36"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="ZOD-RI-u0d"/>
-                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HY4-Bg-bWs" userLabel="checkboxView">
-                                                <rect key="frame" x="0.0" y="255" width="344" height="102.5"/>
+                                                <rect key="frame" x="0.0" y="254.5" width="344" height="102.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smo-BQ-lvE">
                                                         <rect key="frame" x="5" y="14" width="19.5" height="74.5"/>
@@ -106,7 +103,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WSZ-po-Xst" userLabel="bottom">
-                                        <rect key="frame" x="0.0" y="357.5" width="344" height="357.5"/>
+                                        <rect key="frame" x="0.0" y="357" width="344" height="357"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BP-9x-9yo">
                                                 <rect key="frame" x="78" y="70" width="188" height="48"/>
@@ -142,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J8l-TG-ADe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-146.37681159420291" y="-589.28571428571422"/>
+            <point key="canvasLocation" x="1012" y="-984"/>
         </scene>
         <!--Terms Controller-->
         <scene sceneID="ceS-qc-68o">
@@ -175,10 +172,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cxt-EV-1Ur"/>
+                    <connections>
+                        <outlet property="tableView" destination="ZMI-sD-oWP" id="fYi-s3-JaT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r94-Vr-YZI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="764" y="-984"/>
+            <point key="canvasLocation" x="1964" y="-984"/>
         </scene>
         <!--Main Controller-->
         <scene sceneID="qsp-mn-Sbj">
@@ -281,7 +281,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="X77-mc-roU"/>
                     <connections>
-                        <segue destination="9sC-0S-nMH" kind="show" id="FRr-3Q-YfB"/>
+                        <outlet property="tableView" destination="NOR-KQ-XXQ" id="kPW-Zl-5XA"/>
+                        <segue destination="9sC-0S-nMH" kind="show" identifier="GoToReportTwo" id="FRr-3Q-YfB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gi8-gV-J8m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -320,12 +321,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="HbA-ri-E9C"/>
                     <connections>
-                        <segue destination="fCm-jF-uDb" kind="show" id="D1E-Bm-lCf"/>
+                        <outlet property="tableView" destination="EU8-i4-oSq" id="Gs4-pY-Zsd"/>
+                        <segue destination="fCm-jF-uDb" kind="show" identifier="GoToReportThree" id="D1E-Bm-lCf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8z-7Q-Gxe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4673.913043478261" y="-208.25892857142856"/>
+            <point key="canvasLocation" x="3807" y="528"/>
         </scene>
         <!--Report Controller Three-->
         <scene sceneID="eat-3Y-ngd">
@@ -369,6 +371,9 @@
                                                 <state key="normal" title="Zgłoś">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="reportButtonPressed:" destination="fCm-jF-uDb" eventType="touchUpInside" id="Lgd-qx-iKF"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.066957175729999999" green="0.50148802999999997" blue="0.7403153777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -393,10 +398,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aF0-BQ-TGo"/>
+                    <connections>
+                        <outlet property="tableView" destination="1IP-eL-9oY" id="0YO-zw-W1V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qcv-Xz-2cM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5668.115942028986" y="-208.25892857142856"/>
+            <point key="canvasLocation" x="4770" y="528"/>
         </scene>
         <!--Settings Controller-->
         <scene sceneID="Swd-lV-eK6">
@@ -558,7 +566,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1m-wT-jvd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="763.768115942029" y="182.8125"/>
+            <point key="canvasLocation" x="1012" y="-208"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xmR-4n-KLj">
@@ -600,7 +608,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Oc-Ur-awf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-146.37681159420291" y="182.8125"/>
+            <point key="canvasLocation" x="26" y="-208"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
