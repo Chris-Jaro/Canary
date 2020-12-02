@@ -16,15 +16,15 @@ class ReportControllerThree: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
 
         // Do any additional setup after loading the view.
     }
     
 
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        dismiss(animated: true) {
-            //
-        }
+        
+        navigationController?.popToRootViewController(animated: true)
     }
     /*
     // MARK: - Navigation
@@ -40,11 +40,13 @@ class ReportControllerThree: UIViewController {
 
 extension ReportControllerThree: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+        cell.label?.text = "Kierunek"
+        return cell
     }
     
 }

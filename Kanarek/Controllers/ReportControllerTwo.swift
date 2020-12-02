@@ -15,6 +15,7 @@ class ReportControllerTwo: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
 
         // Do any additional setup after loading the view.
     }
@@ -34,11 +35,13 @@ class ReportControllerTwo: UIViewController {
 
 extension ReportControllerTwo: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+        cell.label?.text = "Numer lini"
+        return cell
     }
     
 }
@@ -48,3 +51,9 @@ extension ReportControllerTwo: UITableViewDelegate{
         performSegue(withIdentifier: "GoToReportThree" , sender: self)
     }
 }
+
+//func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//    let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell", for: indexPath) as! StopTableViewCell
+//    cell.label?.text = "Przystanek"
+//    return cell
+//}

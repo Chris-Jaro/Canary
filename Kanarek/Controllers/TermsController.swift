@@ -15,6 +15,7 @@ class TermsController: UIViewController {
         super.viewDidLoad()
 
         tableView.dataSource = self
+        tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
         // Do any additional setup after loading the view.
     }
     
@@ -37,7 +38,9 @@ extension TermsController : UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+        cell.label?.text = K.Regulamin.text
+        return cell
     }
     
 }

@@ -16,6 +16,8 @@ class ReportControllerOne: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
+
 
         // Do any additional setup after loading the view.
     }
@@ -25,11 +27,13 @@ class ReportControllerOne: UIViewController {
 
 extension ReportControllerOne: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+        cell.label?.text = "Przystanek"
+        return cell
     }
     
 }
