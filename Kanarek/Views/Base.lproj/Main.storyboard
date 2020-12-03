@@ -215,7 +215,7 @@
                                     <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <segue destination="OPa-87-HV6" kind="show" id="bdr-WZ-P4r"/>
+                                    <action selector="reportButtonPressed:" destination="cvH-zo-2sH" eventType="touchUpInside" id="AQu-8N-R39"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-cl-UgY">
@@ -244,10 +244,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="swS-4v-eVQ"/>
+                    <connections>
+                        <segue destination="OPa-87-HV6" kind="show" identifier="GoToReportOne" id="xRW-DB-r0g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYm-aR-Nb1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2873.913043478261" y="-208.25892857142856"/>
+            <point key="canvasLocation" x="2874" y="-208"/>
         </scene>
         <!--Report Controller One-->
         <scene sceneID="dcZ-b6-ubE">
