@@ -10,6 +10,8 @@ import CoreLocation
 
 class MainController: UIViewController {
     
+    var currentLocation: CLLocation?
+    
     let locationManager = CLLocationManager()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,15 +32,21 @@ class MainController: UIViewController {
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         locationManager.allowsBackgroundLocationUpdates = true // This line is respinsible for background location updates
-    
-        
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func reportButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "GoToReportOne"{
+            let destinationVC = segue.destination as! ReportControllerOne
+            if let location = currentLocation{
+                destinationVC.reportCoortdinates = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
+            }
+        }
+    }
 }
 
 //MARK: - LocationManagerDelegate
@@ -46,7 +54,7 @@ extension MainController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         if let location = locations.last{
-            
+            currentLocation = location
             print("Automatic:\(location.coordinate.latitude),\(location.coordinate.longitude)")
         }
         

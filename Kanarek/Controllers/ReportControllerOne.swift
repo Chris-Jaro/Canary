@@ -8,6 +8,8 @@
 import UIKit
 
 class ReportControllerOne: UIViewController {
+    
+    var reportCoortdinates: String?
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -17,7 +19,10 @@ class ReportControllerOne: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
-
+        
+        if let coordinates = reportCoortdinates{
+            print("Report coordinates: \(coordinates)")
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -40,6 +45,7 @@ extension ReportControllerOne: UITableViewDataSource{
 
 extension ReportControllerOne: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         performSegue(withIdentifier: "GoToReportTwo" , sender: self)
     }
 }
