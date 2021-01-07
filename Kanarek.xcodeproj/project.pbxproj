@@ -10,6 +10,7 @@
 		831105122576CA1100B1B1A2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105112576CA1000B1B1A2 /* Constants.swift */; };
 		831105162578371B00B1B1A2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105142578371B00B1B1A2 /* CustomCell.swift */; };
 		831105172578371B00B1B1A2 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831105152578371B00B1B1A2 /* CustomCell.xib */; };
+		834943F025A758B30091CD3F /* StopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834943EF25A758B30091CD3F /* StopModel.swift */; };
 		835BFD6A256D3E3A00C97772 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD69256D3E3A00C97772 /* SignUpController.swift */; };
 		835BFD6D256D3EB600C97772 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD6C256D3EB600C97772 /* SignInController.swift */; };
 		835BFD70256D3EC800C97772 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD6F256D3EC800C97772 /* SettingsController.swift */; };
@@ -29,6 +30,7 @@
 		831105112576CA1000B1B1A2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		831105142578371B00B1B1A2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		831105152578371B00B1B1A2 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		834943EF25A758B30091CD3F /* StopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopModel.swift; sourceTree = "<group>"; };
 		835BFD69256D3E3A00C97772 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		835BFD6C256D3EB600C97772 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		835BFD6F256D3EC800C97772 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		8342BAEB256C32090008880B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				834943EF25A758B30091CD3F /* StopModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				835BFD73256D3ED700C97772 /* ReportControllerOne.swift in Sources */,
 				835BFD7C256D3F5F00C97772 /* TermsController.swift in Sources */,
 				83E5BFB6256AB648005C56B0 /* SceneDelegate.swift in Sources */,
+				834943F025A758B30091CD3F /* StopModel.swift in Sources */,
 				835BFD6D256D3EB600C97772 /* SignInController.swift in Sources */,
 				835BFD76256D3EE700C97772 /* ReportControllerTwo.swift in Sources */,
 				831105162578371B00B1B1A2 /* CustomCell.swift in Sources */,

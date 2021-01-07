@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -218,39 +219,53 @@
                                     <action selector="reportButtonPressed:" destination="cvH-zo-2sH" eventType="touchUpInside" id="AQu-8N-R39"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-cl-UgY">
-                                <rect key="frame" x="20" y="198" width="374" height="574"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mapa ostatnich zgłoszeń" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqJ-Ud-EKh">
                                 <rect key="frame" x="69" y="128" width="276" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7d9-pO-iRL">
+                                <rect key="frame" x="20" y="198" width="374" height="574"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZ0-qO-fmG">
+                                <rect key="frame" x="35" y="218" width="20" height="22"/>
+                                <color key="tintColor" name="LocationButton"/>
+                                <state key="normal" image="location.circle.fill" catalog="system">
+                                    <color key="titleColor" name="LocationButton"/>
+                                </state>
+                                <connections>
+                                    <action selector="currentLocationButtonPressed:" destination="cvH-zo-2sH" eventType="touchUpInside" id="tvy-JK-Dj8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RKV-wC-fxn"/>
                         <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Z9y-7P-hE4" firstAttribute="leading" secondItem="RKV-wC-fxn" secondAttribute="leading" constant="30" id="74R-QD-EAa"/>
+                            <constraint firstItem="GZ0-qO-fmG" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="60" id="7xa-8u-37f"/>
+                            <constraint firstItem="GZ0-qO-fmG" firstAttribute="leading" secondItem="RKV-wC-fxn" secondAttribute="leading" constant="35" id="B2z-x3-IGq"/>
                             <constraint firstItem="RKV-wC-fxn" firstAttribute="bottom" secondItem="Z9y-7P-hE4" secondAttribute="bottom" constant="20" id="E6i-BA-WQz"/>
-                            <constraint firstItem="Z9y-7P-hE4" firstAttribute="top" secondItem="RS1-cl-UgY" secondAttribute="bottom" constant="20" id="NMR-aS-6lh"/>
-                            <constraint firstItem="RKV-wC-fxn" firstAttribute="trailing" secondItem="RS1-cl-UgY" secondAttribute="trailing" constant="20" id="T8U-Gm-4vM"/>
-                            <constraint firstItem="RS1-cl-UgY" firstAttribute="leading" secondItem="RKV-wC-fxn" secondAttribute="leading" constant="20" id="YqG-GZ-33T"/>
+                            <constraint firstItem="RKV-wC-fxn" firstAttribute="trailing" secondItem="7d9-pO-iRL" secondAttribute="trailing" constant="20" id="I8O-rm-FTl"/>
+                            <constraint firstItem="7d9-pO-iRL" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="40" id="PdB-nx-dqW"/>
+                            <constraint firstItem="Z9y-7P-hE4" firstAttribute="top" secondItem="7d9-pO-iRL" secondAttribute="bottom" constant="20" id="QPm-GV-qFb"/>
                             <constraint firstItem="OqJ-Ud-EKh" firstAttribute="top" secondItem="RKV-wC-fxn" secondAttribute="top" constant="40" id="bAz-Yb-lHR"/>
                             <constraint firstItem="RKV-wC-fxn" firstAttribute="trailing" secondItem="u2x-N8-zaS" secondAttribute="trailing" constant="30" id="bJl-gK-R0G"/>
-                            <constraint firstItem="RS1-cl-UgY" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="40" id="dHJ-Hl-Ift"/>
+                            <constraint firstItem="7d9-pO-iRL" firstAttribute="leading" secondItem="RKV-wC-fxn" secondAttribute="leading" constant="20" id="h9t-cK-y3g"/>
                             <constraint firstItem="RKV-wC-fxn" firstAttribute="bottom" secondItem="u2x-N8-zaS" secondAttribute="bottom" constant="20" id="hYU-4b-Dh7"/>
                             <constraint firstItem="OqJ-Ud-EKh" firstAttribute="centerX" secondItem="1hc-mj-aAl" secondAttribute="centerX" id="tbs-CQ-pMt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="swS-4v-eVQ"/>
                     <connections>
+                        <outlet property="currentLocationButton" destination="GZ0-qO-fmG" id="5u2-o0-D3O"/>
+                        <outlet property="mapView" destination="7d9-pO-iRL" id="ksX-kD-KYD"/>
                         <segue destination="OPa-87-HV6" kind="show" identifier="GoToReportOne" id="xRW-DB-r0g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYm-aR-Nb1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2874" y="-208"/>
+            <point key="canvasLocation" x="2873.913043478261" y="-208.25892857142856"/>
         </scene>
         <!--Report Controller One-->
         <scene sceneID="dcZ-b6-ubE">
@@ -622,7 +637,11 @@
     <resources>
         <image name="Kanarek_Logo_1_trans" width="1024" height="1024"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square" catalog="system" width="128" height="114"/>
+        <namedColor name="LocationButton">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
