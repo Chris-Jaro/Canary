@@ -21,6 +21,8 @@ class MainController: UIViewController {
     
     let db = Firestore.firestore()
     
+    var directions: [String] = []
+    
     var stops: [Stop] = [Stop(stopName: "Os. Rzeczypospolitej", status: false, location: CLLocationCoordinate2D(latitude: 52.38615148130084,
                                                                                                                 longitude: 16.945134121143088), lines: [1,2]),
                          Stop(stopName: "Os. Piastowskie", status: true, location: CLLocationCoordinate2D(latitude: 52.390541474302026,
@@ -54,7 +56,8 @@ class MainController: UIViewController {
         mapView.delegate = self
         mapView.setUserTrackingMode(.follow, animated: true)
         
-        loadPoints()
+//        loadPoints()
+        loadLineDirections()
         
     }
     
@@ -104,7 +107,26 @@ class MainController: UIViewController {
         }
     }
     
-    
+    func loadLineDirections(chosenLineNumber: Int = 1){
+        db.collectionGroup("poznan_lines")
+            .whereField("line_number", isEqualTo: chosenLineNumber)
+            .addSnapshotListener { (querySnapshot, error) in
+                self.directions = []
+                if let e = error {
+                    print("There was an issue recieving data from firestore, \(e)")
+                } else {
+                    if let snapshotDocuments = querySnapshot?.documents {
+                        for doc in snapshotDocuments{
+                            let data = doc.data()
+                            if let lineDirections = data["directions"] as? [String]{
+                               self.directions.append(contentsOf: lineDirections)
+                            }
+                        }
+                        print(self.directions)
+                    }
+                }
+            }
+    }
     
     
 //MARK: - Map-related Fuctions
@@ -223,6 +245,8 @@ extension MainController: CLLocationManagerDelegate{
         if !startLocationLoaded {
             setUsersLocation(for: location)
             startLocationLoaded = true
+        
+            // IMPLEMENT THE CITY NAME GETTER - HERE
         }
         
         if hiddenLocationButton {
