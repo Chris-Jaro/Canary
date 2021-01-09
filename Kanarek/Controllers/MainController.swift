@@ -56,8 +56,7 @@ class MainController: UIViewController {
         mapView.delegate = self
         mapView.setUserTrackingMode(.follow, animated: true)
         
-//        loadPoints()
-        loadLineDirections()
+        loadPoints()
         
     }
     
@@ -84,17 +83,17 @@ class MainController: UIViewController {
 //MARK: - Database-related Functions
     
     func loadPoints(){
-        db.collection("poznan_stops")
-            .order(by: "date_modified")
+        db.collection(K.FirebaseQuery.stopsCollectionName)
+            .order(by: K.FirebaseQuery.date)
             .addSnapshotListener { (querySnapshot, error) in
-            self.stops = [Stop(stopName: "Check", status: true, location: CLLocationCoordinate2D(latitude: 52, longitude: 16), lines: [1,2])]
+            self.stops = []
             if let e = error{
                 print ("There was an issue receiving data from firestore, \(e)")
             } else {
                 if let snapshotDocuments = querySnapshot?.documents {
                     for doc in snapshotDocuments {
                         let data = doc.data()
-                        if let stopName = data["stop_name"] as? String, let stopStatus = data["status"] as? Bool, let lat = data["latitude"] as? Double, let lon = data ["longitude"] as? Double, let lines = data["lines"] as? [Int]{
+                        if let stopName = data[K.FirebaseQuery.stopName] as? String, let stopStatus = data[K.FirebaseQuery.status] as? Bool, let lat = data[K.FirebaseQuery.lat] as? Double, let lon = data [K.FirebaseQuery.lon] as? Double, let lines = data[K.FirebaseQuery.lines] as? [Int]{
                             let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                             let linesList = lines.sorted()
                             let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList)
@@ -108,8 +107,8 @@ class MainController: UIViewController {
     }
     
     func loadLineDirections(chosenLineNumber: Int = 1){
-        db.collectionGroup("poznan_lines")
-            .whereField("line_number", isEqualTo: chosenLineNumber)
+        db.collectionGroup(K.FirebaseQuery.linesCollectionName)
+            .whereField(K.FirebaseQuery.lineNumber, isEqualTo: chosenLineNumber)
             .addSnapshotListener { (querySnapshot, error) in
                 self.directions = []
                 if let e = error {
@@ -118,7 +117,7 @@ class MainController: UIViewController {
                     if let snapshotDocuments = querySnapshot?.documents {
                         for doc in snapshotDocuments{
                             let data = doc.data()
-                            if let lineDirections = data["directions"] as? [String]{
+                            if let lineDirections = data[K.FirebaseQuery.directions] as? [String]{
                                self.directions.append(contentsOf: lineDirections)
                             }
                         }
@@ -128,6 +127,18 @@ class MainController: UIViewController {
             }
     }
     
+    func addPointToDatabase(location: CLLocation, line: Int, stopName: String){
+        db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate,
+                                                                                       K.FirebaseQuery.lat:  location.coordinate.latitude,
+                                                                                       K.FirebaseQuery.lon: location.coordinate.longitude,
+                                                                                       K.FirebaseQuery.lines: [line],
+                                                                                       K.FirebaseQuery.status: true,
+                                                                                       K.FirebaseQuery.stopName: stopName,])
+    }
+    
+    func updatePointStatus(stopName: String, status: Bool) {
+        db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.status: status, K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate], merge: true)
+    }
     
 //MARK: - Map-related Fuctions
     func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String){

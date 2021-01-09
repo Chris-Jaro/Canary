@@ -14,6 +14,19 @@ struct K {
         static let identifier = "CustomCell"
     }
     
+    struct FirebaseQuery {
+        static let date: String = "date_modified"
+        static let lat: String = "latitude"
+        static let lon: String = "longitude"
+        static let status: String = "status"
+        static let stopName: String = "stop_name"
+        static let lines: String = "lines"
+        static let linesCollectionName = "poznan_lines"
+        static let stopsCollectionName = "poznan_stops"
+        static let lineNumber = "line_number"
+        static let directions = "directions"
+    }
+    
     struct Regulamin {
         static let text = """
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquam turpis id eros tincidunt laoreet. Pellentesque sit amet velit felis. Sed id leo sed ipsum mattis consectetur id eget sem. Vivamus consequat accumsan nisi non tempus. Pellentesque rutrum dolor ut aliquam hendrerit. Mauris cursus augue eu elit molestie suscipit. Sed sit amet vehicula orci, at ultricies eros. Mauris id vulputate velit. Ut vel pharetra enim. In blandit in dui sed facilisis. Integer maximus placerat est sed malesuada. Maecenas vitae ornare nisi, at volutpat lacus. Aliquam ultricies malesuada mi.
