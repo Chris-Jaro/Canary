@@ -18,6 +18,7 @@
 		835BFD76256D3EE700C97772 /* ReportControllerTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD75256D3EE700C97772 /* ReportControllerTwo.swift */; };
 		835BFD79256D3F1300C97772 /* ReportControllerThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD78256D3F1300C97772 /* ReportControllerThree.swift */; };
 		835BFD7C256D3F5F00C97772 /* TermsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD7B256D3F5F00C97772 /* TermsController.swift */; };
+		8394EAFB25AA1F0600742EB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8394EAFA25AA1F0600742EB6 /* GoogleService-Info.plist */; };
 		83E5BFB4256AB648005C56B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5BFB3256AB648005C56B0 /* AppDelegate.swift */; };
 		83E5BFB6256AB648005C56B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5BFB5256AB648005C56B0 /* SceneDelegate.swift */; };
 		83E5BFB8256AB648005C56B0 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5BFB7256AB648005C56B0 /* MainController.swift */; };
@@ -38,6 +39,7 @@
 		835BFD75256D3EE700C97772 /* ReportControllerTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportControllerTwo.swift; sourceTree = "<group>"; };
 		835BFD78256D3F1300C97772 /* ReportControllerThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportControllerThree.swift; sourceTree = "<group>"; };
 		835BFD7B256D3F5F00C97772 /* TermsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsController.swift; sourceTree = "<group>"; };
+		8394EAFA25AA1F0600742EB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		83E5BFB0256AB648005C56B0 /* Kanarek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kanarek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E5BFB3256AB648005C56B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83E5BFB5256AB648005C56B0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				83E5BFBC256AB64C005C56B0 /* Assets.xcassets */,
 				83E5BFBE256AB64C005C56B0 /* LaunchScreen.storyboard */,
 				83E5BFC1256AB64C005C56B0 /* Info.plist */,
+				8394EAFA25AA1F0600742EB6 /* GoogleService-Info.plist */,
 				831105112576CA1000B1B1A2 /* Constants.swift */,
 			);
 			path = Kanarek;
@@ -183,6 +186,7 @@
 			files = (
 				83E5BFC0256AB64C005C56B0 /* LaunchScreen.storyboard in Resources */,
 				83E5BFBD256AB64C005C56B0 /* Assets.xcassets in Resources */,
+				8394EAFB25AA1F0600742EB6 /* GoogleService-Info.plist in Resources */,
 				831105172578371B00B1B1A2 /* CustomCell.xib in Resources */,
 				83E5BFBB256AB648005C56B0 /* Main.storyboard in Resources */,
 			);
