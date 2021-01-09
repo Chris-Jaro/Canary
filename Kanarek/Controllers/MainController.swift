@@ -150,17 +150,19 @@ extension MainController: MKMapViewDelegate{
         }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if type(of: annotation) == MKPointAnnotation.self {
-            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
-            if annotation.subtitle == "true" {
-                annotationView.markerTintColor = UIColor.red
-            } else {
-                annotationView.markerTintColor = UIColor.green
-            }
-            
-            return annotationView
+        guard let annotation = annotation as? MKPointAnnotation else {
+            return nil
         }
-        return nil
+        
+        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
+        if annotation.subtitle == "true" {
+            annotationView.markerTintColor = UIColor.systemRed
+        } else {
+            annotationView.markerTintColor = UIColor.systemBlue
+        }
+        annotationView.glyphImage = UIImage(systemName: "tram")
+        return annotationView
+        
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
