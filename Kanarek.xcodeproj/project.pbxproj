@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17B35CC1F144EA1E69524F4A /* Pods_Kanarek.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00507E69E91F4AD19D7B41AB /* Pods_Kanarek.framework */; };
 		831105122576CA1100B1B1A2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105112576CA1000B1B1A2 /* Constants.swift */; };
 		831105162578371B00B1B1A2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105142578371B00B1B1A2 /* CustomCell.swift */; };
 		831105172578371B00B1B1A2 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831105152578371B00B1B1A2 /* CustomCell.xib */; };
@@ -28,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00507E69E91F4AD19D7B41AB /* Pods_Kanarek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kanarek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C7148CC2D0DD7223194020B /* Pods-Kanarek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kanarek.release.xcconfig"; path = "Target Support Files/Pods-Kanarek/Pods-Kanarek.release.xcconfig"; sourceTree = "<group>"; };
 		831105112576CA1000B1B1A2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		831105142578371B00B1B1A2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		831105152578371B00B1B1A2 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 		83E5BFBC256AB64C005C56B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83E5BFBF256AB64C005C56B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83E5BFC1256AB64C005C56B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3364168347B25E28AA7D95D /* Pods-Kanarek.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kanarek.debug.xcconfig"; path = "Target Support Files/Pods-Kanarek/Pods-Kanarek.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,12 +59,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B35CC1F144EA1E69524F4A /* Pods_Kanarek.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7643C3999A74C589E7B5683D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				00507E69E91F4AD19D7B41AB /* Pods_Kanarek.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8342BAE8256C31D00008880B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +112,8 @@
 			children = (
 				83E5BFB2256AB648005C56B0 /* Kanarek */,
 				83E5BFB1256AB648005C56B0 /* Products */,
+				CD8A7570FC4EF9FA1CC44C74 /* Pods */,
+				7643C3999A74C589E7B5683D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +142,16 @@
 			path = Kanarek;
 			sourceTree = "<group>";
 		};
+		CD8A7570FC4EF9FA1CC44C74 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E3364168347B25E28AA7D95D /* Pods-Kanarek.debug.xcconfig */,
+				7C7148CC2D0DD7223194020B /* Pods-Kanarek.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,9 +159,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83E5BFC4256AB64C005C56B0 /* Build configuration list for PBXNativeTarget "Kanarek" */;
 			buildPhases = (
+				242D5C1FF8FCDB41A7245CDE /* [CP] Check Pods Manifest.lock */,
 				83E5BFAC256AB648005C56B0 /* Sources */,
 				83E5BFAD256AB648005C56B0 /* Frameworks */,
 				83E5BFAE256AB648005C56B0 /* Resources */,
+				EC645F6C97F1A926DCA3AC94 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -193,6 +220,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		242D5C1FF8FCDB41A7245CDE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Kanarek-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC645F6C97F1A926DCA3AC94 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Kanarek/Pods-Kanarek-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Kanarek/Pods-Kanarek-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Kanarek/Pods-Kanarek-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83E5BFAC256AB648005C56B0 /* Sources */ = {
@@ -355,6 +424,7 @@
 		};
 		83E5BFC5256AB64C005C56B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3364168347B25E28AA7D95D /* Pods-Kanarek.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -375,6 +445,7 @@
 		};
 		83E5BFC6256AB64C005C56B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C7148CC2D0DD7223194020B /* Pods-Kanarek.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

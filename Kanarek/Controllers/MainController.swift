@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import Firebase
 
 class MainController: UIViewController {
     
@@ -17,6 +18,8 @@ class MainController: UIViewController {
     var hiddenLocationButton = true
     
     let locationManager = CLLocationManager()
+    
+    let db = Firestore.firestore()
     
     var stops: [Stop] = [Stop(stopName: "Os. Rzeczypospolitej", status: false, location: CLLocationCoordinate2D(latitude: 52.38615148130084,
                                                                                                                 longitude: 16.945134121143088), lines: [1,2]),
@@ -51,7 +54,7 @@ class MainController: UIViewController {
         mapView.delegate = self
         mapView.setUserTrackingMode(.follow, animated: true)
         
-        refreshMap()
+        loadPoints()
         
     }
     
@@ -75,6 +78,35 @@ class MainController: UIViewController {
         }
     }
     
+//MARK: - Database-related Functions
+    
+    func loadPoints(){
+        db.collection("poznan_stops")
+            .order(by: "date_modified")
+            .addSnapshotListener { (querySnapshot, error) in
+            self.stops = [Stop(stopName: "Check", status: true, location: CLLocationCoordinate2D(latitude: 52, longitude: 16), lines: [1,2])]
+            if let e = error{
+                print ("There was an issue receiving data from firestore, \(e)")
+            } else {
+                if let snapshotDocuments = querySnapshot?.documents {
+                    for doc in snapshotDocuments {
+                        let data = doc.data()
+                        if let stopName = data["stop_name"] as? String, let stopStatus = data["status"] as? Bool, let lat = data["latitude"] as? Double, let lon = data ["longitude"] as? Double, let lines = data["lines"] as? [Int]{
+                            let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                            let linesList = lines.sorted()
+                            let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList)
+                            self.stops.append(newStop)
+                        }
+                    }
+                    self.refreshPoints()
+                }
+            }
+        }
+    }
+    
+    
+    
+    
 //MARK: - Map-related Fuctions
     func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String){
         let point = MKPointAnnotation()
@@ -90,7 +122,7 @@ class MainController: UIViewController {
         mapView.addOverlay(circle)
     }
     
-    func refreshMap(){
+    func refreshPoints(){
         var list = mapView.annotations
         if let userIndex = list.firstIndex(where: { (annotation) -> Bool in
             if type(of: annotation) == MKUserLocation.self {
@@ -130,7 +162,6 @@ class MainController: UIViewController {
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapView.setRegion(region, animated: true)
         
-        
         hiddenLocationButton = true
     }
     
@@ -140,7 +171,7 @@ class MainController: UIViewController {
 //MARK: - MapViewDelegate Methods
 extension MainController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let color = UIColor.red
+        let color = UIColor.systemRed
         let circleRenderer = MKCircleRenderer(overlay: overlay)
         circleRenderer.lineWidth = 1.0
         circleRenderer.alpha = 0.3
