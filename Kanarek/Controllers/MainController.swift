@@ -21,12 +21,10 @@ class MainController: UIViewController {
     
     let db = Firestore.firestore()
     
-    var directions: [String] = []
-    
     var stops: [Stop] = [Stop(stopName: "Os. Rzeczypospolitej", status: false, location: CLLocationCoordinate2D(latitude: 52.38615148130084,
-                                                                                                                longitude: 16.945134121143088), lines: [1,2]),
+                                                                                                                longitude: 16.945134121143088), lines: [1,2], direction: "null"),
                          Stop(stopName: "Os. Piastowskie", status: true, location: CLLocationCoordinate2D(latitude: 52.390541474302026,
-                                                                                                          longitude: 16.947058944429564), lines: [1,2])]
+                                                                                                          longitude: 16.947058944429564), lines: [1,2], direction: "null"),]
     var stopsInMyArea: [Stop] = []
     
     
@@ -94,39 +92,18 @@ class MainController: UIViewController {
                 if let snapshotDocuments = querySnapshot?.documents {
                     for doc in snapshotDocuments {
                         let data = doc.data()
-                        if let stopName = data[K.FirebaseQuery.stopName] as? String, let stopStatus = data[K.FirebaseQuery.status] as? Bool, let lat = data[K.FirebaseQuery.lat] as? Double, let lon = data [K.FirebaseQuery.lon] as? Double, let lines = data[K.FirebaseQuery.lines] as? [Int]{
+                        if let stopName = data[K.FirebaseQuery.stopName] as? String, let stopStatus = data[K.FirebaseQuery.status] as? Bool, let lat = data[K.FirebaseQuery.lat] as? Double, let lon = data [K.FirebaseQuery.lon] as? Double, let lines = data[K.FirebaseQuery.lines] as? [Int], let direction = data[K.FirebaseQuery.direction] as? String{
                             let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                             let linesList = lines.sorted()
-                            let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList)
+                            let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction)
                             self.stops.append(newStop)
                         }
                     }
+                    print(self.stops)
                     self.refreshMap()
                 }
             }
         }
-    }
-    
-    //#### Provides a list of a line directions -> Function goes to the third + copy database variable (not needed here)
-    func loadLineDirections(chosenLineNumber: Int = 1){
-        db.collectionGroup(K.FirebaseQuery.linesCollectionName)
-            .whereField(K.FirebaseQuery.lineNumber, isEqualTo: chosenLineNumber)
-            .addSnapshotListener { (querySnapshot, error) in
-                self.directions = []
-                if let e = error {
-                    print("There was an issue recieving data from firestore, \(e)")
-                } else {
-                    if let snapshotDocuments = querySnapshot?.documents {
-                        for doc in snapshotDocuments{
-                            let data = doc.data()
-                            if let lineDirections = data[K.FirebaseQuery.directions] as? [String]{
-                               self.directions.append(contentsOf: lineDirections)
-                            }
-                        }
-                        print(self.directions)
-                    }
-                }
-            }
     }
     
     //#### Adds a point to the database -> Not needed now (insurence if there are no stops in the area)
@@ -137,11 +114,6 @@ class MainController: UIViewController {
                                                                                        K.FirebaseQuery.lines: [line],
                                                                                        K.FirebaseQuery.status: true,
                                                                                        K.FirebaseQuery.stopName: stopName,])
-    } // Not needed now
-    
-    //#### - Updates status variable of a stop in the database -> Function goes to the third + copy database variable (not needed here)
-    func updatePointStatus(stopName: String, status: Bool) {
-        db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.status: status, K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate], merge: true)
     }
     
     
@@ -239,9 +211,7 @@ extension MainController: MKMapViewDelegate{
     
     //#### - DEFINES THE VIEW OF THE POINT
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? MKPointAnnotation else {
-            return nil
-        }
+        guard let annotation = annotation as? MKPointAnnotation else { return nil }
         
         let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
         if annotation.subtitle == "true" {

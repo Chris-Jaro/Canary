@@ -13,4 +13,5 @@ struct Stop {
     let status: Bool
     let location: CLLocationCoordinate2D
     let lines: [Int]
+    let direction: String
 }
