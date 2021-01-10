@@ -11,7 +11,7 @@ class ReportControllerOne: UIViewController {
     
     var reportCoortdinates: String?
     var stops: [Stop]?
-//    var stopIndex: Int?
+    var chosenStopIndex: Int?
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,7 +25,12 @@ class ReportControllerOne: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //
+        if segue.identifier == "GoToReportTwo"{
+            let destinationVC = segue.destination as! ReportControllerTwo
+            if let stopsList = stops, let index = chosenStopIndex{
+                destinationVC.linesList = stopsList[index].lines
+            }
+        }
     }
     
    
@@ -52,7 +57,7 @@ extension ReportControllerOne: UITableViewDataSource{
 
 extension ReportControllerOne: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        stopIndex = indexPath.row
+        chosenStopIndex = indexPath.row
         
         performSegue(withIdentifier: "GoToReportTwo" , sender: self)
     }

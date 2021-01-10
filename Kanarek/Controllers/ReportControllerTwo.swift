@@ -8,6 +8,8 @@
 import UIKit
 
 class ReportControllerTwo: UIViewController {
+    
+    var linesList: [Int]?
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -16,8 +18,7 @@ class ReportControllerTwo: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
-
-        // Do any additional setup after loading the view.
+        
     }
     
 
@@ -35,12 +36,18 @@ class ReportControllerTwo: UIViewController {
 
 extension ReportControllerTwo: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        guard let lines = linesList else {return 1}
+        return lines.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let lines = linesList else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+            cell.label?.text = "Błąd - brak lini do wyświetlenia"
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
-        cell.label?.text = "Numer lini"
+        cell.label?.text = "\(lines[indexPath.row])"
         return cell
     }
     
@@ -48,6 +55,7 @@ extension ReportControllerTwo: UITableViewDataSource{
 
 extension ReportControllerTwo: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         performSegue(withIdentifier: "GoToReportThree" , sender: self)
     }
 }

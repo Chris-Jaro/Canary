@@ -195,9 +195,9 @@ class MainController: UIViewController {
                     stopsInMyArea.append(stop)
                 }
             }
-            stopsInMyArea.forEach { (stop) in
-                print (stop.stopName)
-            }
+//            stopsInMyArea.forEach { (stop) in
+//                print (stop.stopName)
+//            }
         }
     }
     
