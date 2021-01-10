@@ -66,6 +66,7 @@ class MainController: UIViewController {
             setUsersLocation(for: location)
         }
     }
+    
     @IBAction func reportButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
@@ -140,6 +141,7 @@ class MainController: UIViewController {
         db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.status: status, K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate], merge: true)
     }
     
+    
 //MARK: - Map-related Fuctions
     func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String){
         let point = MKPointAnnotation()
@@ -198,7 +200,18 @@ class MainController: UIViewController {
         hiddenLocationButton = true
     }
     
-    
+    func getCurrentCity(){
+        
+        let geoCoder = CLGeocoder()
+        if let location = currentLocation{
+            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
+                if let placemark = placemarks?.first{
+                    if let city = placemark.locality { print(city.lowercased()) }
+                }
+            })
+        }
+    }
+        
 }
 
 //MARK: - MapViewDelegate Methods
