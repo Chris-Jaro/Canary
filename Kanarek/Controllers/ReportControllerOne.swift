@@ -29,6 +29,7 @@ class ReportControllerOne: UIViewController {
             let destinationVC = segue.destination as! ReportControllerTwo
             if let stopsList = stops, let index = chosenStopIndex{
                 destinationVC.linesList = stopsList[index].lines
+                destinationVC.stopName = stopsList[index].stopName
             }
         }
     }

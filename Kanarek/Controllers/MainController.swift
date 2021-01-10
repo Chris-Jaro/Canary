@@ -99,7 +99,6 @@ class MainController: UIViewController {
                             self.stops.append(newStop)
                         }
                     }
-                    print(self.stops)
                     self.refreshMap()
                 }
             }
@@ -149,8 +148,9 @@ class MainController: UIViewController {
         mapView.removeAnnotations(list)
         mapView.removeOverlays(mapView.overlays)
         for stop in stops {
-            addPoint(where: stop.location, title: stop.stopName, subtitle: "\(stop.status)")
+            addPoint(where: stop.location, title: stop.stopName, subtitle: "status:\(stop.status)")
             if stop.status{
+                addPoint(where: stop.location, title: stop.stopName, subtitle: "status:\(stop.status)\ndirection:\(stop.direction)")
                 addCircle(where: stop.location)
             }
         }
@@ -214,7 +214,7 @@ extension MainController: MKMapViewDelegate{
         guard let annotation = annotation as? MKPointAnnotation else { return nil }
         
         let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
-        if annotation.subtitle == "true" {
+        if annotation.subtitle!.contains("status:true"){ //## Force unwrapping the subtitle because every single stop has to have a subtitle
             annotationView.markerTintColor = UIColor.systemRed
         } else {
             annotationView.markerTintColor = UIColor.systemBlue
@@ -249,7 +249,7 @@ extension MainController: CLLocationManagerDelegate{
         
         currentLocation = location
         
-        print("Automatic: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+//        print("Automatic: \(location.coordinate.latitude), \(location.coordinate.longitude)")
         
         if !startLocationLoaded {
             setUsersLocation(for: location)

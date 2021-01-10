@@ -14,9 +14,12 @@ class ReportControllerThree: UIViewController {
     
     var directions: [String] = []
     
+    var chosenStopName: String?
     var chosenLineNr: Int?
+    var chosenDirectionIndex: Int? // cannot use the report button without chosing the index -> implement insurence for no directions
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var reportButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,8 @@ class ReportControllerThree: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
+        
+        reportButton.isEnabled = false
 
         guard let lineNumber = chosenLineNr else { return }
 
@@ -32,6 +37,9 @@ class ReportControllerThree: UIViewController {
     
 
     @IBAction func reportButtonPressed(_ sender: UIButton) {
+        guard let stopName = chosenStopName, let lineNumebr = chosenLineNr else {return}
+        
+        updatePointStatus(documentID: stopName, status: true, direction: "\(lineNumebr) towards \(directions[chosenDirectionIndex!])")// cannot use the report button without chosing the index -> implement insurence for no directions
         
         navigationController?.popToRootViewController(animated: true)
     }
@@ -62,7 +70,7 @@ class ReportControllerThree: UIViewController {
     }
     
     //#### - Updates status variable of a stop in the database
-    func updatePointStatus(stopName: String, status: Bool, direction: String) {
+    func updatePointStatus(documentID stopName: String, status: Bool, direction: String) {
         db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.status: status,
                                                                                        K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate,
                                                                                       K.FirebaseQuery.direction: direction], merge: true)
@@ -95,5 +103,8 @@ extension ReportControllerThree: UITableViewDataSource{
 
 extension ReportControllerThree: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard directions.count > 0 else { return }
+        reportButton.isEnabled = true
+        chosenDirectionIndex = indexPath.row
     }
 }

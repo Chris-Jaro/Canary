@@ -418,6 +418,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="aF0-BQ-TGo"/>
                     <connections>
+                        <outlet property="reportButton" destination="QF7-Gw-FUl" id="fUb-Ri-F0A"/>
                         <outlet property="tableView" destination="1IP-eL-9oY" id="0YO-zw-W1V"/>
                     </connections>
                 </viewController>

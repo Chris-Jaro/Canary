@@ -11,6 +11,7 @@ class ReportControllerTwo: UIViewController {
     
     var linesList: [Int]?
     var chosenNumberIndex: Int?
+    var stopName: String?
 
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -28,8 +29,9 @@ class ReportControllerTwo: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToReportThree"{
             let destinationVC = segue.destination as! ReportControllerThree
-            if let lines = linesList, let index = chosenNumberIndex{
+            if let lines = linesList, let index = chosenNumberIndex, let stopName = stopName{
                 destinationVC.chosenLineNr = lines[index]
+                destinationVC.chosenStopName = stopName
             }
         }
     }
