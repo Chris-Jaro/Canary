@@ -27,7 +27,7 @@ class MainController: UIViewController {
                                                                                                                 longitude: 16.945134121143088), lines: [1,2]),
                          Stop(stopName: "Os. Piastowskie", status: true, location: CLLocationCoordinate2D(latitude: 52.390541474302026,
                                                                                                           longitude: 16.947058944429564), lines: [1,2])]
-    var stopsInMyArea: [String] = []
+    var stopsInMyArea: [Stop] = []
     
     
     @IBOutlet weak var mapView: MKMapView!
@@ -65,6 +65,7 @@ class MainController: UIViewController {
     }
     
     @IBAction func reportButtonPressed(_ sender: UIButton) {
+        loadStopsInTheArea()
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
     
@@ -75,6 +76,7 @@ class MainController: UIViewController {
             let destinationVC = segue.destination as! ReportControllerOne
             if let location = currentLocation{
                 destinationVC.reportCoortdinates = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
+                destinationVC.stops = stopsInMyArea
             }
         }
     }
@@ -186,14 +188,16 @@ class MainController: UIViewController {
     //#### - Provides a list of stop names in a given area from current location -> To the first report list of stops
     func loadStopsInTheArea(){
         if let location = currentLocation{
-            print("\n")
+            stopsInMyArea = []
             for stop in stops{
                 let distance = location.distance(from: CLLocation(latitude: stop.location.latitude, longitude: stop.location.longitude))
                 if distance < 1000 {
-                    stopsInMyArea.append(stop.stopName)
+                    stopsInMyArea.append(stop)
                 }
             }
-            print(stopsInMyArea)
+            stopsInMyArea.forEach { (stop) in
+                print (stop.stopName)
+            }
         }
     }
     
