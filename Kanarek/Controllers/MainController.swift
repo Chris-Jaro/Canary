@@ -55,9 +55,6 @@ class MainController: UIViewController {
         mapView.showsUserLocation = true
         mapView.delegate = self
         mapView.setUserTrackingMode(.follow, animated: true)
-        
-        loadPoints()
-        
     }
     
 
@@ -71,6 +68,7 @@ class MainController: UIViewController {
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
     
+    //##### Prepares for segue (any action needed to be taken before going to the other screen)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "GoToReportOne"{
@@ -82,7 +80,7 @@ class MainController: UIViewController {
     }
     
 //MARK: - Database-related Functions
-    
+    //#### Loads list of stops from the database and listens for the changes -> Not needed now
     func loadPoints(){
         db.collection(K.FirebaseQuery.stopsCollectionName)
             .order(by: K.FirebaseQuery.date)
@@ -101,12 +99,13 @@ class MainController: UIViewController {
                             self.stops.append(newStop)
                         }
                     }
-                    self.refreshPoints()
+                    self.refreshMap()
                 }
             }
         }
     }
     
+    //#### Provides a list of a line directions -> Function goes to the third + copy database variable (not needed here)
     func loadLineDirections(chosenLineNumber: Int = 1){
         db.collectionGroup(K.FirebaseQuery.linesCollectionName)
             .whereField(K.FirebaseQuery.lineNumber, isEqualTo: chosenLineNumber)
@@ -128,6 +127,7 @@ class MainController: UIViewController {
             }
     }
     
+    //#### Adds a point to the database -> Not needed now (insurence if there are no stops in the area)
     func addPointToDatabase(location: CLLocation, line: Int, stopName: String){
         db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate,
                                                                                        K.FirebaseQuery.lat:  location.coordinate.latitude,
@@ -135,14 +135,16 @@ class MainController: UIViewController {
                                                                                        K.FirebaseQuery.lines: [line],
                                                                                        K.FirebaseQuery.status: true,
                                                                                        K.FirebaseQuery.stopName: stopName,])
-    }
+    } // Not needed now
     
+    //#### - Updates status variable of a stop in the database -> Function goes to the third + copy database variable (not needed here)
     func updatePointStatus(stopName: String, status: Bool) {
         db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.status: status, K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate], merge: true)
     }
     
     
 //MARK: - Map-related Fuctions
+    //#### - Adds pointAnnotation to the map ->Not needed now
     func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String){
         let point = MKPointAnnotation()
         point.coordinate = location
@@ -151,13 +153,15 @@ class MainController: UIViewController {
         mapView.addAnnotation(point)
     }
     
+    //#### - Adds circle danger zone to the map -> Not needed now
     func addCircle(where location: CLLocationCoordinate2D){
         let regionRadius = 200.0
         let circle = MKCircle(center: location, radius: regionRadius)
         mapView.addOverlay(circle)
     }
     
-    func refreshPoints(){
+    //#### - Refreshes information displayed in the map -> Not needed now
+    func refreshMap(){
         var list = mapView.annotations
         if let userIndex = list.firstIndex(where: { (annotation) -> Bool in
             if type(of: annotation) == MKUserLocation.self {
@@ -179,6 +183,7 @@ class MainController: UIViewController {
         
     }
     
+    //#### - Provides a list of stop names in a given area from current location -> To the first report list of stops
     func loadStopsInTheArea(){
         if let location = currentLocation{
             print("\n")
@@ -192,6 +197,7 @@ class MainController: UIViewController {
         }
     }
     
+    //#### - Resets current mapView and places the user in its center -> Not needed now
     func setUsersLocation(for location: CLLocation){
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
@@ -200,8 +206,8 @@ class MainController: UIViewController {
         hiddenLocationButton = true
     }
     
+    //#### - Provides current city name in lowercase -> Not needed now
     func getCurrentCity(){
-        
         let geoCoder = CLGeocoder()
         if let location = currentLocation{
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
@@ -216,6 +222,7 @@ class MainController: UIViewController {
 
 //MARK: - MapViewDelegate Methods
 extension MainController: MKMapViewDelegate{
+    //#### - DEFINES THE VIEW OF THE CIRCLE
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let color = UIColor.systemRed
         let circleRenderer = MKCircleRenderer(overlay: overlay)
@@ -226,6 +233,7 @@ extension MainController: MKMapViewDelegate{
         return circleRenderer
         }
     
+    //#### - DEFINES THE VIEW OF THE POINT
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? MKPointAnnotation else {
             return nil
@@ -242,6 +250,7 @@ extension MainController: MKMapViewDelegate{
         
     }
     
+    //#### - ACCESES THE currenLocationButton
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         hiddenLocationButton = false
     }
@@ -250,6 +259,7 @@ extension MainController: MKMapViewDelegate{
 
 //MARK: - LocationManagerDelegate Methods
 extension MainController: CLLocationManagerDelegate{
+    //#### - Takes care of the authorization status
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
         guard locationManager.authorizationStatus == .authorizedWhenInUse else { return }
@@ -258,6 +268,7 @@ extension MainController: CLLocationManagerDelegate{
         
     }
     
+    //#### - ACCESES THE currenLocation and updates for every second
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         guard let location = locations.last else { return }
@@ -269,7 +280,7 @@ extension MainController: CLLocationManagerDelegate{
         if !startLocationLoaded {
             setUsersLocation(for: location)
             startLocationLoaded = true
-        
+            loadPoints()
             // IMPLEMENT THE CITY NAME GETTER - HERE
         }
         
@@ -280,6 +291,7 @@ extension MainController: CLLocationManagerDelegate{
         }
     }
     
+    //#### - handles the error
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
