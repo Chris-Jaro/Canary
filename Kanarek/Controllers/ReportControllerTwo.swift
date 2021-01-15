@@ -40,16 +40,18 @@ class ReportControllerTwo: UIViewController {
 
 extension ReportControllerTwo: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let lines = linesList else {return 1}
+        guard let lines = linesList, lines.count > 0 else {return 1}
+        
         return lines.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let lines = linesList else {
+        guard let lines = linesList, lines.count > 0 else {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
             cell.label?.text = "Błąd - brak lini do wyświetlenia"
             return cell
         }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
         cell.label?.text = "\(lines[indexPath.row])"
         return cell
@@ -58,14 +60,10 @@ extension ReportControllerTwo: UITableViewDataSource{
 }
 
 extension ReportControllerTwo: UITableViewDelegate{
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let lines = linesList, lines.count > 0 else {return}
         chosenNumberIndex = indexPath.row
         performSegue(withIdentifier: "GoToReportThree" , sender: self)
     }
 }
-
-//func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//    let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell", for: indexPath) as! StopTableViewCell
-//    cell.label?.text = "Przystanek"
-//    return cell
-//}

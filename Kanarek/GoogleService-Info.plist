@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1055770999851-1v5b231s8pdpmjj3b88eahppe0p1tvub.apps.googleusercontent.com</string>
+	<string>895495224145-ol0iu947kqfksv817or34ra88ka25ark.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1055770999851-1v5b231s8pdpmjj3b88eahppe0p1tvub</string>
+	<string>com.googleusercontent.apps.895495224145-ol0iu947kqfksv817or34ra88ka25ark</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBzV2_0f2Ov00vXyLRkS_WUJP2c4eLckmQ</string>
+	<string>AIzaSyAaOw5vyGYke6T3RvgkoQkXkd6ozkE0X0M</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1055770999851</string>
+	<string>895495224145</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.CYDev.Kanarek</string>
 	<key>PROJECT_ID</key>
-	<string>kanarek-971e9</string>
+	<string>kanarek-9ed79</string>
 	<key>STORAGE_BUCKET</key>
-	<string>kanarek-971e9.appspot.com</string>
+	<string>kanarek-9ed79.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1055770999851:ios:77ce7f399d3d08022ffe6e</string>
+	<string>1:895495224145:ios:d57629dca5bdc836a8f170</string>
 </dict>
 </plist>

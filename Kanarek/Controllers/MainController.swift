@@ -148,9 +148,9 @@ class MainController: UIViewController {
         mapView.removeAnnotations(list)
         mapView.removeOverlays(mapView.overlays)
         for stop in stops {
-            addPoint(where: stop.location, title: stop.stopName, subtitle: "status:\(stop.status)")
+            addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)")
             if stop.status{
-                addPoint(where: stop.location, title: stop.stopName, subtitle: "status:\(stop.status)\ndirection:\(stop.direction)")
+                addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)\ndirection:\(stop.direction)")
                 addCircle(where: stop.location)
             }
         }

@@ -39,16 +39,18 @@ class ReportControllerOne: UIViewController {
 
 extension ReportControllerOne: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let stopsList = stops  else { return 0 }
+        guard let stopsList = stops, stopsList.count > 0  else { return 1 }
+        
         return stopsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let stopsList = stops  else {
+        guard let stopsList = stops, stopsList.count > 0  else {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
-            cell.label?.text = "Przystanek"
+            cell.label?.text = "Brak przystnaków w promieniu 1km"
             return cell
         }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
         cell.label?.text = stopsList[indexPath.row].stopName
         return cell
@@ -58,9 +60,17 @@ extension ReportControllerOne: UITableViewDataSource{
 
 extension ReportControllerOne: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let stopsList = stops, stopsList.count > 0  else { return }
+//        SEARCH ON GOOGLE
+//        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+//        tableView.cellForRow(at: indexPath)?.labelBubble.layer
+//        tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = UIColor.systemYellow
         chosenStopIndex = indexPath.row
-        
         performSegue(withIdentifier: "GoToReportTwo" , sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        tableView.cellForRow(at: indexPath)?.backgroundColor = UIColor.white
     }
 }
 
