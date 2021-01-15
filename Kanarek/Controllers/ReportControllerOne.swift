@@ -34,8 +34,11 @@ class ReportControllerOne: UIViewController {
         }
     }
     
-   
+    
+    
 }
+
+//MARK: - TableView-related Methods
 
 extension ReportControllerOne: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,16 +64,19 @@ extension ReportControllerOne: UITableViewDataSource{
 extension ReportControllerOne: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let stopsList = stops, stopsList.count > 0  else { return }
-//        SEARCH ON GOOGLE
-//        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
-//        tableView.cellForRow(at: indexPath)?.labelBubble.layer
-//        tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = UIColor.systemYellow
+
+        if let cell = tableView.cellForRow(at: indexPath) as? CustomCell {
+            cell.setSelected(true, animated: true)
+        }
         chosenStopIndex = indexPath.row
         performSegue(withIdentifier: "GoToReportTwo" , sender: self)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        tableView.cellForRow(at: indexPath)?.backgroundColor = UIColor.white
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? CustomCell {
+            cell.setSelected(false, animated: true)
+        }
     }
 }
 

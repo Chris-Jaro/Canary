@@ -62,7 +62,6 @@ class ReportControllerThree: UIViewController {
                                self.directions.append(contentsOf: lineDirections)
                             }
                         }
-                        print(self.directions)
                         self.tableView.reloadData()
                     }
                 }
@@ -104,7 +103,16 @@ extension ReportControllerThree: UITableViewDataSource{
 extension ReportControllerThree: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard directions.count > 0 else { return }
+        if let cell = tableView.cellForRow(at: indexPath) as? CustomCell {
+            cell.setSelected(true, animated: true)
+        }
         reportButton.isEnabled = true
         chosenDirectionIndex = indexPath.row
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? CustomCell {
+            cell.setSelected(false, animated: true)
+        }
     }
 }

@@ -22,8 +22,12 @@ class CustomCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+        if selected{
+            labelBubble.layer.backgroundColor = CGColor(red: 255/255, green: 210/255, blue: 40/255, alpha: 1)
+        } else {
+            labelBubble.layer.backgroundColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        }
     }
     
 }
