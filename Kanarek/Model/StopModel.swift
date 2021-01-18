@@ -14,4 +14,5 @@ struct Stop {
     let location: CLLocationCoordinate2D
     let lines: [Int]
     let direction: String
+    let dateModified: Double
 }

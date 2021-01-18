@@ -21,11 +21,10 @@ class MainController: UIViewController {
     
     let db = Firestore.firestore()
     
-    var stops: [Stop] = [Stop(stopName: "Os. Rzeczypospolitej", status: false, location: CLLocationCoordinate2D(latitude: 52.38615148130084,
-                                                                                                                longitude: 16.945134121143088), lines: [1,2], direction: "null"),
-                         Stop(stopName: "Os. Piastowskie", status: true, location: CLLocationCoordinate2D(latitude: 52.390541474302026,
-                                                                                                          longitude: 16.947058944429564), lines: [1,2], direction: "null"),]
+    var timer: Timer?
+    var stops: [Stop] = []
     var stopsInMyArea: [Stop] = []
+    var dangerousStops: [Stop] = []
     
     
     @IBOutlet weak var mapView: MKMapView!
@@ -53,6 +52,8 @@ class MainController: UIViewController {
         mapView.showsUserLocation = true
         mapView.delegate = self
         mapView.setUserTrackingMode(.follow, animated: true)
+        
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(renewStopStatus), userInfo: nil, repeats: true)
     }
     
 
@@ -63,9 +64,12 @@ class MainController: UIViewController {
     }
     
     @IBAction func reportButtonPressed(_ sender: UIButton) {
+        
         loadStopsInTheArea()
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
+    
+    
     
     //##### Prepares for segue (any action needed to be taken before going to the other screen)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,17 +90,22 @@ class MainController: UIViewController {
             .order(by: K.FirebaseQuery.date)
             .addSnapshotListener { (querySnapshot, error) in
             self.stops = []
+            self.dangerousStops = []
             if let e = error{
                 print ("There was an issue receiving data from firestore, \(e)")
             } else {
                 if let snapshotDocuments = querySnapshot?.documents {
                     for doc in snapshotDocuments {
                         let data = doc.data()
-                        if let stopName = data[K.FirebaseQuery.stopName] as? String, let stopStatus = data[K.FirebaseQuery.status] as? Bool, let lat = data[K.FirebaseQuery.lat] as? Double, let lon = data [K.FirebaseQuery.lon] as? Double, let lines = data[K.FirebaseQuery.lines] as? [Int], let direction = data[K.FirebaseQuery.direction] as? String{
+                        if let stopName = data[K.FirebaseQuery.stopName] as? String, let stopStatus = data[K.FirebaseQuery.status] as? Bool, let lat = data[K.FirebaseQuery.lat] as? Double, let lon = data [K.FirebaseQuery.lon] as? Double, let lines = data[K.FirebaseQuery.lines] as? [Int], let direction = data[K.FirebaseQuery.direction] as? String, let date = data[K.FirebaseQuery.date] as? Double{
                             let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                             let linesList = lines.sorted()
-                            let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction)
+                            let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction, dateModified: date)
                             self.stops.append(newStop)
+                            
+                            if newStop.status {
+                                self.dangerousStops.append(newStop)
+                            }
                         }
                     }
                     self.refreshMap()
@@ -113,6 +122,24 @@ class MainController: UIViewController {
                                                                                        K.FirebaseQuery.lines: [line],
                                                                                        K.FirebaseQuery.status: true,
                                                                                        K.FirebaseQuery.stopName: stopName,])
+    }
+    
+    //#### - Updates status variable of a stop in the database
+    func updatePointStatus(documentID stopName: String, status: Bool, direction: String) {
+        db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.status: status,
+                                                                                       K.FirebaseQuery.date: 12.34,
+                                                                                      K.FirebaseQuery.direction: direction], merge: true)
+    }
+    
+    //#### - Restores the stop back to its normal state
+    @objc func renewStopStatus(){
+        guard dangerousStops.count > 0 else {return}
+        print("updating database")
+        for stop in dangerousStops{
+            if Date.timeIntervalSinceReferenceDate - stop.dateModified > 120 {
+                updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction")
+            }
+        }
     }
     
     
@@ -249,6 +276,7 @@ extension MainController: CLLocationManagerDelegate{
         
         currentLocation = location
         
+//        print("Automatic: \(dangerousStops.count)")
 //        print("Automatic: \(location.coordinate.latitude), \(location.coordinate.longitude)")
         
         if !startLocationLoaded {
