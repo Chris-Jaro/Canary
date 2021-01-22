@@ -12,18 +12,18 @@ import Firebase
 
 class MainController: UIViewController {
     
-    var currentLocation: CLLocation?
-    
     var startLocationLoaded = false
     var hiddenLocationButton = true
     
     let locationManager = CLLocationManager()
+    var mapManager = MapManager()
     
     let db = Firestore.firestore()
     
     var timer: Timer?
-    var stops: [Stop] = []
-    var stopsInMyArea: [Stop] = []
+    var currentLocation: CLLocation?
+    
+    var stops: [Stop] = [] // Getter from database manager
     var dangerousStops: [Stop] = []
     
     
@@ -54,18 +54,23 @@ class MainController: UIViewController {
         mapView.setUserTrackingMode(.follow, animated: true)
         
         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(renewStopStatus), userInfo: nil, repeats: true)
+        
+        mapManager.delegate = self
+        
     }
     
 
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
         if let location = currentLocation{
-            setUsersLocation(for: location)
+            mapManager.setUsersLocation(for: location, map: mapView)
+            hiddenLocationButton = true
         }
     }
     
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        
-        loadStopsInTheArea()
+        if let location = currentLocation{
+            mapManager.reportLocation = location
+        }
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
     
@@ -78,7 +83,7 @@ class MainController: UIViewController {
             let destinationVC = segue.destination as! ReportControllerOne
             if let location = currentLocation{
                 destinationVC.reportCoortdinates = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
-                destinationVC.stops = stopsInMyArea
+                destinationVC.stops = mapManager.loadStopsInTheArea(stops: stops)
             }
         }
     }
@@ -89,7 +94,7 @@ class MainController: UIViewController {
         db.collection(K.FirebaseQuery.stopsCollectionName)
             .order(by: K.FirebaseQuery.date)
             .addSnapshotListener { (querySnapshot, error) in
-            self.stops = []
+                var stops:[Stop] = []
             self.dangerousStops = []
             if let e = error{
                 print ("There was an issue receiving data from firestore, \(e)")
@@ -101,14 +106,14 @@ class MainController: UIViewController {
                             let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                             let linesList = lines.sorted()
                             let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction, dateModified: date)
-                            self.stops.append(newStop)
+                            stops.append(newStop)
                             
                             if newStop.status {
                                 self.dangerousStops.append(newStop)
                             }
                         }
                     }
-                    self.refreshMap()
+                    self.updateMap(stops: stops, map: self.mapView)
                 }
             }
         }
@@ -136,33 +141,19 @@ class MainController: UIViewController {
         guard dangerousStops.count > 0 else {return}
         print("updating database")
         for stop in dangerousStops{
-            if Date.timeIntervalSinceReferenceDate - stop.dateModified > 120 {
+            if Date.timeIntervalSinceReferenceDate - stop.dateModified > 180 {
                 updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction")
             }
         }
     }
     
+        
+}
+//MARK: - MapManagerDelegate
+extension MainController: MapManagerDelegate{
     
-//MARK: - Map-related Fuctions
-    //#### - Adds pointAnnotation to the map ->Not needed now
-    func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String){
-        let point = MKPointAnnotation()
-        point.coordinate = location
-        point.title = title
-        point.subtitle = subtitle
-        mapView.addAnnotation(point)
-    }
-    
-    //#### - Adds circle danger zone to the map -> Not needed now
-    func addCircle(where location: CLLocationCoordinate2D){
-        let regionRadius = 200.0
-        let circle = MKCircle(center: location, radius: regionRadius)
-        mapView.addOverlay(circle)
-    }
-    
-    //#### - Refreshes information displayed in the map -> Not needed now
-    func refreshMap(){
-        var list = mapView.annotations
+    func updateMap(stops: [Stop], map: MKMapView) {
+        var list = map.annotations
         if let userIndex = list.firstIndex(where: { (annotation) -> Bool in
             if type(of: annotation) == MKUserLocation.self {
                 return true
@@ -172,55 +163,17 @@ class MainController: UIViewController {
         }) {
             list.remove(at: userIndex)
         }
-        mapView.removeAnnotations(list)
-        mapView.removeOverlays(mapView.overlays)
+        map.removeAnnotations(list)
+        map.removeOverlays(map.overlays)
+        self.stops = stops
         for stop in stops {
-            addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)")
+            mapManager.addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)", map: mapView)
             if stop.status{
-                addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)\ndirection:\(stop.direction)")
-                addCircle(where: stop.location)
+                mapManager.addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)\ndirection:\(stop.direction)", map: mapView)
+                mapManager.addCircle(where: stop.location, map: mapView)
             }
         }
-        
     }
-    
-    //#### - Provides a list of stop names in a given area from current location -> To the first report list of stops
-    func loadStopsInTheArea(){
-        if let location = currentLocation{
-            stopsInMyArea = []
-            for stop in stops{
-                let distance = location.distance(from: CLLocation(latitude: stop.location.latitude, longitude: stop.location.longitude))
-                if distance < 1000 {
-                    stopsInMyArea.append(stop)
-                }
-            }
-//            stopsInMyArea.forEach { (stop) in
-//                print (stop.stopName)
-//            }
-        }
-    }
-    
-    //#### - Resets current mapView and places the user in its center -> Not needed now
-    func setUsersLocation(for location: CLLocation){
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
-        
-        hiddenLocationButton = true
-    }
-    
-    //#### - Provides current city name in lowercase -> Not needed now
-    func getCurrentCity(){
-        let geoCoder = CLGeocoder()
-        if let location = currentLocation{
-            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
-                if let placemark = placemarks?.first{
-                    if let city = placemark.locality { print(city.lowercased()) }
-                }
-            })
-        }
-    }
-        
 }
 
 //MARK: - MapViewDelegate Methods
@@ -276,12 +229,10 @@ extension MainController: CLLocationManagerDelegate{
         
         currentLocation = location
         
-//        print("Automatic: \(dangerousStops.count)")
-//        print("Automatic: \(location.coordinate.latitude), \(location.coordinate.longitude)")
-        
         if !startLocationLoaded {
-            setUsersLocation(for: location)
+            mapManager.setUsersLocation(for: location, map: mapView)
             startLocationLoaded = true
+            
             loadPoints()
             // IMPLEMENT THE CITY NAME GETTER - HERE
         }

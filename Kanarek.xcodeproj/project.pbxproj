@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		17B35CC1F144EA1E69524F4A /* Pods_Kanarek.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00507E69E91F4AD19D7B41AB /* Pods_Kanarek.framework */; };
+		8302AD1A25BB2B8600AA6A72 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302AD1925BB2B8600AA6A72 /* MapManager.swift */; };
 		831105122576CA1100B1B1A2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105112576CA1000B1B1A2 /* Constants.swift */; };
 		831105162578371B00B1B1A2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105142578371B00B1B1A2 /* CustomCell.swift */; };
 		831105172578371B00B1B1A2 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831105152578371B00B1B1A2 /* CustomCell.xib */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		00507E69E91F4AD19D7B41AB /* Pods_Kanarek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kanarek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C7148CC2D0DD7223194020B /* Pods-Kanarek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kanarek.release.xcconfig"; path = "Target Support Files/Pods-Kanarek/Pods-Kanarek.release.xcconfig"; sourceTree = "<group>"; };
+		8302AD1925BB2B8600AA6A72 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		831105112576CA1000B1B1A2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		831105142578371B00B1B1A2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		831105152578371B00B1B1A2 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				834943EF25A758B30091CD3F /* StopModel.swift */,
+				8302AD1925BB2B8600AA6A72 /* MapManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				831105122576CA1100B1B1A2 /* Constants.swift in Sources */,
 				83E5BFB8256AB648005C56B0 /* MainController.swift in Sources */,
 				83E5BFB4256AB648005C56B0 /* AppDelegate.swift in Sources */,
+				8302AD1A25BB2B8600AA6A72 /* MapManager.swift in Sources */,
 				835BFD79256D3F1300C97772 /* ReportControllerThree.swift in Sources */,
 				835BFD73256D3ED700C97772 /* ReportControllerOne.swift in Sources */,
 				835BFD7C256D3F5F00C97772 /* TermsController.swift in Sources */,
