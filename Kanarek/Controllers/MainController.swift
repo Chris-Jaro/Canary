@@ -8,7 +8,6 @@
 import UIKit
 import CoreLocation
 import MapKit
-import Firebase
 
 class MainController: UIViewController{
 
@@ -18,8 +17,6 @@ class MainController: UIViewController{
     let locationManager = CLLocationManager()
     var mapManager = MapManager()
     var databaseManager = DatabaseManager()
-    
-    let db = Firestore.firestore()
     
     var timer: Timer?
     var currentLocation: CLLocation?
