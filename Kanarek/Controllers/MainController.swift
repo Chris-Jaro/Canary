@@ -10,22 +10,19 @@ import CoreLocation
 import MapKit
 import Firebase
 
-class MainController: UIViewController {
-    
+class MainController: UIViewController{
+
     var startLocationLoaded = false
     var hiddenLocationButton = true
     
     let locationManager = CLLocationManager()
     var mapManager = MapManager()
+    var databaseManager = DatabaseManager()
     
     let db = Firestore.firestore()
     
     var timer: Timer?
     var currentLocation: CLLocation?
-    
-    var stops: [Stop] = [] // Getter from database manager
-    var dangerousStops: [Stop] = []
-    
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
@@ -53,13 +50,15 @@ class MainController: UIViewController {
         mapView.delegate = self
         mapView.setUserTrackingMode(.follow, animated: true)
         
-        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(renewStopStatus), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
-        mapManager.delegate = self
+        databaseManager.delegate = self
         
     }
     
-
+    @objc func timerAction(){
+        databaseManager.renewStopStatus()
+    }
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
         if let location = currentLocation{
             mapManager.setUsersLocation(for: location, map: mapView)
@@ -74,8 +73,6 @@ class MainController: UIViewController {
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
     
-    
-    
     //##### Prepares for segue (any action needed to be taken before going to the other screen)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -83,77 +80,17 @@ class MainController: UIViewController {
             let destinationVC = segue.destination as! ReportControllerOne
             if let location = currentLocation{
                 destinationVC.reportCoortdinates = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
-                destinationVC.stops = mapManager.loadStopsInTheArea(stops: stops)
+                destinationVC.stops = mapManager.loadStopsInTheArea(stops: databaseManager.getStops())
             }
         }
     }
-    
-//MARK: - Database-related Functions
-    //#### Loads list of stops from the database and listens for the changes -> Not needed now
-    func loadPoints(){
-        db.collection(K.FirebaseQuery.stopsCollectionName)
-            .order(by: K.FirebaseQuery.date)
-            .addSnapshotListener { (querySnapshot, error) in
-                var stops:[Stop] = []
-            self.dangerousStops = []
-            if let e = error{
-                print ("There was an issue receiving data from firestore, \(e)")
-            } else {
-                if let snapshotDocuments = querySnapshot?.documents {
-                    for doc in snapshotDocuments {
-                        let data = doc.data()
-                        if let stopName = data[K.FirebaseQuery.stopName] as? String, let stopStatus = data[K.FirebaseQuery.status] as? Bool, let lat = data[K.FirebaseQuery.lat] as? Double, let lon = data [K.FirebaseQuery.lon] as? Double, let lines = data[K.FirebaseQuery.lines] as? [Int], let direction = data[K.FirebaseQuery.direction] as? String, let date = data[K.FirebaseQuery.date] as? Double{
-                            let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                            let linesList = lines.sorted()
-                            let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction, dateModified: date)
-                            stops.append(newStop)
-                            
-                            if newStop.status {
-                                self.dangerousStops.append(newStop)
-                            }
-                        }
-                    }
-                    self.updateMap(stops: stops, map: self.mapView)
-                }
-            }
-        }
-    }
-    
-    //#### Adds a point to the database -> Not needed now (insurence if there are no stops in the area)
-    func addPointToDatabase(location: CLLocation, line: Int, stopName: String){
-        db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate,
-                                                                                       K.FirebaseQuery.lat:  location.coordinate.latitude,
-                                                                                       K.FirebaseQuery.lon: location.coordinate.longitude,
-                                                                                       K.FirebaseQuery.lines: [line],
-                                                                                       K.FirebaseQuery.status: true,
-                                                                                       K.FirebaseQuery.stopName: stopName,])
-    }
-    
-    //#### - Updates status variable of a stop in the database
-    func updatePointStatus(documentID stopName: String, status: Bool, direction: String) {
-        db.collection(K.FirebaseQuery.stopsCollectionName).document(stopName).setData([K.FirebaseQuery.status: status,
-                                                                                       K.FirebaseQuery.date: 12.34,
-                                                                                      K.FirebaseQuery.direction: direction], merge: true)
-    }
-    
-    //#### - Restores the stop back to its normal state
-    @objc func renewStopStatus(){
-        guard dangerousStops.count > 0 else {return}
-        print("updating database")
-        for stop in dangerousStops{
-            if Date.timeIntervalSinceReferenceDate - stop.dateModified > 180 {
-                updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction")
-            }
-        }
-    }
-    
         
 }
-//MARK: - MapManagerDelegate
-extension MainController: MapManagerDelegate{
-    
-    func updateMap(stops: [Stop], map: MKMapView) {
-        var list = map.annotations
+//MARK: - DatabaseManagerDelegate
+extension MainController: DatabaseManagerDelegate {
+    func updateUI(list:[Any]) {
+        guard let stops:[Stop] = list as? [Stop] else { return }
+        var list = mapView.annotations
         if let userIndex = list.firstIndex(where: { (annotation) -> Bool in
             if type(of: annotation) == MKUserLocation.self {
                 return true
@@ -163,14 +100,14 @@ extension MainController: MapManagerDelegate{
         }) {
             list.remove(at: userIndex)
         }
-        map.removeAnnotations(list)
-        map.removeOverlays(map.overlays)
-        self.stops = stops
+        mapView.removeAnnotations(list)
+        mapView.removeOverlays(mapView.overlays)
         for stop in stops {
-            mapManager.addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)", map: mapView)
             if stop.status{
                 mapManager.addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)\ndirection:\(stop.direction)", map: mapView)
                 mapManager.addCircle(where: stop.location, map: mapView)
+            } else {
+                mapManager.addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)", map: mapView)
             }
         }
     }
@@ -233,7 +170,7 @@ extension MainController: CLLocationManagerDelegate{
             mapManager.setUsersLocation(for: location, map: mapView)
             startLocationLoaded = true
             
-            loadPoints()
+            databaseManager.loadPoints()
             // IMPLEMENT THE CITY NAME GETTER - HERE
         }
         

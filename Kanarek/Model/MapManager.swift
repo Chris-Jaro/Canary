@@ -8,13 +8,8 @@
 import UIKit
 import MapKit
 
-protocol MapManagerDelegate {
-    func updateMap(stops:[Stop], map: MKMapView)
-}
-
 struct MapManager {
     
-    var delegate: MapManagerDelegate?
     var reportLocation: CLLocation?
 
     //#### - Provides current city name in lowercase -> Not needed now
