@@ -10,16 +10,13 @@ import CoreLocation
 import MapKit
 
 class MainController: UIViewController{
-
-    var startLocationLoaded = false
-    var hiddenLocationButton = true
     
     let locationManager = CLLocationManager()
     var mapManager = MapManager()
     var databaseManager = DatabaseManager()
+    var reportManagerMain = ReportManager()
     
     var timer: Timer?
-    var currentLocation: CLLocation?
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
@@ -56,29 +53,24 @@ class MainController: UIViewController{
     @objc func timerAction(){
         databaseManager.renewStopStatus()
     }
+    
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
-        if let location = currentLocation{
-            mapManager.setUsersLocation(for: location, map: mapView)
-            hiddenLocationButton = true
-        }
+        guard let location = reportManagerMain.currentLocation else { return }
+        mapManager.setUsersLocation(for: location, map: mapView)
+        reportManagerMain.hiddenLocationButton = true
     }
     
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        if let location = currentLocation{
-            mapManager.reportLocation = location
-        }
+        guard let location = reportManagerMain.currentLocation else { return }
+        mapManager.reportLocation = location
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
     
     //##### Prepares for segue (any action needed to be taken before going to the other screen)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "GoToReportOne"{
             let destinationVC = segue.destination as! ReportControllerOne
-            if let location = currentLocation{
-                destinationVC.reportCoortdinates = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
-                destinationVC.stops = mapManager.loadStopsInTheArea(stops: databaseManager.getStops())
-            }
+            destinationVC.reportManagerOne.stopsInTheArea = mapManager.loadStopsInTheArea(stops: databaseManager.getStops())
         }
     }
         
@@ -140,7 +132,7 @@ extension MainController: MKMapViewDelegate{
     
     //#### - ACCESES THE currenLocationButton
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        hiddenLocationButton = false
+        reportManagerMain.hiddenLocationButton = false
     }
 
 }
@@ -161,17 +153,17 @@ extension MainController: CLLocationManagerDelegate{
         
         guard let location = locations.last else { return }
         
-        currentLocation = location
+        reportManagerMain.currentLocation = location
         
-        if !startLocationLoaded {
+        if !reportManagerMain.startLocationLoaded {
             mapManager.setUsersLocation(for: location, map: mapView)
-            startLocationLoaded = true
+            reportManagerMain.startLocationLoaded = true
             
             databaseManager.loadPoints()
             // IMPLEMENT THE CITY NAME GETTER - HERE
         }
         
-        if hiddenLocationButton {
+        if reportManagerMain.hiddenLocationButton {
             currentLocationButton.isHidden = true
         } else {
             currentLocationButton.isHidden = false

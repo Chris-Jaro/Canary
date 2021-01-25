@@ -10,10 +10,7 @@ import UIKit
 class ReportControllerThree: UIViewController {
     
     var databaseManager = DatabaseManager()
-    
-    var chosenStopName: String?
-    var chosenLineNr: Int?
-    var chosenDirectionIndex: Int? // cannot use the report button without chosing the index -> implement insurence for no directions
+    var reportManagerThree = ReportManager()
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var reportButton: UIButton!
@@ -29,16 +26,16 @@ class ReportControllerThree: UIViewController {
         
         databaseManager.delegate = self
 
-        guard let lineNumber = chosenLineNr else { return }
+        guard let lineNumber = reportManagerThree.lineNr else { return }
 
         databaseManager.loadLineDirections(for: lineNumber)
     }
     
 
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        guard let stopName = chosenStopName, let lineNumebr = chosenLineNr else {return}
+        guard let stopName = reportManagerThree.chosenStopName, let lineNumebr = reportManagerThree.lineNr else {return}
         
-        databaseManager.updatePointStatus(documentID: stopName, status: true, direction: "\(lineNumebr) towards \(databaseManager.getDirections()[chosenDirectionIndex!])", date: Date.timeIntervalSinceReferenceDate)
+        databaseManager.updatePointStatus(documentID: stopName, status: true, direction: "\(lineNumebr) towards \(databaseManager.getDirections()[reportManagerThree.directionIndex!])", date: Date.timeIntervalSinceReferenceDate)
         // cannot use the report button without chosing the index -> implement insurence for no directions
         
         navigationController?.popToRootViewController(animated: true)
@@ -86,7 +83,7 @@ extension ReportControllerThree: UITableViewDelegate{
             cell.setSelected(true, animated: true)
         }
         reportButton.isEnabled = true
-        chosenDirectionIndex = indexPath.row
+        reportManagerThree.directionIndex = indexPath.row
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

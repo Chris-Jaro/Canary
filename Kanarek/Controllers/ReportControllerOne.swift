@@ -9,9 +9,7 @@ import UIKit
 
 class ReportControllerOne: UIViewController {
     
-    var reportCoortdinates: String?
-    var stops: [Stop]?
-    var chosenStopIndex: Int?
+    var reportManagerOne = ReportManager()
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,9 +25,10 @@ class ReportControllerOne: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToReportTwo"{
             let destinationVC = segue.destination as! ReportControllerTwo
-            if let stopsList = stops, let index = chosenStopIndex{
-                destinationVC.linesList = stopsList[index].lines
-                destinationVC.stopName = stopsList[index].stopName
+            if let stopsList = reportManagerOne.stopsInTheArea, let index = reportManagerOne.chosenStopIndex{
+                destinationVC.reportManagerTwo.linesList = stopsList[index].lines
+                destinationVC.reportManagerTwo.stopName = stopsList[index].stopName
+                
             }
         }
     }
@@ -42,13 +41,13 @@ class ReportControllerOne: UIViewController {
 
 extension ReportControllerOne: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let stopsList = stops, stopsList.count > 0  else { return 1 }
+        guard let stopsList = reportManagerOne.stopsInTheArea, stopsList.count > 0  else { return 1 }
         
         return stopsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let stopsList = stops, stopsList.count > 0  else {
+        guard let stopsList = reportManagerOne.stopsInTheArea, stopsList.count > 0  else {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
             cell.label?.text = "Brak przystnaków w promieniu 1km"
             return cell
@@ -63,12 +62,12 @@ extension ReportControllerOne: UITableViewDataSource{
 
 extension ReportControllerOne: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let stopsList = stops, stopsList.count > 0  else { return }
+        guard let stopsList = reportManagerOne.stopsInTheArea, stopsList.count > 0  else { return }
 
         if let cell = tableView.cellForRow(at: indexPath) as? CustomCell {
             cell.setSelected(true, animated: true)
         }
-        chosenStopIndex = indexPath.row
+        reportManagerOne.chosenStopIndex = indexPath.row
         performSegue(withIdentifier: "GoToReportTwo" , sender: self)
     }
     
