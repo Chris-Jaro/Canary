@@ -9,11 +9,13 @@ import UIKit
 
 class SignInController: UIViewController {
     
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
@@ -25,7 +27,10 @@ class SignInController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func logInButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "SignInToMain", sender: self)
+    }
+    
     /*
     // MARK: - Navigation
 

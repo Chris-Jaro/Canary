@@ -70,6 +70,9 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <imageReference key="image" image="square" catalog="system" symbolScale="medium"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="checkboxClicked:" destination="fdP-tL-JqT" eventType="touchUpInside" id="737-bN-L0P"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Akceptuję" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRE-Wb-eja">
                                                         <rect key="frame" x="34.5" y="14" width="98.5" height="73.5"/>
@@ -113,7 +116,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="AIp-nZ-MyS" kind="presentation" modalPresentationStyle="fullScreen" id="OdF-Bg-bpq"/>
+                                                    <action selector="SignInButtonPressed:" destination="fdP-tL-JqT" eventType="touchUpInside" id="5LZ-vX-Lj7"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -137,6 +140,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rXN-Io-KEc"/>
+                    <connections>
+                        <outlet property="checkbox" destination="Smo-BQ-lvE" id="KW9-Bs-4Yf"/>
+                        <outlet property="emailTextField" destination="lNY-Rt-4Qi" id="9VK-hI-sFO"/>
+                        <outlet property="passwordTextField" destination="ZRc-Ig-grR" id="Vrr-Qf-gMo"/>
+                        <segue destination="AIp-nZ-MyS" kind="presentation" identifier="SignUpToMain" modalPresentationStyle="fullScreen" id="3ze-cM-5Iy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J8l-TG-ADe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -567,7 +576,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="AIp-nZ-MyS" kind="presentation" modalPresentationStyle="fullScreen" id="baa-3e-qCb"/>
+                                    <action selector="logInButtonPressed:" destination="L7H-Zc-fKu" eventType="touchUpInside" id="XJG-xJ-FvI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -583,6 +592,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="zNg-YY-vft"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="AAE-B5-mvn" id="5Mb-3y-LrJ"/>
+                        <outlet property="passwordTextField" destination="MDe-sD-DHy" id="ZaI-1S-ys2"/>
+                        <segue destination="AIp-nZ-MyS" kind="presentation" identifier="SignInToMain" modalPresentationStyle="fullScreen" id="aYq-z3-eLX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1m-wT-jvd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -633,7 +647,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="OdF-Bg-bpq"/>
+        <segue reference="aYq-z3-eLX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Kanarek_Logo_1_trans" width="1024" height="1024"/>
