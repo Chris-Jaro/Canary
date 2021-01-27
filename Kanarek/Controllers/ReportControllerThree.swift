@@ -31,7 +31,6 @@ class ReportControllerThree: UIViewController {
         databaseManager.loadLineDirections(for: lineNumber)
     }
     
-
     @IBAction func reportButtonPressed(_ sender: UIButton) {
         guard let stopName = reportManagerThree.chosenStopName, let lineNumebr = reportManagerThree.lineNr else {return}
         

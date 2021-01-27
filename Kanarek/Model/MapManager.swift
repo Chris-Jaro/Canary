@@ -8,19 +8,25 @@
 import UIKit
 import MapKit
 
-struct MapManager {
+protocol MapManagerDelegate {
+    func loadPoints(for cityName: String)
+}
+
+class MapManager {
+    var delegate: MapManagerDelegate?
     
     var reportLocation: CLLocation?
 
-    //#### - Provides current city name in lowercase -> Not needed now
-    
-    // RETURNS THE CITY NAME FOR THE PROVIDED LOCATION
+    //#### - Provides current city name in lowercase -> Not needed now 
     func getCurrentCity(for currentLocation: CLLocation?){
         let geoCoder = CLGeocoder()
         if let location = currentLocation{
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
                 if let placemark = placemarks?.first{
-                    if let city = placemark.locality { print(city.lowercased()) }
+                    if let city = placemark.locality {
+                        self.delegate!.loadPoints(for: city.lowercased())
+                    }
+                    
                 }
             })
         }
@@ -63,19 +69,20 @@ struct MapManager {
         map.setRegion(region, animated: true)
     }
     
+    //#### - Cleans the whole map of all annotations
+    func deleteOldPoints(on map:MKMapView){
+        var list = map.annotations
+        if let userIndex = list.firstIndex(where: { (annotation) -> Bool in
+            if type(of: annotation) == MKUserLocation.self {
+                return true
+            } else {
+                return false
+            }
+        }) {
+            list.remove(at: userIndex)
+        }
+        map.removeAnnotations(list)
+        map.removeOverlays(map.overlays)
+    }
+    
 }
-
-
-
-
-
-/*
- //#### - Adds pointAnnotation to the map ->Not needed now
- func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String){
-     let point = MKPointAnnotation()
-     point.coordinate = location
-     point.title = title
-     point.subtitle = subtitle
-     mapView.addAnnotation(point)
- }
- */

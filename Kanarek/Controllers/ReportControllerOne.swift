@@ -32,9 +32,7 @@ class ReportControllerOne: UIViewController {
             }
         }
     }
-    
-    
-    
+
 }
 
 //MARK: - TableView-related Methods

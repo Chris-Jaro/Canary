@@ -21,6 +21,7 @@ class MainController: UIViewController{
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
     
+    //#### Two functions that hide the navigation bar on the main screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
@@ -29,24 +30,29 @@ class MainController: UIViewController{
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
+    //#### Loads the view
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.layer.cornerRadius = 10
+        mapView.layer.cornerRadius = 10 // Rounds the corner of the mapView
         
+        //#### Location manager configuaration
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
         locationManager.allowsBackgroundLocationUpdates = true // This line is respinsible for background location updates
         
+        //#### Map View configuration
         mapView.isZoomEnabled = true
         mapView.showsUserLocation = true
         mapView.delegate = self
         mapView.setUserTrackingMode(.follow, animated: true)
         
+        //#### Timer configuration -> after 30 seconds the function checkin if some of the dangerous stops are too obsolete ##CHANGE TO 60 SEC
         timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
+        //#### Delegates
         databaseManager.delegate = self
+        mapManager.delegate = self
         
     }
     
@@ -55,13 +61,13 @@ class MainController: UIViewController{
     }
     
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
-        guard let location = reportManagerMain.currentLocation else { return }
+        guard let location = reportManagerMain.currentLocation else { return } // guards the function from being executed if the user did not allow locaiton
         mapManager.setUsersLocation(for: location, map: mapView)
         reportManagerMain.hiddenLocationButton = true
     }
     
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        guard let location = reportManagerMain.currentLocation else { return }
+        guard let location = reportManagerMain.currentLocation else { return } // guards the function from being executed if the user did not allow locaiton
         mapManager.reportLocation = location
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
@@ -75,22 +81,25 @@ class MainController: UIViewController{
     }
         
 }
+//MARK: - MapManagerDelegate
+extension MainController: MapManagerDelegate{
+    //#### Function is activated by MapManager when it returns the name of the city for the user's location and check if it is one of the supported cities of not it loads the default (poznan)
+    func loadPoints(for cityName: String) {
+        let cityNames = ["poznan"]
+        if cityNames.contains(cityName){
+            databaseManager.loadPoints(for: cityName)
+        } else {
+            databaseManager.loadPoints()
+        }
+    }
+}
+
 //MARK: - DatabaseManagerDelegate
 extension MainController: DatabaseManagerDelegate {
+    //#### Funciton is triggered by database manager when the points from the database are loaded and then it refreshes the mapView with the new data
     func updateUI(list:[Any]) {
         guard let stops:[Stop] = list as? [Stop] else { return }
-        var list = mapView.annotations
-        if let userIndex = list.firstIndex(where: { (annotation) -> Bool in
-            if type(of: annotation) == MKUserLocation.self {
-                return true
-            } else {
-                return false
-            }
-        }) {
-            list.remove(at: userIndex)
-        }
-        mapView.removeAnnotations(list)
-        mapView.removeOverlays(mapView.overlays)
+        mapManager.deleteOldPoints(on: mapView)
         for stop in stops {
             if stop.status{
                 mapManager.addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)\ndirection:\(stop.direction)", map: mapView)
@@ -100,6 +109,7 @@ extension MainController: DatabaseManagerDelegate {
             }
         }
     }
+    
 }
 
 //MARK: - MapViewDelegate Methods
@@ -156,13 +166,15 @@ extension MainController: CLLocationManagerDelegate{
         reportManagerMain.currentLocation = location
         
         if !reportManagerMain.startLocationLoaded {
+            //#### Setting the first location of the user when he opens the app
             mapManager.setUsersLocation(for: location, map: mapView)
             reportManagerMain.startLocationLoaded = true
             
-            databaseManager.loadPoints()
-            // IMPLEMENT THE CITY NAME GETTER - HERE
+            // Load the point for the city in the given location
+            mapManager.getCurrentCity(for: reportManagerMain.currentLocation)
+
         }
-        
+        //#### This if block updates the visibility of the current location button
         if reportManagerMain.hiddenLocationButton {
             currentLocationButton.isHidden = true
         } else {

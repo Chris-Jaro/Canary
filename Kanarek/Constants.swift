@@ -22,8 +22,8 @@ struct K {
         static let stopName: String = "stop_name"
         static let direction: String = "direction"
         static let lines: String = "lines"
-        static let linesCollectionName = "poznan_lines"
-        static let stopsCollectionName = "poznan_stops"
+        static let linesCollectionName = "_lines"
+        static let stopsCollectionName = "_stops"
         static let lineNumber = "line_number"
         static let directions = "directions"
     }
