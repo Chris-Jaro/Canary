@@ -24,14 +24,12 @@ class SignUpController: UIViewController{
         passwordTextField.textColor = UIColor.gray
         passwordTextField.isSecureTextEntry = false
         
-        
         //#### When the user taps somewhere on the screen the keyboard toogles
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        
-
+    
     }
     
     @IBAction func checkboxClicked(_ sender: UIButton) {
@@ -62,6 +60,13 @@ class SignUpController: UIViewController{
         }
     }
 
+    func setPlaceholder(){
+        emailTextField.text = "Adress Email"
+        emailTextField.textColor = UIColor.gray
+        passwordTextField.text = "Hasło"
+        passwordTextField.textColor = UIColor.gray
+        passwordTextField.isSecureTextEntry = false
+    }
 }
 
 //MARK: - UITextFieldDelegate
@@ -73,6 +78,12 @@ extension SignUpController: UITextFieldDelegate{
         }
         textField.textColor = UIColor.black
         textField.text = ""
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text == ""{
+            setPlaceholder()
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
