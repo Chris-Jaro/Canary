@@ -11,6 +11,7 @@ class SignInController: UIViewController {
     
     var vSpinner : UIView?
     let userLoginDetails = UserDefaults.standard
+    var dataInUserDefaults: Bool?
     
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
@@ -30,10 +31,12 @@ class SignInController: UIViewController {
         setPlaceholder()
         
         if let userEmail = userLoginDetails.string(forKey: "UserEmail"), let userPassword = userLoginDetails.string(forKey: "UserPassword") {
+            dataInUserDefaults = true
             print("Email: \(userEmail)\nPassword: \(userPassword)\nAttempting automatic signing...")
             loggingIn(email: userEmail, password: userPassword)
         } else {
             print("No data in the user defaults")
+            dataInUserDefaults = false
         }
 
         //#### When the user taps somewhere on the screen the keyboard toogles
@@ -57,11 +60,12 @@ class SignInController: UIViewController {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = "! \(e.localizedDescription) !"
             } else {
+                self.userLoginDetails.setValue(email, forKey: "UserEmail")
+                self.userLoginDetails.setValue(password, forKey: "UserPassword")
                 self.removeSpinner()
                 self.performSegue(withIdentifier: "SignInToMain", sender: self)
             }
         }
-        
     }
     
     func setPlaceholder(){
@@ -71,7 +75,6 @@ class SignInController: UIViewController {
         passwordTextField.textColor = UIColor.gray
         passwordTextField.isSecureTextEntry = false
     }
-
 }
 
 

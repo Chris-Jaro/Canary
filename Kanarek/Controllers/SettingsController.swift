@@ -8,6 +8,8 @@
 import UIKit
 
 class SettingsController: UIViewController {
+    
+    let userLoginDetails = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,7 +17,13 @@ class SettingsController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func signOuyButtonPressed(_ sender: UIButton) {
+        userLoginDetails.removeObject(forKey: "UserPassword")
+        userLoginDetails.removeObject(forKey: "UserEmail")
+        
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
