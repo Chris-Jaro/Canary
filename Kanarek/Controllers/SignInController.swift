@@ -11,7 +11,6 @@ class SignInController: UIViewController {
     
     var vSpinner : UIView?
     let userLoginDetails = UserDefaults.standard
-    var dataInUserDefaults: Bool?
     
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
@@ -24,24 +23,23 @@ class SignInController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
+        setPlaceholder()
+        errorLabel.isHidden = true
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setPlaceholder()
-        
         if let userEmail = userLoginDetails.string(forKey: "UserEmail"), let userPassword = userLoginDetails.string(forKey: "UserPassword") {
-            dataInUserDefaults = true
-            print("Email: \(userEmail)\nPassword: \(userPassword)\nAttempting automatic signing...")
             loggingIn(email: userEmail, password: userPassword)
         } else {
             print("No data in the user defaults")
-            dataInUserDefaults = false
         }
 
         //#### When the user taps somewhere on the screen the keyboard toogles
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
@@ -70,8 +68,8 @@ class SignInController: UIViewController {
     
     func setPlaceholder(){
         emailTextField.text = "Adress Email"
-        emailTextField.textColor = UIColor.gray
         passwordTextField.text = "Hasło"
+        emailTextField.textColor = UIColor.gray
         passwordTextField.textColor = UIColor.gray
         passwordTextField.isSecureTextEntry = false
     }
@@ -92,7 +90,6 @@ extension SignInController {
             spinnerView.addSubview(ai)
             onView.addSubview(spinnerView)
         }
-        
         vSpinner = spinnerView
     }
     
@@ -106,13 +103,16 @@ extension SignInController {
 
 //MARK: - UITextFieldDelegate
 extension SignInController: UITextFieldDelegate{
-    
+    // Placeholder functionlaity
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text! == "Hasło"{
-            passwordTextField.isSecureTextEntry = true
+            textField.isSecureTextEntry = true
+            textField.text = ""
+        }
+        if textField.text! == "Adress Email"{
+            textField.text = ""
         }
         textField.textColor = UIColor.black
-        textField.text = ""
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -122,6 +122,11 @@ extension SignInController: UITextFieldDelegate{
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.isSecureTextEntry == true{
+            if let email = emailTextField.text, let password = passwordTextField.text{
+                loggingIn(email: email, password: password)
+            }
+        }
         textField.resignFirstResponder()
         return true
     }

@@ -17,17 +17,22 @@ class SignUpController: UIViewController{
     @IBOutlet weak var checkbox: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    override func viewDidDisappear(_ animated: Bool) {
+        setPlaceholder()
+        errorLabel.isHidden = true
+//        navigationController?.popToRootViewController(animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setPlaceholder()
         
         //#### When the user taps somewhere on the screen the keyboard toogles
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
-    
     }
     
     @IBAction func checkboxClicked(_ sender: UIButton) {
@@ -62,8 +67,8 @@ class SignUpController: UIViewController{
 
     func setPlaceholder(){
         emailTextField.text = "Adress Email"
-        emailTextField.textColor = UIColor.gray
         passwordTextField.text = "Hasło"
+        emailTextField.textColor = UIColor.gray
         passwordTextField.textColor = UIColor.gray
         passwordTextField.isSecureTextEntry = false
     }
@@ -74,10 +79,13 @@ extension SignUpController: UITextFieldDelegate{
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text! == "Hasło"{
-            passwordTextField.isSecureTextEntry = true
+            textField.isSecureTextEntry = true
+            textField.text = ""
+        }
+        if textField.text! == "Adress Email"{
+            textField.text = ""
         }
         textField.textColor = UIColor.black
-        textField.text = ""
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
