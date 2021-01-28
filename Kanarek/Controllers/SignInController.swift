@@ -10,6 +10,8 @@ import Firebase
 
 class SignInController: UIViewController {
     
+    let userLoginDetails = UserDefaults.standard
+    
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -26,7 +28,14 @@ class SignInController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setPlaceholder()
+        if let userEmail = userLoginDetails.string(forKey: "UserEmail"), let userPassword = userLoginDetails.string(forKey: "UserPassword") {
+            print("Email: \(userEmail)\nPassword: \(userPassword)\nAttempting automatic signing...")
+            //#### ADD ALERT SAYING "LOADING"
+            loggingIn(email: userEmail, password: userPassword)
+        } else {
+            print("No data in the user defaults")
+            setPlaceholder()
+        }
 
         //#### When the user taps somewhere on the screen the keyboard toogles
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
@@ -37,18 +46,23 @@ class SignInController: UIViewController {
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {
         if let email = emailTextField.text, let password = passwordTextField.text{
-            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                if let e = error {
-                    self.errorLabel.isHidden = false
-                    self.errorLabel.text = "! \(e.localizedDescription) !"
-                } else {
-                    self.performSegue(withIdentifier: "SignInToMain", sender: self)
-                }
-              
+            loggingIn(email: email, password: password)
+        }
+    }
+    
+    func loggingIn(email:String, password:String){
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let e = error {
+                self.errorLabel.isHidden = false
+                self.errorLabel.text = "! \(e.localizedDescription) !"
+            } else {
+                
+                self.performSegue(withIdentifier: "SignInToMain", sender: self)
             }
         }
         
     }
+    
     
     func setPlaceholder(){
         emailTextField.text = "Adress Email"

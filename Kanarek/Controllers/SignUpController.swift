@@ -10,6 +10,8 @@ import Firebase
 
 class SignUpController: UIViewController{
     
+    let userLoginDetails = UserDefaults.standard
+    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var checkbox: UIButton!
@@ -18,11 +20,7 @@ class SignUpController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        emailTextField.text = "Adress Email"
-        emailTextField.textColor = UIColor.gray
-        passwordTextField.text = "Hasło"
-        passwordTextField.textColor = UIColor.gray
-        passwordTextField.isSecureTextEntry = false
+        setPlaceholder()
         
         //#### When the user taps somewhere on the screen the keyboard toogles
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
@@ -42,7 +40,7 @@ class SignUpController: UIViewController{
     
     @IBAction func SignInButtonPressed(_ sender: UIButton) {
         guard checkbox.currentImage == UIImage.init(systemName: "checkmark.square") else {
-            self.errorLabel.text = "! Prosze przeczytać regulamin !"
+            self.errorLabel.text = "! Prosze zaakceptować regulamin !"
             self.errorLabel.isHidden = false
             return
         }
@@ -53,6 +51,8 @@ class SignUpController: UIViewController{
                     self.errorLabel.text = "! \(e.localizedDescription) !"
                     self.errorLabel.isHidden = false
                 } else {
+                    self.userLoginDetails.setValue(email, forKey: "UserEmail")
+                    self.userLoginDetails.setValue(password, forKey: "UserPassword")
                     self.performSegue(withIdentifier: "SignUpToMain", sender: self)
                 }
             }
