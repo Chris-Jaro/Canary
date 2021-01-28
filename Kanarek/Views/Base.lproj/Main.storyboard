@@ -475,87 +475,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="z3k-dh-62i" userLabel="Main">
-                                <rect key="frame" x="0.0" y="118" width="414" height="680"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Kanarek_Logo_1_trans" translatesAutoresizingMaskIntoConstraints="NO" id="MCZ-06-FSR" userLabel="logo">
+                                <rect key="frame" x="107" y="98" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="0Sh-kH-aKR"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="9lU-Q8-V3I"/>
+                                    <constraint firstAttribute="width" constant="200" id="nuF-dI-eOx"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="rqH-Oj-7GE"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SL5-wN-RcV">
+                                <rect key="frame" x="30" y="504.5" width="159" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <state key="normal" title="Załóż nowe konto">
+                                    <color key="titleColor" red="0.99614375830000002" green="0.7417523265" blue="0.1342366636" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="fdP-tL-JqT" kind="show" id="hIu-h7-RYU"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kanarek" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwN-46-xBy" userLabel="name">
+                                <rect key="frame" x="150" y="298" width="114" height="39"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="evN-CP-MqW" userLabel="Entries">
+                                <rect key="frame" x="30" y="386" width="354" height="88"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OfD-V3-9bQ" userLabel="Top">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="340"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Kanarek_Logo_1_trans" translatesAutoresizingMaskIntoConstraints="NO" id="MCZ-06-FSR" userLabel="logo">
-                                                <rect key="frame" x="107" y="10" width="200" height="200"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="200" id="0Sh-kH-aKR"/>
-                                                    <constraint firstAttribute="width" constant="200" id="nuF-dI-eOx"/>
-                                                </constraints>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kanarek" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwN-46-xBy" userLabel="name">
-                                                <rect key="frame" x="150" y="250" width="114" height="39"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.058823529409999999" green="0.54456496239999996" blue="0.81168514489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstItem="MCZ-06-FSR" firstAttribute="top" secondItem="OfD-V3-9bQ" secondAttribute="top" constant="10" id="3Fs-SK-dxJ"/>
-                                            <constraint firstItem="zwN-46-xBy" firstAttribute="centerX" secondItem="OfD-V3-9bQ" secondAttribute="centerX" id="MQY-n2-KiF"/>
-                                            <constraint firstItem="MCZ-06-FSR" firstAttribute="centerX" secondItem="OfD-V3-9bQ" secondAttribute="centerX" id="YJ9-cQ-yft"/>
-                                            <constraint firstItem="zwN-46-xBy" firstAttribute="top" secondItem="MCZ-06-FSR" secondAttribute="bottom" constant="40" id="cpx-SS-wrw"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="emS-kK-P1X" userLabel="Middle">
-                                        <rect key="frame" x="0.0" y="340" width="414" height="340"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logowanie:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VC-cb-S7V">
-                                                <rect key="frame" x="40" y="20" width="102.5" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SL5-wN-RcV">
-                                                <rect key="frame" x="40" y="172" width="159" height="36"/>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                <state key="normal" title="Załóż nowe konto">
-                                                    <color key="titleColor" red="0.99614375830000002" green="0.7417523265" blue="0.1342366636" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <segue destination="fdP-tL-JqT" kind="show" id="hIu-h7-RYU"/>
-                                                </connections>
-                                            </button>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="evN-CP-MqW" userLabel="Entries">
-                                                <rect key="frame" x="40" y="64" width="334" height="93"/>
-                                                <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Adres Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AAE-B5-mvn">
-                                                        <rect key="frame" x="0.0" y="0.0" width="334" height="34"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hasło" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MDe-sD-DHy">
-                                                        <rect key="frame" x="0.0" y="59" width="334" height="34"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.058823529409999999" green="0.54456496239999996" blue="0.81168514489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstItem="3VC-cb-S7V" firstAttribute="top" secondItem="emS-kK-P1X" secondAttribute="top" constant="20" id="54W-ib-YR1"/>
-                                            <constraint firstAttribute="trailing" secondItem="evN-CP-MqW" secondAttribute="trailing" constant="40" id="6le-0O-y3e"/>
-                                            <constraint firstItem="SL5-wN-RcV" firstAttribute="top" secondItem="evN-CP-MqW" secondAttribute="bottom" constant="15" id="CaU-B2-Pp5"/>
-                                            <constraint firstItem="evN-CP-MqW" firstAttribute="top" secondItem="3VC-cb-S7V" secondAttribute="bottom" constant="20" id="Etz-sv-pVd"/>
-                                            <constraint firstItem="evN-CP-MqW" firstAttribute="leading" secondItem="emS-kK-P1X" secondAttribute="leading" constant="40" id="gzt-nP-CnQ"/>
-                                            <constraint firstItem="3VC-cb-S7V" firstAttribute="leading" secondItem="emS-kK-P1X" secondAttribute="leading" constant="40" id="mFC-tW-Klh"/>
-                                            <constraint firstItem="SL5-wN-RcV" firstAttribute="leading" secondItem="emS-kK-P1X" secondAttribute="leading" constant="40" id="zE8-S7-WTE"/>
-                                        </constraints>
-                                    </view>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Adres Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AAE-B5-mvn">
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hasło" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MDe-sD-DHy">
+                                        <rect key="frame" x="0.0" y="54" width="354" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZd-pt-jfC">
-                                <rect key="frame" x="134.5" y="818" width="145" height="4"/>
+                                <rect key="frame" x="134.5" y="620.5" width="145" height="48"/>
                                 <color key="backgroundColor" red="0.058823529409999999" green="0.5450980392" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                 <state key="normal" title="Zaloguj się">
@@ -565,28 +528,51 @@
                                     <action selector="logInButtonPressed:" destination="L7H-Zc-fKu" eventType="touchUpInside" id="XJG-xJ-FvI"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cuv-eh-LEP">
+                                <rect key="frame" x="30" y="484" width="354" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logowanie:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VC-cb-S7V">
+                                <rect key="frame" x="30" y="347" width="102.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0xA-vi-CT2"/>
                         <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="0xA-vi-CT2" firstAttribute="bottom" secondItem="iZd-pt-jfC" secondAttribute="bottom" constant="40" id="51J-8Z-mua"/>
-                            <constraint firstItem="z3k-dh-62i" firstAttribute="leading" secondItem="0xA-vi-CT2" secondAttribute="leading" id="SM3-Sy-OUf"/>
-                            <constraint firstItem="iZd-pt-jfC" firstAttribute="top" secondItem="z3k-dh-62i" secondAttribute="bottom" constant="20" id="UQG-zq-wbg"/>
-                            <constraint firstItem="z3k-dh-62i" firstAttribute="trailing" secondItem="0xA-vi-CT2" secondAttribute="trailing" id="Z0u-Mc-i81"/>
-                            <constraint firstItem="iZd-pt-jfC" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="clw-Y7-m0R"/>
-                            <constraint firstItem="z3k-dh-62i" firstAttribute="top" secondItem="0xA-vi-CT2" secondAttribute="top" constant="30" id="jsN-QL-CeI"/>
+                            <constraint firstItem="3VC-cb-S7V" firstAttribute="top" secondItem="zwN-46-xBy" secondAttribute="bottom" constant="10" id="2Y3-Tc-dlQ"/>
+                            <constraint firstItem="SL5-wN-RcV" firstAttribute="leading" secondItem="0xA-vi-CT2" secondAttribute="leading" constant="30" id="9hi-Th-isT"/>
+                            <constraint firstItem="evN-CP-MqW" firstAttribute="top" secondItem="3VC-cb-S7V" secondAttribute="bottom" constant="15" id="E1J-XM-ju3"/>
+                            <constraint firstItem="SL5-wN-RcV" firstAttribute="top" secondItem="Cuv-eh-LEP" secondAttribute="bottom" id="MAF-n6-OzG"/>
+                            <constraint firstItem="Cuv-eh-LEP" firstAttribute="top" secondItem="evN-CP-MqW" secondAttribute="bottom" constant="10" id="O9I-Zf-f9Z"/>
+                            <constraint firstItem="Cuv-eh-LEP" firstAttribute="leading" secondItem="0xA-vi-CT2" secondAttribute="leading" constant="30" id="QAO-IU-wdc"/>
+                            <constraint firstItem="3VC-cb-S7V" firstAttribute="leading" secondItem="0xA-vi-CT2" secondAttribute="leading" constant="30" id="Rc4-q0-ANg"/>
+                            <constraint firstItem="MCZ-06-FSR" firstAttribute="top" secondItem="0xA-vi-CT2" secondAttribute="top" constant="10" id="Utv-6X-Ozt"/>
+                            <constraint firstItem="MCZ-06-FSR" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="ej1-sh-kHW"/>
+                            <constraint firstItem="0xA-vi-CT2" firstAttribute="trailing" secondItem="evN-CP-MqW" secondAttribute="trailing" constant="30" id="ezS-yP-83x"/>
+                            <constraint firstItem="iZd-pt-jfC" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="i3W-Cq-rEq"/>
+                            <constraint firstItem="zwN-46-xBy" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="lgS-Hs-LWJ"/>
+                            <constraint firstItem="iZd-pt-jfC" firstAttribute="top" secondItem="SL5-wN-RcV" secondAttribute="bottom" constant="80" id="mNB-nr-BQm"/>
+                            <constraint firstItem="zwN-46-xBy" firstAttribute="top" secondItem="MCZ-06-FSR" secondAttribute="bottom" id="o1V-uG-To3"/>
+                            <constraint firstItem="0xA-vi-CT2" firstAttribute="trailing" secondItem="Cuv-eh-LEP" secondAttribute="trailing" constant="30" id="pgM-X5-ls6"/>
+                            <constraint firstItem="evN-CP-MqW" firstAttribute="leading" secondItem="0xA-vi-CT2" secondAttribute="leading" constant="30" id="vpw-Ur-pls"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="zNg-YY-vft"/>
                     <connections>
                         <outlet property="emailTextField" destination="AAE-B5-mvn" id="5Mb-3y-LrJ"/>
+                        <outlet property="errorLabel" destination="Cuv-eh-LEP" id="OBa-tE-XlT"/>
                         <outlet property="passwordTextField" destination="MDe-sD-DHy" id="ZaI-1S-ys2"/>
                         <segue destination="AIp-nZ-MyS" kind="presentation" identifier="SignInToMain" modalPresentationStyle="fullScreen" id="aYq-z3-eLX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1m-wT-jvd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1012" y="-208"/>
+            <point key="canvasLocation" x="1011.5942028985507" y="-208.25892857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xmR-4n-KLj">
@@ -633,7 +619,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3ze-cM-5Iy"/>
+        <segue reference="aYq-z3-eLX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Kanarek_Logo_1_trans" width="1024" height="1024"/>

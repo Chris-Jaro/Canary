@@ -10,6 +10,7 @@ import Firebase
 
 class SignInController: UIViewController {
     
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -38,7 +39,8 @@ class SignInController: UIViewController {
         if let email = emailTextField.text, let password = passwordTextField.text{
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                 if let e = error {
-                    print(e.localizedDescription)
+                    self.errorLabel.isHidden = false
+                    self.errorLabel.text = "! \(e.localizedDescription) !"
                 } else {
                     self.performSegue(withIdentifier: "SignInToMain", sender: self)
                 }
