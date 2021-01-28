@@ -4,12 +4,12 @@
 //
 //  Created by Chris Yarosh on 24/11/2020.
 //
-
 import UIKit
 import Firebase
 
 class SignInController: UIViewController {
     
+    var vSpinner : UIView?
     let userLoginDetails = UserDefaults.standard
     
     @IBOutlet weak var errorLabel: UILabel!
@@ -27,14 +27,13 @@ class SignInController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setPlaceholder()
         
         if let userEmail = userLoginDetails.string(forKey: "UserEmail"), let userPassword = userLoginDetails.string(forKey: "UserPassword") {
             print("Email: \(userEmail)\nPassword: \(userPassword)\nAttempting automatic signing...")
-            //#### ADD ALERT SAYING "LOADING"
             loggingIn(email: userEmail, password: userPassword)
         } else {
             print("No data in the user defaults")
-            setPlaceholder()
         }
 
         //#### When the user taps somewhere on the screen the keyboard toogles
@@ -51,18 +50,19 @@ class SignInController: UIViewController {
     }
     
     func loggingIn(email:String, password:String){
+        showSpinner(onView: self.view)
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let e = error {
+                self.removeSpinner()
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = "! \(e.localizedDescription) !"
             } else {
-                
+                self.removeSpinner()
                 self.performSegue(withIdentifier: "SignInToMain", sender: self)
             }
         }
         
     }
-    
     
     func setPlaceholder(){
         emailTextField.text = "Adress Email"
@@ -72,6 +72,33 @@ class SignInController: UIViewController {
         passwordTextField.isSecureTextEntry = false
     }
 
+}
+
+
+//MARK: - Loading Indicaiton
+extension SignInController {
+    func showSpinner(onView : UIView) {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 15/255, green: 139/255, blue: 205/255, alpha: 0.4)
+        let ai = UIActivityIndicatorView.init(style: .large)
+        ai.color = UIColor.white
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        vSpinner = spinnerView
+    }
+    
+    func removeSpinner() {
+        DispatchQueue.main.async {
+            self.vSpinner?.removeFromSuperview()
+            self.vSpinner = nil
+        }
+    }
 }
 
 //MARK: - UITextFieldDelegate
