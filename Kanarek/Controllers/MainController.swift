@@ -16,6 +16,7 @@ class MainController: UIViewController{
     var databaseManager = DatabaseManager()
     var reportManagerMain = ReportManager()
     
+    var vWarning : UIView?
     var timer: Timer?
     
     @IBOutlet weak var mapView: MKMapView!
@@ -47,8 +48,9 @@ class MainController: UIViewController{
         mapView.delegate = self
         mapView.setUserTrackingMode(.follow, animated: true)
         
-        //#### Timer configuration -> after 30 seconds the function checkin if some of the dangerous stops are too obsolete ##CHANGE TO 60 SEC
-        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        //#### Timer configuration -> after 60 seconds the function checkin if some of the dangerous stops are too obsolete ##CHANGE TO 60 SEC
+        timerAction()
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
         //#### Delegates
         databaseManager.delegate = self
@@ -58,6 +60,7 @@ class MainController: UIViewController{
     
     @objc func timerAction(){
         databaseManager.renewStopStatus()
+        print("Timer Action")
     }
     
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
@@ -100,17 +103,38 @@ extension MainController: DatabaseManagerDelegate {
     func updateUI(list:[Any]) {
         guard let stops:[Stop] = list as? [Stop] else { return }
         mapManager.deleteOldPoints(on: mapView)
+        mapManager.resetMonitoring(for: locationManager)
         for stop in stops {
             if stop.status{
-                mapManager.addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)\ndirection:\(stop.direction)", map: mapView)
-                mapManager.addCircle(where: stop.location, map: mapView)
+                mapManager.addDangerousStop(for: stop, on: mapView)
+                mapManager.monitorRegionAtLocation(center: stop.location, identifier: stop.stopName, for: locationManager)
             } else {
-                mapManager.addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)", map: mapView)
+                mapManager.addNeutralStop(for: stop, on: mapView)
             }
         }
     }
-    
+
 }
+
+//MARK: - Warning Functionality
+extension MainController {
+    func showWarning(onView : UIView) {
+        let warningView = UIView.init(frame: onView.bounds)
+        warningView.backgroundColor = UIColor.red.withAlphaComponent(0.2)
+        DispatchQueue.main.async {
+            onView.addSubview(warningView)
+        }
+        vWarning = warningView
+    }
+    
+    func removeWarning() {
+        DispatchQueue.main.async {
+            self.vWarning?.removeFromSuperview()
+            self.vWarning = nil
+        }
+    }
+}
+
 
 //MARK: - MapViewDelegate Methods
 extension MainController: MKMapViewDelegate{
@@ -149,6 +173,7 @@ extension MainController: MKMapViewDelegate{
 
 //MARK: - LocationManagerDelegate Methods
 extension MainController: CLLocationManagerDelegate{
+    
     //#### - Takes care of the authorization status
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
@@ -174,6 +199,7 @@ extension MainController: CLLocationManagerDelegate{
             mapManager.getCurrentCity(for: reportManagerMain.currentLocation)
 
         }
+        
         //#### This if block updates the visibility of the current location button
         if reportManagerMain.hiddenLocationButton {
             currentLocationButton.isHidden = true

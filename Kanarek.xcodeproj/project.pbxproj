@@ -80,6 +80,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		831465F725C7146200EBC311 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8342BAE8256C31D00008880B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +144,7 @@
 		83E5BFB2256AB648005C56B0 /* Kanarek */ = {
 			isa = PBXGroup;
 			children = (
+				831465F725C7146200EBC311 /* Resources */,
 				83E5BFB3256AB648005C56B0 /* AppDelegate.swift */,
 				83E5BFB5256AB648005C56B0 /* SceneDelegate.swift */,
 				8342BAEB256C32090008880B /* Model */,

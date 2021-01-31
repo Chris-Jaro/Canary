@@ -97,7 +97,7 @@ class DatabaseManager {
     func renewStopStatus(){
         guard dangerousStops.count > 0 else {return}
         for stop in dangerousStops{
-            if Date.timeIntervalSinceReferenceDate - stop.dateModified > 20 {
+            if Date.timeIntervalSinceReferenceDate - stop.dateModified > 120 {
                 updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction")
             }
         }

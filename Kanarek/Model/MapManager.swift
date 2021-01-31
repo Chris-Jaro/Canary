@@ -46,20 +46,13 @@ class MapManager {
         return stopsInMyArea
     }
     
-    //#### - Adds pointAnnotation to the map ->Not needed now
-    func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String, map: MKMapView){
-        let point = MKPointAnnotation()
-        point.coordinate = location
-        point.title = title
-        point.subtitle = subtitle
-        map.addAnnotation(point)
+    func addNeutralStop(for stop:Stop, on map: MKMapView){
+        addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)", map: map)
     }
     
-    //#### - Adds circle danger zone to the map -> Not needed now
-    func addCircle(where location: CLLocationCoordinate2D, map: MKMapView){
-        let regionRadius = 200.0
-        let circle = MKCircle(center: location, radius: regionRadius)
-        map.addOverlay(circle)
+    func addDangerousStop(for stop:Stop, on map: MKMapView){
+        addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)\ndirection:\(stop.direction)", map: map)
+        addCircle(where: stop.location, map: map)
     }
     
     //#### - Resets current mapView and places the user in its center -> Not needed now
@@ -83,6 +76,44 @@ class MapManager {
         }
         map.removeAnnotations(list)
         map.removeOverlays(map.overlays)
+    }
+    
+    //#### - Cleans the list of currently monitrored stops
+    func resetMonitoring(for manager: CLLocationManager){
+        let regions = manager.monitoredRegions
+        regions.forEach { (region) in
+            manager.stopMonitoring(for: region)
+        }
+    }
+    
+    func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String, for locationManager: CLLocationManager) {
+        // MAKE SURE THE DIVICE SUPPORTS REGION MONITORING
+        guard locationManager.monitoredRegions.count <= 20 else { return } // only 20 allowed by Apple IMPLEMENT SOME SORT OF SORTING BASED ON THE DISTANCE TO THE USER?
+        
+        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
+            let region = CLCircularRegion(center: center,radius: 200, identifier: identifier)
+            region.notifyOnEntry = true
+            region.notifyOnExit = true
+       
+            locationManager.startMonitoring(for: region)
+            
+        }
+    }
+    
+    //#### - Adds pointAnnotation to the map ->Not needed now
+    func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String, map: MKMapView){
+        let point = MKPointAnnotation()
+        point.coordinate = location
+        point.title = title
+        point.subtitle = subtitle
+        map.addAnnotation(point)
+    }
+    
+    //#### - Adds circle danger zone to the map -> Not needed now
+    func addCircle(where location: CLLocationCoordinate2D, map: MKMapView){
+        let regionRadius = 200.0
+        let circle = MKCircle(center: location, radius: regionRadius)
+        map.addOverlay(circle)
     }
     
 }
