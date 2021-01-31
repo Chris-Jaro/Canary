@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="Xcode">
+  <wpt lat="52.38541377828006" lon="16.944923570892332">
+    <name>DangerousStop</name>
+    <time>2014-09-24T14:00:00Z</time>
+  </wpt>
+  <wpt lat="52.38019176382458" lon="16.94310775146348">
+    <name>NautralStop</name>
+    <time>2014-09-24T14:00:30Z</time>
+  </wpt>
+</gpx>
+

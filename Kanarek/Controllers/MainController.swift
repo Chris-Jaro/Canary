@@ -208,6 +208,32 @@ extension MainController: CLLocationManagerDelegate{
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        //####
+        //NOTIFICATIONS
+        //####
+        print("Entered \(region.identifier)")
+        showWarning(onView: mapView)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print("Exited \(region.identifier)")
+        removeWarning()
+    }
+    
+    //#### TO CHECK IF THE USER IS IN THE REGION
+//      ## Somewhere in the code above
+//    for region in locationManager.monitoredRegions{
+//        locationManager.requestState(for: region)
+//    }
+//    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+//        if state == CLRegionState.inside{
+//            showWarning(onView: mapView)
+//        } else {
+//            removeWarning()
+//        }
+//    }
+    
     //#### - handles the error
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
