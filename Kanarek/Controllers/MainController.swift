@@ -15,6 +15,7 @@ class MainController: UIViewController{
     var mapManager = MapManager()
     var databaseManager = DatabaseManager()
     var reportManagerMain = ReportManager()
+    var notificationManager = NotificationManager()
     
     var vWarning : UIView?
     var timer: Timer?
@@ -70,9 +71,10 @@ class MainController: UIViewController{
     }
     
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        guard let location = reportManagerMain.currentLocation else { return } // guards the function from being executed if the user did not allow locaiton
-        mapManager.reportLocation = location
-        performSegue(withIdentifier: "GoToReportOne", sender: self)
+        notificationManager.setNotification(duration: 3, repeats: false, title: "Title", body: "Body", userInfo: ["aps":["hello":"world"]])
+//        guard let location = reportManagerMain.currentLocation else { return } // guards the function from being executed if the user did not allow locaiton
+//        mapManager.reportLocation = location
+//        performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
     
     //##### Prepares for segue (any action needed to be taken before going to the other screen)
