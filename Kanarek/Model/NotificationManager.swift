@@ -4,8 +4,6 @@
 //
 //  Created by Chris Yarosh on 01/02/2021.
 //
-
-import Foundation
 import UserNotifications
 import UIKit
 
@@ -20,9 +18,7 @@ struct NotificationManager {
     var notifications = [LocalNotification]()
     
     func requestPermission(){
-        UNUserNotificationCenter
-            .current()
-            .requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
                 if granted == true && error == nil {
                     // We have permission!
                 }
@@ -33,7 +29,7 @@ struct NotificationManager {
         notifications.append(LocalNotification(id: UUID().uuidString, title: title, body: body))
     }
     
-    mutating func scheduleNotification(duration: Int, repeats: Bool, userInfo:[AnyHashable : Any]){
+    mutating func scheduleNotification(userInfo:[AnyHashable : Any]){
         UIApplication.shared.applicationIconBadgeNumber = 0
         for notification in notifications{
             let content = UNMutableNotificationContent()
@@ -43,8 +39,7 @@ struct NotificationManager {
             content.badge = NSNumber(value: UIApplication.shared.applicationIconBadgeNumber + 1)
             content.userInfo = userInfo
             
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(duration), repeats: repeats)
-            let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: nil)
             
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             UNUserNotificationCenter.current().add(request) { (error) in
@@ -59,10 +54,10 @@ struct NotificationManager {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
     
-    mutating func setNotification(duration: Int, repeats: Bool, title: String, body:String, userInfo:[AnyHashable : Any]){
+    mutating func setNotification(title: String, body: String, userInfo:[AnyHashable : Any]){
         requestPermission()
         addNotification(title: title, body: body)
-        scheduleNotification(duration: duration, repeats: repeats, userInfo: userInfo)
+        scheduleNotification(userInfo: userInfo)
     }
 }
 

@@ -17,11 +17,11 @@ class MainController: UIViewController{
     var reportManagerMain = ReportManager()
     var notificationManager = NotificationManager()
     
-    var vWarning : UIView?
     var timer: Timer?
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
+    @IBOutlet weak var warningView: UIView!
     
     //#### Two functions that hide the navigation bar on the main screen
     override func viewWillAppear(_ animated: Bool) {
@@ -32,6 +32,7 @@ class MainController: UIViewController{
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
+    
     //#### Loads the view
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +59,11 @@ class MainController: UIViewController{
     }
     
     @objc func timerAction(){
-        databaseManager.renewStopStatus()
         print("Timer Action")
+        databaseManager.renewStopStatus()
+        for region in locationManager.monitoredRegions{
+            locationManager.requestState(for: region)
+        }
     }
     
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
@@ -83,9 +87,10 @@ class MainController: UIViewController{
     }
         
 }
-//MARK: - MapManagerDelegate
+
+//MARK: - Map Manager Delegate Methods
 extension MainController: MapManagerDelegate{
-    //#### Function is activated by MapManager when it returns the name of the city for the user's location and check if it is one of the supported cities of not it loads the default (poznan)
+    //#### Function is activated by MapManager when it returns the name of the city for the user's location and check if it is one of the supported cities, if not it loads the default (poznan)
     func loadPoints(for cityName: String) {
         let cityNames = ["poznan"]
         if cityNames.contains(cityName){
@@ -96,7 +101,7 @@ extension MainController: MapManagerDelegate{
     }
 }
 
-//MARK: - DatabaseManagerDelegate
+//MARK: - Database Manager Delegate Methods
 extension MainController: DatabaseManagerDelegate {
     //#### Funciton is triggered by database manager when the points from the database are loaded and then it refreshes the mapView with the new data
     func updateUI(list:[Any]) {
@@ -115,26 +120,7 @@ extension MainController: DatabaseManagerDelegate {
 
 }
 
-//MARK: - Warning Functionality
-extension MainController {
-    func showWarning(onView : UIView) {
-        let warningView = UIView.init(frame: onView.bounds)
-        warningView.backgroundColor = UIColor.red.withAlphaComponent(0.2)
-        DispatchQueue.main.async {
-            onView.addSubview(warningView)
-        }
-        vWarning = warningView
-    }
-    
-    func removeWarning() {
-        DispatchQueue.main.async {
-            self.vWarning?.removeFromSuperview()
-            self.vWarning = nil
-        }
-    }
-}
-
-//MARK: - MapViewDelegate Methods
+//MARK: - MapView Delegate Methods
 extension MainController: MKMapViewDelegate{
     //#### - DEFINES THE VIEW OF THE CIRCLE
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -169,19 +155,18 @@ extension MainController: MKMapViewDelegate{
 
 }
 
-//MARK: - LocationManagerDelegate Methods
+//MARK: - LocationManager Delegate Methods
 extension MainController: CLLocationManagerDelegate{
     
     //#### - Takes care of the authorization status
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        
-        guard locationManager.authorizationStatus == .authorizedWhenInUse else { return }
-        
+        //## Guards the authorization status of location request
+        guard locationManager.authorizationStatus != .denied else { return } // IMPLEMENT AN ALERT ON MAIN SCREEN TO NOTIFY THE USER
         locationManager.startUpdatingLocation()
         
     }
     
-    //#### - ACCESES THE currenLocation and updates for every second
+    //#### - ACCESES THE currenLocation and updates every second
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         guard let location = locations.last else { return }
@@ -193,11 +178,10 @@ extension MainController: CLLocationManagerDelegate{
             mapManager.setUsersLocation(for: location, map: mapView)
             reportManagerMain.startLocationLoaded = true
             
-            // Load the point for the city in the given location
-            mapManager.getCurrentCity(for: reportManagerMain.currentLocation)
+            mapManager.getCurrentCity(for: reportManagerMain.currentLocation)// Load the point for the city in the given location
         }
         
-        //#### This if block updates the visibility of the current location button
+        //#### This IF block updates the visibility of the current location button
         if reportManagerMain.hiddenLocationButton {
             currentLocationButton.isHidden = true
         } else {
@@ -205,31 +189,21 @@ extension MainController: CLLocationManagerDelegate{
         }
     }
     
+    //#### Schedules the notification for entering the dangerous region
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        //################ Notification
-        print("Entered \(region.identifier)")
-        notificationManager.setNotification(duration: 1, repeats: false, title: "Warning Enterd Region", body: "Entered \(region.identifier)", userInfo: ["aps":["hello":"world"]])
-        //showWarning(onView: mapView) // changed the map screen to red
+        notificationManager.setNotification(title: "Warning - Region Enterd", body: "Entered \(region.identifier)", userInfo: ["aps":["hello":"world"]])
     }
     
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        print("Exited \(region.identifier)")
-        //removeWarning()
+    //#### Controls the visibility of the waringView depending on user being in the region
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        if state == CLRegionState.inside{
+            print("In the region")
+            warningView.isHidden = false
+        } else {
+            print("Outside of the region")
+            warningView.isHidden = true
+        }
     }
-    
-    //#### TO CHECK IF THE USER IS IN THE REGION
-//      ## Somewhere in the code above
-//    for region in locationManager.monitoredRegions{
-//        locationManager.requestState(for: region)
-//    }
-    
-//    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-//        if state == CLRegionState.inside{
-//            showWarning(onView: mapView)
-//        } else {
-//            removeWarning()
-//        }
-//    }
     
     //#### - handles the error
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
