@@ -26,6 +26,7 @@ struct K {
         static let stopsCollectionName = "_stops"
         static let lineNumber = "line_number"
         static let directions = "directions"
+        static let historyCollectionName = "poznan_history"
     }
     
     struct Regulamin {

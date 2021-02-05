@@ -43,7 +43,7 @@ class SignUpController: UIViewController{
         }
     }
     
-    @IBAction func SignInButtonPressed(_ sender: UIButton) {
+    @IBAction func SignUpButtonPressed(_ sender: UIButton) {
         guard checkbox.currentImage == UIImage.init(systemName: "checkmark.square") else {
             self.errorLabel.text = "! Prosze zaakceptować regulamin !"
             self.errorLabel.isHidden = false

@@ -34,6 +34,7 @@ class ReportControllerThree: UIViewController {
     @IBAction func reportButtonPressed(_ sender: UIButton) {
         guard let stopName = reportManagerThree.chosenStopName, let lineNumebr = reportManagerThree.lineNr else {return}
         
+        databaseManager.saveReport()
         databaseManager.updatePointStatus(documentID: stopName, status: true, direction: "\(lineNumebr) towards \(databaseManager.getDirections()[reportManagerThree.directionIndex!])", date: Date.timeIntervalSinceReferenceDate)
         // cannot use the report button without chosing the index -> implement insurence for no directions
         
