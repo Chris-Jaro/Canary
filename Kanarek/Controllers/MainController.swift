@@ -50,13 +50,11 @@ class MainController: UIViewController{
         mapView.setUserTrackingMode(.follow, animated: true)
         
         //#### Timer configuration -> after 60 seconds the function checkin if some of the dangerous stops are too obsolete ##CHANGE TO 60 SEC
-        timerAction()
         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         
         //#### Delegates
         databaseManager.delegate = self
         mapManager.delegate = self
-        
     }
     
     @objc func timerAction(){
@@ -71,10 +69,9 @@ class MainController: UIViewController{
     }
     
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        notificationManager.setNotification(duration: 3, repeats: false, title: "Title", body: "Body", userInfo: ["aps":["hello":"world"]])
-//        guard let location = reportManagerMain.currentLocation else { return } // guards the function from being executed if the user did not allow locaiton
-//        mapManager.reportLocation = location
-//        performSegue(withIdentifier: "GoToReportOne", sender: self)
+        guard let location = reportManagerMain.currentLocation else { return } // guards the function from being executed if the user did not allow locaiton
+        mapManager.reportLocation = location
+        performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
     
     //##### Prepares for segue (any action needed to be taken before going to the other screen)
@@ -137,7 +134,6 @@ extension MainController {
     }
 }
 
-
 //MARK: - MapViewDelegate Methods
 extension MainController: MKMapViewDelegate{
     //#### - DEFINES THE VIEW OF THE CIRCLE
@@ -199,7 +195,6 @@ extension MainController: CLLocationManagerDelegate{
             
             // Load the point for the city in the given location
             mapManager.getCurrentCity(for: reportManagerMain.currentLocation)
-
         }
         
         //#### This if block updates the visibility of the current location button
@@ -211,16 +206,15 @@ extension MainController: CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        //####
-        //NOTIFICATIONS
-        //####
+        //################ Notification
         print("Entered \(region.identifier)")
-        showWarning(onView: mapView)
+        notificationManager.setNotification(duration: 1, repeats: false, title: "Warning Enterd Region", body: "Entered \(region.identifier)", userInfo: ["aps":["hello":"world"]])
+        //showWarning(onView: mapView) // changed the map screen to red
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("Exited \(region.identifier)")
-        removeWarning()
+        //removeWarning()
     }
     
     //#### TO CHECK IF THE USER IS IN THE REGION
@@ -228,6 +222,7 @@ extension MainController: CLLocationManagerDelegate{
 //    for region in locationManager.monitoredRegions{
 //        locationManager.requestState(for: region)
 //    }
+    
 //    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
 //        if state == CLRegionState.inside{
 //            showWarning(onView: mapView)

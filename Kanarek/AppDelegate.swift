@@ -12,7 +12,6 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         FirebaseApp.configure()
         
         setupNotifications(on: application)
@@ -35,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-
+//#### NOTIFICATIONS
 extension AppDelegate {
     func setupNotifications(on application: UIApplication) {
         let notificationCenter = UNUserNotificationCenter.current()
@@ -77,7 +76,7 @@ extension AppDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
+        completionHandler([.badge, .sound])
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
