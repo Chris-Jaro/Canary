@@ -53,6 +53,7 @@
 		835BFD75256D3EE700C97772 /* ReportControllerTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportControllerTwo.swift; sourceTree = "<group>"; };
 		835BFD78256D3F1300C97772 /* ReportControllerThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportControllerThree.swift; sourceTree = "<group>"; };
 		835BFD7B256D3F5F00C97772 /* TermsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsController.swift; sourceTree = "<group>"; };
+		83C5B4D525D31ACB00D94669 /* Kanarek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kanarek.entitlements; sourceTree = "<group>"; };
 		83D56D9B25BF15E700BAF340 /* ReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		83E5BFB0256AB648005C56B0 /* Kanarek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kanarek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E5BFB3256AB648005C56B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		83E5BFB2256AB648005C56B0 /* Kanarek */ = {
 			isa = PBXGroup;
 			children = (
+				83C5B4D525D31ACB00D94669 /* Kanarek.entitlements */,
 				831465F725C7146200EBC311 /* Resources */,
 				83E5BFB3256AB648005C56B0 /* AppDelegate.swift */,
 				83E5BFB5256AB648005C56B0 /* SceneDelegate.swift */,
@@ -457,6 +459,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Kanarek/Kanarek.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DZJN725K7K;
 				INFOPLIST_FILE = Kanarek/Info.plist;
@@ -478,6 +481,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Kanarek/Kanarek.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DZJN725K7K;
 				INFOPLIST_FILE = Kanarek/Info.plist;
