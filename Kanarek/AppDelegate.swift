@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let gcmMessageIDKey = "gcm.message_id"
     
+    let userDefaults = UserDefaults.standard
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         
@@ -108,10 +110,21 @@ extension AppDelegate: MessagingDelegate{
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(String(describing: fcmToken))")
         
-        //#### CHANGE -> Signing up for Push Notifications !!!MOVE TO SETTINGS!!!
-        Messaging.messaging().subscribe(toTopic: "push_notifications") { error in
-          print("Subscribed to push_notifications")
+        if let value = userDefaults.string(forKey:"topicSubscription"){
+            print ("Already exists!")
+            print("Value: '\(value)'")
+        } else {
+            print("Does not exist yet!")
+            userDefaults.setValue("Subscribed", forKey: "topicSubscription")
+            //#### CHANGE -> Signing up for Push Notifications !!!MOVE TO SETTINGS!!!
+            Messaging.messaging().subscribe(toTopic: "push_notifications") { error in
+              print("Subscribed to push_notifications")
+            }
         }
+        
+        
+        
+        
         
         let dataDict:[String: String] = ["token": fcmToken ]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)

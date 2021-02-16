@@ -108,11 +108,14 @@ class DatabaseManager {
     
     //#### - Saves report details to the history collection
     func saveReport(stop:String, line:Int, direction:String){
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm E, d MMM y"
         db.collection(K.FirebaseQuery.historyCollectionName).document().setData([
             "user_email" : userLoginDetails.value(forKey: "UserEmail")!, // For history + purposes
-            "date": 0, // For timeline purposes
+            "date": dateFormatter.string(from: date), // For timeline purposes
             "stop_name":stop, // In the title of the noftification
-            "latitide":52.1231241231223, // For setting the map center on this stop on clikcing
+            "latitude":52.1231241231223, // For setting the map center on this stop on clikcing
             "longitude":16.214124123861289, // For setting the map center on this stop on clikcing
             "details":"Line nr \(line) towards \(direction)"
         ], merge : true)
