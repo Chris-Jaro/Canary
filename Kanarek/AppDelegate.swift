@@ -44,16 +44,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let messageID = userInfo[gcmMessageIDKey] {
           print("Message ID: \(messageID)")
         }
-
-        print(userInfo)
+        
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let messageID = userInfo[gcmMessageIDKey] {
           print("Message ID: \(messageID)")
         }
-
-        print(userInfo)
 
         completionHandler(UIBackgroundFetchResult.newData)
     }
@@ -66,7 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
-
+    
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         
@@ -79,7 +77,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([[UNNotificationPresentationOptions.banner, .badge, .sound]])
         
     }
-
+    
+    //#### ACCESSING NOTIFICATION'S META DATA When the user clicks on the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         let userInfo = response.notification.request.content.userInfo
@@ -87,16 +86,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         if let messageID = userInfo[gcmMessageIDKey] {
           print("Message ID: \(messageID)")
         }
-
+        
+        //Printing the meta data
+        if let lat = userInfo["latitude"], let lon = userInfo["longitude"] {
+            print("Latitude: \(lat) \nLongitude: \(lon)")
+        }
+        
         // Print full message.
         print(userInfo)
 
         completionHandler()
-
-        /* REDING THE DATA PROVIDED IN THE NOTIFICATION
-        let content = response.notification.request.content
-        print("Title: \(content.title)")
-        print("Body: \(content.body)")*/
 
     }
 
@@ -108,6 +107,11 @@ extension AppDelegate: MessagingDelegate{
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(String(describing: fcmToken))")
+        
+        //#### CHANGE -> Signing up for Push Notifications !!!MOVE TO SETTINGS!!!
+        Messaging.messaging().subscribe(toTopic: "push_notifications") { error in
+          print("Subscribed to push_notifications")
+        }
         
         let dataDict:[String: String] = ["token": fcmToken ]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
