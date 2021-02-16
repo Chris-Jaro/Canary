@@ -110,7 +110,7 @@ class DatabaseManager {
     func saveReport(stop:String, line:Int, direction:String){
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm E, d MMM y"
+        dateFormatter.dateFormat = "HH:mm E, d MMM y" // 12:05 Tue, 16 Feb 2021
         db.collection(K.FirebaseQuery.historyCollectionName).document().setData([
             "user_email" : userLoginDetails.value(forKey: "UserEmail")!, // For history + purposes
             "date": dateFormatter.string(from: date), // For timeline purposes

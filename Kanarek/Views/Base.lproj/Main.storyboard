@@ -465,7 +465,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="signOuyButtonPressed:" destination="wt1-fQ-TY4" eventType="touchUpInside" id="LkW-lq-Ofw"/>
+                                    <action selector="signOutButtonPressed:" destination="wt1-fQ-TY4" eventType="touchUpInside" id="LkW-lq-Ofw"/>
                                 </connections>
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xC7-jm-Ev0">

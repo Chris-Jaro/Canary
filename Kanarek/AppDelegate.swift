@@ -110,6 +110,7 @@ extension AppDelegate: MessagingDelegate{
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(String(describing: fcmToken))")
         
+        //## The initial subsciption happens only once ever -> then the whole process takes place in the settings
         if let value = userDefaults.string(forKey:"topicSubscription"){
             print ("Already exists!")
             print("Value: '\(value)'")
@@ -121,10 +122,6 @@ extension AppDelegate: MessagingDelegate{
               print("Subscribed to push_notifications")
             }
         }
-        
-        
-        
-        
         
         let dataDict:[String: String] = ["token": fcmToken ]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)

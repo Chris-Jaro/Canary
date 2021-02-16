@@ -10,9 +10,10 @@ import Firebase
 
 class SettingsController: UIViewController {
     
-    let userDefaults = UserDefaults.standard
+    let userDefaults = UserDefaults.standard // Accessing user defaults
 
     @IBOutlet weak var stateSwitch: UISwitch!
+    
     //## Checks the settings and adjusts the switch state on the screen accordingly
     override func viewWillAppear(_ animated: Bool) {
         if let subscriptionSetting = userDefaults.string(forKey: "topicSubscription"){
@@ -32,13 +33,14 @@ class SettingsController: UIViewController {
         stateSwitch.clipsToBounds = true
     }
     
-    @IBAction func signOuyButtonPressed(_ sender: UIButton) {
+    @IBAction func signOutButtonPressed(_ sender: UIButton) {
         userDefaults.removeObject(forKey: "UserPassword")
         userDefaults.removeObject(forKey: "UserEmail")
         
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
+    //## Implements the functionality of the switch
     @objc func stateChanged(switchState: UISwitch) {
         if switchState.isOn {
             //## Signing up for Push Notifications + setting the deault
