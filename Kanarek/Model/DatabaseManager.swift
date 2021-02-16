@@ -46,10 +46,17 @@ class DatabaseManager {
                     if let snapshotDocuments = querySnapshot?.documents {
                         for doc in snapshotDocuments {
                             let data = doc.data()
-                            if let stopName = data[K.FirebaseQuery.stopName] as? String, let stopStatus = data[K.FirebaseQuery.status] as? Bool, let lat = data[K.FirebaseQuery.lat] as? Double, let lon = data [K.FirebaseQuery.lon] as? Double, let lines = data[K.FirebaseQuery.lines] as? [Int], let direction = data[K.FirebaseQuery.direction] as? String, let date = data[K.FirebaseQuery.date] as? Double{
+                            if let stopName = data[K.FirebaseQuery.stopName] as? String,
+                               let stopStatus = data[K.FirebaseQuery.status] as? Bool,
+                               let lat = data[K.FirebaseQuery.lat] as? Double,
+                               let lon = data [K.FirebaseQuery.lon] as? Double,
+                               let lines = data[K.FirebaseQuery.lines] as? [Int],
+                               let direction = data[K.FirebaseQuery.direction] as? String,
+                               let date = data[K.FirebaseQuery.date] as? Double,
+                               let type = data[K.FirebaseQuery.type] as? String {
                                 let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                                 let linesList = lines.sorted()
-                                let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction, dateModified: date)
+                                let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction, dateModified: date, type: type)
                                 self.stops.append(newStop)
                                 
                                 if newStop.status {
@@ -91,7 +98,7 @@ class DatabaseManager {
     //#### - Updates status variable of a stop in the database
     func updatePointStatus(documentID stopName: String, status: Bool, direction: String, date:Double = 12.34, cityName: String = "poznan") {
         db.collection("\(cityName)\(K.FirebaseQuery.stopsCollectionName)").document(stopName).setData([K.FirebaseQuery.status: status,
-                                                                                                       K.FirebaseQuery.date: 12.34,
+                                                                                                       K.FirebaseQuery.date: date,
                                                                                                        K.FirebaseQuery.direction: direction], merge: true)
     }
     

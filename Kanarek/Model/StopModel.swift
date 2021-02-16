@@ -15,4 +15,5 @@ struct Stop {
     let lines: [Int]
     let direction: String
     let dateModified: Double
+    let type: String
 }

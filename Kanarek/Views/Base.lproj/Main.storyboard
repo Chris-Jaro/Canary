@@ -214,6 +214,10 @@
                                     <action selector="reportButtonPressed:" destination="cvH-zo-2sH" eventType="touchUpInside" id="AQu-8N-R39"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67H-XK-b4q">
+                                <rect key="frame" x="20" y="198" width="335" height="490"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mapa ostatnich zgłoszeń" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqJ-Ud-EKh">
                                 <rect key="frame" x="49.666666666666657" y="128" width="276" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
@@ -233,10 +237,6 @@
                                     <action selector="currentLocationButtonPressed:" destination="cvH-zo-2sH" eventType="touchUpInside" id="tvy-JK-Dj8"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67H-XK-b4q">
-                                <rect key="frame" x="20" y="198" width="335" height="490"/>
-                                <color key="backgroundColor" systemColor="systemRedColor"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RKV-wC-fxn"/>
                         <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

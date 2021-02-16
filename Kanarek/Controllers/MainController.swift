@@ -37,6 +37,7 @@ class MainController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.layer.cornerRadius = 10 // Rounds the corner of the mapView
+        warningView.layer.cornerRadius = 10 // Rounds the corner of the warningView
         
         //#### Location manager configuaration
         locationManager.delegate = self
@@ -138,14 +139,41 @@ extension MainController: MKMapViewDelegate{
         guard let annotation = annotation as? MKPointAnnotation else { return nil }
         
         let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
-        if annotation.subtitle!.contains("status:true"){ //## Force unwrapping the subtitle because every single stop has to have a subtitle
+        
+        if annotation.subtitle!.contains("true"){ //## Force unwrapping the subtitle because every single stop has to have a subtitle
             annotationView.markerTintColor = UIColor.systemRed
         } else {
             annotationView.markerTintColor = UIColor.systemBlue
         }
-        annotationView.glyphImage = UIImage(systemName: "tram")
+        
+        //#### Responsible for the image of the MarkerAnnotation
+        if annotation.subtitle!.contains("tram"){
+            annotationView.glyphImage = UIImage(systemName: "tram")
+        } else if annotation.subtitle!.contains("bus") {
+            annotationView.glyphImage = UIImage(systemName: "bus")
+        } else {
+            annotationView.glyphImage = UIImage(systemName: "face.smiling.fill")
+        }
+        
+        //### Responsible for the pop-up ("callout")
+        annotationView.canShowCallout = true
+        annotationView.calloutOffset = CGPoint(x: 0, y: 0)
+        annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        
+        
+        
         return annotationView
         
+    }
+    
+    //This function is responsible for the action after clicking the "detailDisclosure" button of the callout
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let annotation = view.annotation as? MKPointAnnotation else { return }
+        
+        let alert = UIAlertController(title: annotation.title, message: annotation.subtitle, preferredStyle: .alert) // Create a new alert
+        let alertAction = UIAlertAction(title: "OK", style: .default) // Creates the action button
+        alert.addAction(alertAction) // Add the action button
+        self.present(alert, animated: true, completion: nil) // Show the alert
     }
     
     //#### - ACCESES THE currenLocationButton
@@ -191,7 +219,7 @@ extension MainController: CLLocationManagerDelegate{
     
     //#### Schedules the notification for entering the dangerous region
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        notificationManager.setNotification(title: "Warning - Region Enterd", body: "Entered \(region.identifier)", userInfo: ["aps":["hello":"world"]])
+        notificationManager.setNotification(title: "Warning - Region Enterd", body: "Entered \(region.identifier)", userInfo: ["aps":["Coordinates":"To show on the map"]]) // -> LOCAL NOTIFICATION ACTION ON CLICKING
     }
     
     //#### Controls the visibility of the waringView depending on user being in the region
@@ -199,9 +227,11 @@ extension MainController: CLLocationManagerDelegate{
         if state == CLRegionState.inside{
             print("In the region")
             warningView.isHidden = false
+            mapView.alpha = 0.8
         } else {
             print("Outside of the region")
             warningView.isHidden = true
+            mapView.alpha = 1.0
         }
     }
     

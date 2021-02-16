@@ -47,11 +47,13 @@ class MapManager {
     }
     
     func addNeutralStop(for stop:Stop, on map: MKMapView){
-        addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)", map: map)
+        addPoint(where: stop.location, title: stop.stopName, subtitle:"lines: \(stop.lines)\nType: \(stop.type)\nreport_status: \(stop.status)", map: map)
     }
     
     func addDangerousStop(for stop:Stop, on map: MKMapView){
-        addPoint(where: stop.location, title: stop.stopName, subtitle: "report_status:\(stop.status)\nlines:\(stop.lines)\ndirection:\(stop.direction)", map: map)
+        addPoint(where: stop.location,
+                 title: stop.stopName,
+                 subtitle:"report_status: \(stop.status)\nType: \(stop.type)\nlines: \(stop.lines)\n___REPORT___\nTime: \(dateConvertter(interval: stop.dateModified))\ndirection: \(stop.direction)", map: map)
         addCircle(where: stop.location, map: map)
     }
     
@@ -96,7 +98,6 @@ class MapManager {
             region.notifyOnExit = true
        
             locationManager.startMonitoring(for: region)
-            
         }
     }
     
@@ -114,6 +115,15 @@ class MapManager {
         let regionRadius = 200.0
         let circle = MKCircle(center: location, radius: regionRadius)
         map.addOverlay(circle)
+    }
+    
+    //#### Function converts timeIntervalSince2001 to 'HH:mm'
+    func dateConvertter(interval:TimeInterval ) -> String {
+        let date = Date(timeIntervalSinceReferenceDate: interval)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        return dateFormatter.string(from: date)
     }
     
 }

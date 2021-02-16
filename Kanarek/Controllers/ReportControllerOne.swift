@@ -53,6 +53,17 @@ extension ReportControllerOne: UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
         cell.label?.text = stopsList[indexPath.row].stopName
+        cell.typeImage.isHidden = false
+        //#### Implemnting the image in the cell
+        if stopsList[indexPath.row].type == "tram" {
+            cell.typeImage.image = UIImage(systemName: "tram")
+        } else if stopsList[indexPath.row].type == "bus" {
+            cell.typeImage.image = UIImage(systemName: "bus")
+        } else {
+            cell.typeImage.image = UIImage(systemName: "face.smiling")
+        }
+
+        
         return cell
     }
     
