@@ -16,4 +16,5 @@ struct Stop {
     let direction: String
     let dateModified: Double
     let type: String
+    let nightwork: Bool
 }

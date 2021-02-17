@@ -20,6 +20,7 @@ struct K {
         static let lon: String = "longitude"
         static let status: String = "status"
         static let type: String = "type"
+        static let nightWork: String = "night_work"
         static let stopName: String = "stop_name"
         static let direction: String = "direction"
         static let lines: String = "lines"

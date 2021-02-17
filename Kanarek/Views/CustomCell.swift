@@ -27,7 +27,14 @@ class CustomCell: UITableViewCell {
         if selected{
             labelBubble.layer.backgroundColor = CGColor(red: 255/255, green: 210/255, blue: 40/255, alpha: 1)
         } else {
-            labelBubble.layer.backgroundColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+            if let text = label.text{
+                if text[text.startIndex] == "2" && text.count > 1{
+                    labelBubble.layer.backgroundColor = UIColor.black.cgColor
+                    label.textColor = UIColor.white
+                } else {
+                    labelBubble.layer.backgroundColor = UIColor.white.cgColor
+                }
+            }
         }
     }
     

@@ -53,10 +53,11 @@ class DatabaseManager {
                                let lines = data[K.FirebaseQuery.lines] as? [Int],
                                let direction = data[K.FirebaseQuery.direction] as? String,
                                let date = data[K.FirebaseQuery.date] as? Double,
-                               let type = data[K.FirebaseQuery.type] as? String {
+                               let type = data[K.FirebaseQuery.type] as? String,
+                               let nightWork = data[K.FirebaseQuery.nightWork] as? Bool{
                                 let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                                 let linesList = lines.sorted()
-                                let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction, dateModified: date, type: type)
+                                let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction, dateModified: date, type: type, nightwork: nightWork)
                                 self.stops.append(newStop)
                                 
                                 if newStop.status {
@@ -65,13 +66,40 @@ class DatabaseManager {
                             }
                         }
                         DispatchQueue.main.async {
-                            self.delegate!.updateUI(list: self.stops)
+                            self.delegate!.updateUI(list: self.filterStops(stops: self.stops))
                         }
                     }
                 }
             }
     }
+    //Function that filters the stops depending on the hour of the day (night/day lines)
+    func filterStops(stops: [Stop]) -> [Stop]{
+        //Accessing the current hour of the device
+        let now = Calendar.current.dateComponents(in: .current, from: Date())
+        if let currentHour = now.hour {
+            /*
+             A -> If currentHour is between <00:00-04:00) -> We display the night stops only
+             B -> If currentHour is between <04:00-00:00) -> We display all the stops
+             */
+            if 0 <= currentHour && currentHour < 4  {
+//              --A--
+                var filterdStops = [Stop]()
+                stops.forEach { (stop) in
+                    if stop.nightwork {filterdStops.append(stop)} // 'nightwork' is a boolean value
+                }
+                return filterdStops
+            } else {
+//              --B--
+                return stops
+            }
+
+        } else {
+            print("Could not get device's current hour -> Night Stops")
+            return stops // If there is a problem loading the time
+        }
+    }
     
+    //#### - Loads the directions for the chosen line number and currnet city
     func loadLineDirections(for chosenLineNumber: Int, cityName: String = "poznan"){
         db.collectionGroup("\(cityName)\(K.FirebaseQuery.linesCollectionName)")
             .whereField(K.FirebaseQuery.lineNumber, isEqualTo: chosenLineNumber)
