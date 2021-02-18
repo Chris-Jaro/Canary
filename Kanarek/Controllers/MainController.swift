@@ -83,7 +83,7 @@ class MainController: UIViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToReportOne"{
             let destinationVC = segue.destination as! ReportControllerOne
-            destinationVC.reportManagerOne.stopsInTheArea = mapManager.loadStopsInTheArea(stops: databaseManager.getStops())
+            destinationVC.reportManagerOne.stopsInTheArea = mapManager.filterStopsInTheArea(stops: databaseManager.getStops())
         }
     }
         

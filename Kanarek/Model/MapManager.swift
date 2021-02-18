@@ -32,9 +32,9 @@ class MapManager {
         }
     }
     
-    //#### - Provides a list of stop names in a given area from current location -> To the ReportOneController list of stops
-    func loadStopsInTheArea(stops:[Stop]) -> [Stop] {
-        var stopsInMyArea:[Stop] = []
+    //#### - Provides a list of stop names in a given area from current location -> To the ReportControllerOne list of stops
+    func filterStopsInTheArea(stops:[Stop]) -> [Stop] {
+        var stopsInMyArea = [Stop]()
         if let location = reportLocation{
             for stop in stops{
                 let distance = location.distance(from: CLLocation(latitude: stop.location.latitude, longitude: stop.location.longitude))
@@ -46,10 +46,12 @@ class MapManager {
         return stopsInMyArea
     }
     
+    //#### - Adds a non-dangerous stop to the mapView
     func addNeutralStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location, title: stop.stopName, subtitle:"lines: \(stop.lines)\nType: \(stop.type)\nreport_status: \(stop.status)", map: map)
     }
     
+    //#### - Adds a dangerous stop to the mapView
     func addDangerousStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location,
                  title: stop.stopName,
@@ -57,7 +59,7 @@ class MapManager {
         addCircle(where: stop.location, map: map)
     }
     
-    //#### - Resets current mapView and places the user in its center -> Not needed now
+    //#### - Resets current mapView and places the its center for any given location
     func setUsersLocation(for location: CLLocation, map: MKMapView){
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
@@ -88,6 +90,7 @@ class MapManager {
         }
     }
     
+    //#### - Sets up the region monitoring for provided regions
     func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String, for locationManager: CLLocationManager) {
         // MAKE SURE THE DIVICE SUPPORTS REGION MONITORING
         guard locationManager.monitoredRegions.count <= 20 else { return } // only 20 allowed by Apple IMPLEMENT SOME SORT OF SORTING BASED ON THE DISTANCE TO THE USER?
@@ -101,7 +104,7 @@ class MapManager {
         }
     }
     
-    //#### - Adds pointAnnotation to the map ->Not needed now
+    //#### - Adds pointAnnotation to the map
     func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String, map: MKMapView){
         let point = MKPointAnnotation()
         point.coordinate = location
@@ -110,7 +113,7 @@ class MapManager {
         map.addAnnotation(point)
     }
     
-    //#### - Adds circle danger zone to the map -> Not needed now
+    //#### - Adds circle danger zone to the map
     func addCircle(where location: CLLocationCoordinate2D, map: MKMapView){
         let regionRadius = 200.0
         let circle = MKCircle(center: location, radius: regionRadius)

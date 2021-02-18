@@ -15,26 +15,21 @@ class CustomCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        labelBubble.layer.cornerRadius = labelBubble.frame.size.height / 3 
-        
-        // Initialization code
+        //UI congfig
+        labelBubble.layer.cornerRadius = labelBubble.frame.size.height / 3
     }
 
+    //#### - Function reacts to row selection
+    //## Seleciton -> white background is changed to yellow
+    //## Deselection -> yellow backgournd is changed to white (original)
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         if selected{
             labelBubble.layer.backgroundColor = CGColor(red: 255/255, green: 210/255, blue: 40/255, alpha: 1)
         } else {
-            if let text = label.text{
-                if text[text.startIndex] == "2" && text.count > 1{
-                    labelBubble.layer.backgroundColor = UIColor.black.cgColor
-                    label.textColor = UIColor.white
-                } else {
-                    labelBubble.layer.backgroundColor = UIColor.white.cgColor
-                }
-            }
+            labelBubble.layer.backgroundColor = UIColor.white.cgColor
+            
         }
     }
     

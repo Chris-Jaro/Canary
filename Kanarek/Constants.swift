@@ -12,6 +12,8 @@ struct K {
     struct CustomCell {
         static let nibName = "CustomCell"
         static let identifier = "CustomCell"
+        static let lineNibName = "LineCustomCell"
+        static let lineIdentifier = "LineCustomCell"
     }
     
     struct FirebaseQuery {
@@ -54,14 +56,6 @@ struct K {
     Proin tellus mi, tristique in lacus vestibulum, aliquet tempor leo. Nunc euismod, purus nec molestie pretium, nisl ante pharetra nibh, vel varius lectus elit nec nisl. Donec iaculis dolor vel venenatis fermentum. Cras dignissim risus vel justo bibendum, ac semper ex accumsan. Proin et dignissim felis, eu faucibus neque. Quisque commodo erat a lorem ornare faucibus. Vivamus non convallis sapien. Fusce suscipit leo eu feugiat tempor. Ut tristique libero tortor, gravida rutrum nisl tristique ut. Integer lobortis volutpat tortor, vitae scelerisque tortor elementum pharetra. Sed sit amet malesuada justo. Vestibulum tempus, nisi luctus aliquam feugiat, ligula tellus sollicitudin turpis, et varius lectus metus eget est. Sed non lobortis felis.
 
     Praesent felis nibh, varius in sem vel, fringilla viverra justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque velit mi, suscipit placerat pharetra vitae, dapibus ac metus. Vestibulum ut mi eros. Suspendisse elementum magna in pulvinar congue. Curabitur sagittis mi vitae fermentum lacinia. Praesent nec finibus justo, id semper justo. Sed aliquam eros sed erat scelerisque luctus. Maecenas cursus vestibulum orci id dictum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam egestas risus in semper pharetra. Nunc quis nunc eu lectus ultrices varius sit amet vitae ipsum.
-
-    Etiam rhoncus ornare mollis. Duis at risus luctus, venenatis ante sed, ultricies nisi. Vestibulum iaculis ligula non venenatis tempus. Duis lorem augue, elementum vitae suscipit sed, imperdiet sit amet nibh. Proin tempor aliquet est vitae dignissim. Nulla sodales libero suscipit orci sagittis, nec auctor lorem tristique. Nullam convallis risus urna, in convallis metus egestas non. Nullam egestas, odio ac gravida lobortis, sapien massa egestas turpis, at blandit nibh arcu et ipsum. Ut elit purus, maximus nec laoreet et, placerat quis ante. Nulla sodales justo sed magna tempus, id volutpat metus commodo.
-
-    Mauris eros risus, molestie a tortor dapibus, tempus pretium metus. Fusce lacus arcu, mattis sit amet facilisis vel, aliquam in nisl. Curabitur commodo elit eget iaculis venenatis. Duis auctor ullamcorper leo, ut luctus risus volutpat sit amet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas viverra lectus non iaculis vehicula. Aenean id sodales odio, quis interdum ipsum. Donec et eros in neque fringilla eleifend. Vestibulum placerat metus eu ex sollicitudin euismod. Integer mattis justo at urna tempor laoreet. Nullam pellentesque ac lectus eu tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec faucibus est metus, sed faucibus sem vulputate eget. Quisque blandit, massa non maximus ultrices, ex augue rhoncus nibh, quis maximus lectus arcu vel mi. Sed quis scelerisque est, volutpat placerat elit.
-
-    Suspendisse pellentesque nec nisi non placerat. In sed vulputate urna. Morbi pharetra eu lectus quis sagittis. Donec in nunc sit amet urna congue commodo. Maecenas dapibus aliquet consequat. Praesent rutrum ornare enim sed accumsan. Donec commodo sit amet turpis id imperdiet.
-
-    Fusce in ullamcorper mi, efficitur auctor felis. Quisque quis pretium nibh, non condimentum ante. Nam sodales ac nisl sit amet ultrices. Nullam ac varius leo, nec mattis sem. Pellentesque non feugiat erat. Ut aliquet quis arcu ac laoreet. Ut semper pellentesque metus, in tristique nunc posuere et. Nulla et feugiat elit. Nunc nec augue id arcu placerat imperdiet et et est. In egestas lorem ante, vel auctor purus condimentum ac. Aliquam porttitor sit amet dolor sit amet tempus. Phasellus ornare felis sed dolor finibus dignissim. Vestibulum tincidunt fringilla mauris sed tempus. Fusce vitae porttitor risus. Mauris ultricies orci sit amet efficitur euismod. Nulla molestie eros felis, in tempus lorem varius ut.
     """
     }
         

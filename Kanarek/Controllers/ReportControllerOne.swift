@@ -18,6 +18,7 @@ class ReportControllerOne: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = 80
         tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
         
     }
@@ -33,8 +34,8 @@ class ReportControllerOne: UIViewController {
         }
     }
     
-    //Function that filters the line numbers depending on the hour of the day (night/day lines)
-    func filterLineNumbers(lines: [Int]) -> [Int]{
+    //Function that filters the line numbers depending on the hour of the day (night/day lines) #### MOVE TO MANAGER
+    func filterLineNumbers(lines: [Int]) -> [Int] {
         //Accessing the current hour of the device
         let now = Calendar.current.dateComponents(in: .current, from: Date())
         if let currentHour = now.hour {
@@ -78,21 +79,29 @@ class ReportControllerOne: UIViewController {
 }
 
 //MARK: - TableView-related Methods
-
 extension ReportControllerOne: UITableViewDataSource{
+    
+    //#### - Function returns number of rows to be displayed on the TableView (if there is nothing to displayed error message will be displayed)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let stopsList = reportManagerOne.stopsInTheArea, stopsList.count > 0  else { return 1 }
         
         return stopsList.count
     }
     
+    //#### - Functions determins exactly what is to be displayed on every cell one by one
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //## - This guard is executed if there are no stops in the 1km area from the user AND displays a message accordingly
         guard let stopsList = reportManagerOne.stopsInTheArea, stopsList.count > 0  else {
+            tableView.rowHeight = tableView.estimatedRowHeight
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
             cell.label?.text = "Brak przystnaków w promieniu 1km"
+            cell.isUserInteractionEnabled = false
+            cell.typeImage.image = UIImage(systemName: "exclamationmark.triangle.fill")
+            cell.typeImage.isHidden = false
             return cell
         }
         
+        //## - If there is at least one stop in the given area this part is executed
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
         cell.label?.text = stopsList[indexPath.row].stopName
         cell.typeImage.isHidden = false
@@ -106,29 +115,20 @@ extension ReportControllerOne: UITableViewDataSource{
             cell.typeImage.image = UIImage(systemName: "face.smiling")
         }
 
-        
         return cell
     }
-    
 }
 
 extension ReportControllerOne: UITableViewDelegate{
+    
+    //#### - Function is triggered when a row is selected and performs segue acordingly
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let stopsList = reportManagerOne.stopsInTheArea, stopsList.count > 0  else { return }
 
-        if let cell = tableView.cellForRow(at: indexPath) as? CustomCell {
-            cell.setSelected(true, animated: true)
-        }
         reportManagerOne.chosenStopIndex = indexPath.row
         performSegue(withIdentifier: "GoToReportTwo" , sender: self)
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
-        if let cell = tableView.cellForRow(at: indexPath) as? CustomCell {
-            cell.setSelected(false, animated: true)
-        }
-    }
 }
 
 

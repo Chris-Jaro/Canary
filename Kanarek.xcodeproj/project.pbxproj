@@ -23,6 +23,8 @@
 		835BFD76256D3EE700C97772 /* ReportControllerTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD75256D3EE700C97772 /* ReportControllerTwo.swift */; };
 		835BFD79256D3F1300C97772 /* ReportControllerThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD78256D3F1300C97772 /* ReportControllerThree.swift */; };
 		835BFD7C256D3F5F00C97772 /* TermsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD7B256D3F5F00C97772 /* TermsController.swift */; };
+		836765C725DDB686000A9349 /* LineCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836765C525DDB686000A9349 /* LineCustomCell.swift */; };
+		836765C825DDB686000A9349 /* LineCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836765C625DDB686000A9349 /* LineCustomCell.xib */; };
 		83D56D9C25BF15E700BAF340 /* ReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D56D9B25BF15E700BAF340 /* ReportManager.swift */; };
 		83E5BFB4256AB648005C56B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5BFB3256AB648005C56B0 /* AppDelegate.swift */; };
 		83E5BFB6256AB648005C56B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5BFB5256AB648005C56B0 /* SceneDelegate.swift */; };
@@ -53,6 +55,8 @@
 		835BFD75256D3EE700C97772 /* ReportControllerTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportControllerTwo.swift; sourceTree = "<group>"; };
 		835BFD78256D3F1300C97772 /* ReportControllerThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportControllerThree.swift; sourceTree = "<group>"; };
 		835BFD7B256D3F5F00C97772 /* TermsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsController.swift; sourceTree = "<group>"; };
+		836765C525DDB686000A9349 /* LineCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCustomCell.swift; sourceTree = "<group>"; };
+		836765C625DDB686000A9349 /* LineCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineCustomCell.xib; sourceTree = "<group>"; };
 		83C5B4D525D31ACB00D94669 /* Kanarek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kanarek.entitlements; sourceTree = "<group>"; };
 		83D56D9B25BF15E700BAF340 /* ReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		83E5BFB0256AB648005C56B0 /* Kanarek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kanarek.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +121,8 @@
 				83E5BFB9256AB648005C56B0 /* Main.storyboard */,
 				831105142578371B00B1B1A2 /* CustomCell.swift */,
 				831105152578371B00B1B1A2 /* CustomCell.xib */,
+				836765C525DDB686000A9349 /* LineCustomCell.swift */,
+				836765C625DDB686000A9349 /* LineCustomCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				836765C825DDB686000A9349 /* LineCustomCell.xib in Resources */,
 				83E5BFC0256AB64C005C56B0 /* LaunchScreen.storyboard in Resources */,
 				83E5BFBD256AB64C005C56B0 /* Assets.xcassets in Resources */,
 				833F911725ACC88B00B0EEF6 /* GoogleService-Info.plist in Resources */,
@@ -299,6 +306,7 @@
 				835946EE25C890D000FD55CB /* NotificationManager.swift in Sources */,
 				831105122576CA1100B1B1A2 /* Constants.swift in Sources */,
 				8355D13725BB65CD0081B548 /* DatabaseManager.swift in Sources */,
+				836765C725DDB686000A9349 /* LineCustomCell.swift in Sources */,
 				83E5BFB8256AB648005C56B0 /* MainController.swift in Sources */,
 				83E5BFB4256AB648005C56B0 /* AppDelegate.swift in Sources */,
 				83D56D9C25BF15E700BAF340 /* ReportManager.swift in Sources */,

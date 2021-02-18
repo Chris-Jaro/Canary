@@ -65,13 +65,15 @@ class DatabaseManager {
                                 }
                             }
                         }
+                        self.stops = self.filterStops(stops: self.stops) // Filters the stops considering current hour of the day
                         DispatchQueue.main.async {
-                            self.delegate!.updateUI(list: self.filterStops(stops: self.stops))
+                            self.delegate!.updateUI(list: self.stops)
                         }
                     }
                 }
             }
     }
+    
     //Function that filters the stops depending on the hour of the day (night/day lines)
     func filterStops(stops: [Stop]) -> [Stop]{
         //Accessing the current hour of the device
