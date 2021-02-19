@@ -23,6 +23,11 @@ class MainController: UIViewController{
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var warningView: UIView!
     
+    //## - Changes the color of battery and time an service to white
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
+    
     //#### Two functions that hide the navigation bar on the main screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

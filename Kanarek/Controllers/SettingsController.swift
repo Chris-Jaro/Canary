@@ -14,6 +14,11 @@ class SettingsController: UIViewController {
 
     @IBOutlet weak var stateSwitch: UISwitch!
     
+    //## - Changes the color of battery and time an service to white
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
+    
     //## Checks the settings and adjusts the switch state on the screen accordingly
     override func viewWillAppear(_ animated: Bool) {
         if let subscriptionSetting = userDefaults.string(forKey: "topicSubscription"){

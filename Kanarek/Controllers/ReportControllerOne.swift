@@ -13,6 +13,10 @@ class ReportControllerOne: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    //## - Changes the color of battery and time an service to white
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -15,6 +15,10 @@ class ReportControllerThree: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var reportButton: UIButton!
     
+    //## - Changes the color of battery and time an service to white
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         reportButton.isEnabled = false // User cannot report anything until he chooses a valid direction

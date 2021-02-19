@@ -17,6 +17,10 @@ class SignUpController: UIViewController{
     @IBOutlet weak var checkbox: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    //## - Changes the color of battery and time an service to white
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
     override func viewDidDisappear(_ animated: Bool) {
         setPlaceholder()
         errorLabel.isHidden = true
