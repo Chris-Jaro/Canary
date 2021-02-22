@@ -9,6 +9,10 @@ import Foundation
 
 struct K {
     
+    struct UserDefualts {
+        static let cityName = "cityName"
+    }
+    
     struct CustomCell {
         static let nibName = "CustomCell"
         static let identifier = "CustomCell"
@@ -30,7 +34,7 @@ struct K {
         static let stopsCollectionName = "_stops"
         static let lineNumber = "line_number"
         static let directions = "directions"
-        static let historyCollectionName = "poznan_history"
+        static let historyCollectionName = "_history"
     }
     
     struct Regulamin {

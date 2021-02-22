@@ -11,6 +11,7 @@ class ReportControllerThree: UIViewController {
     
     var databaseManager = DatabaseManager()
     var reportManagerThree = ReportManager()
+    let userDefaults = UserDefaults.standard // Accessing UserDefualts
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var reportButton: UIButton!
@@ -23,6 +24,8 @@ class ReportControllerThree: UIViewController {
         super.viewDidLoad()
         reportButton.isEnabled = false // User cannot report anything until he chooses a valid direction
         
+        
+        
         //### - Table View configuration
         tableView.delegate = self
         tableView.dataSource = self
@@ -31,21 +34,33 @@ class ReportControllerThree: UIViewController {
         databaseManager.delegate = self
 
         guard let lineNumber = reportManagerThree.lineNr else { return } // Guards from no data -> To avoid error from databse
-        //# Loads the directions for given line number from the database
-        databaseManager.loadLineDirections(for: lineNumber)
+        //# Loads the directions for given line number from the database for given city | If there is a city value in the defaults
+        //# else if there is no city name it loads default for poznan
+        if let cityName = userDefaults.string(forKey: K.UserDefualts.cityName){
+            databaseManager.loadLineDirections(for: lineNumber, city: cityName)
+        } else {
+            databaseManager.loadLineDirections(for: lineNumber)
+        }
+        
     }
     
     //#### - Function takes all the provided data and sends the report to the databse and then pops to root view (history, and updates the stop status)
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        
         //## This guard statment is an additional precausion to disable the user from reporting without having chosen a valid direction
         guard let stopName = reportManagerThree.chosenStopName, let lineNumebr = reportManagerThree.lineNr else {return}
         let direction = databaseManager.getDirections()[reportManagerThree.directionIndex!]// cannot use the report button without chosing the index -> implement insurence for no directions
         
-        //Reports History
-        databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction)
-        //Updating the status to dangerous
-        databaseManager.updatePointStatus(documentID: stopName, status: true, direction: "\(lineNumebr) towards \(direction)", date: Date.timeIntervalSinceReferenceDate)
+        //## If there is cityName | Else default
+        if let cityName = userDefaults.string(forKey: K.UserDefualts.cityName){
+            databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction, city: cityName)
+            databaseManager.updatePointStatus(documentID: stopName, status: true, direction: "\(lineNumebr) towards \(direction)", date: Date.timeIntervalSinceReferenceDate, city: cityName)
+        } else {
+            //Reports History
+            databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction)
+            //Updating the status to dangerous
+            databaseManager.updatePointStatus(documentID: stopName, status: true, direction: "\(lineNumebr) towards \(direction)", date: Date.timeIntervalSinceReferenceDate)
+        }
+        
         
         navigationController?.popToRootViewController(animated: true)
     }

@@ -13,6 +13,7 @@
 		831105162578371B00B1B1A2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105142578371B00B1B1A2 /* CustomCell.swift */; };
 		831105172578371B00B1B1A2 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831105152578371B00B1B1A2 /* CustomCell.xib */; };
 		833F911725ACC88B00B0EEF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 833F911625ACC88B00B0EEF6 /* GoogleService-Info.plist */; };
+		83424E9F25E4245E003C7B9E /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83424E9E25E4245E003C7B9E /* PushNotificationManager.swift */; };
 		834943F025A758B30091CD3F /* StopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834943EF25A758B30091CD3F /* StopModel.swift */; };
 		8355D13725BB65CD0081B548 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355D13625BB65CD0081B548 /* DatabaseManager.swift */; };
 		835946EE25C890D000FD55CB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835946ED25C890D000FD55CB /* NotificationManager.swift */; };
@@ -45,6 +46,8 @@
 		831465FA25C7152000EBC311 /* NeutralStop.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NeutralStop.gpx; sourceTree = "<group>"; };
 		831465FB25C7154100EBC311 /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
 		833F911625ACC88B00B0EEF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		83424E9C25E40700003C7B9E /* WarsawTest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WarsawTest.gpx; sourceTree = "<group>"; };
+		83424E9E25E4245E003C7B9E /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		834943EF25A758B30091CD3F /* StopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopModel.swift; sourceTree = "<group>"; };
 		8355D13625BB65CD0081B548 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		835946ED25C890D000FD55CB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 				831465F925C7150A00EBC311 /* DangerousStop.gpx */,
 				831465FA25C7152000EBC311 /* NeutralStop.gpx */,
 				831465FB25C7154100EBC311 /* SimulatedLocations.gpx */,
+				83424E9C25E40700003C7B9E /* WarsawTest.gpx */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -135,6 +139,7 @@
 				8355D13625BB65CD0081B548 /* DatabaseManager.swift */,
 				83D56D9B25BF15E700BAF340 /* ReportManager.swift */,
 				835946ED25C890D000FD55CB /* NotificationManager.swift */,
+				83424E9E25E4245E003C7B9E /* PushNotificationManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 				835BFD73256D3ED700C97772 /* ReportControllerOne.swift in Sources */,
 				835BFD7C256D3F5F00C97772 /* TermsController.swift in Sources */,
 				83E5BFB6256AB648005C56B0 /* SceneDelegate.swift in Sources */,
+				83424E9F25E4245E003C7B9E /* PushNotificationManager.swift in Sources */,
 				834943F025A758B30091CD3F /* StopModel.swift in Sources */,
 				835BFD6D256D3EB600C97772 /* SignInController.swift in Sources */,
 				835BFD76256D3EE700C97772 /* ReportControllerTwo.swift in Sources */,

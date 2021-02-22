@@ -10,6 +10,8 @@ import Firebase
 
 class SettingsController: UIViewController {
     
+    let pushNotificationManager = PushNotificationManager()
+    
     let userDefaults = UserDefaults.standard // Accessing user defaults
 
     @IBOutlet weak var stateSwitch: UISwitch!
@@ -22,7 +24,7 @@ class SettingsController: UIViewController {
     //## Checks the settings and adjusts the switch state on the screen accordingly
     override func viewWillAppear(_ animated: Bool) {
         if let subscriptionSetting = userDefaults.string(forKey: "topicSubscription"){
-            if subscriptionSetting == "Subscribed"{
+            if subscriptionSetting.contains("Subscribed"){
                 stateSwitch.isOn = true
             } else {
                 stateSwitch.isOn = false
@@ -48,21 +50,12 @@ class SettingsController: UIViewController {
     //## Implements the functionality of the switch
     @objc func stateChanged(switchState: UISwitch) {
         if switchState.isOn {
-            //## Signing up for Push Notifications + setting the deault
-            userDefaults.setValue("Subscribed", forKey: "topicSubscription")
-            Messaging.messaging().subscribe(toTopic: "push_notifications") { error in
-                if error == nil{
-                    print("Subscribed to push_notifications")
-                }
+            if let cityName = userDefaults.string(forKey: K.UserDefualts.cityName){
+                pushNotificationManager.subscribe(to: cityName)
             }
         } else {
-            //## Signing out from Push Notifications + setting the deault
-            userDefaults.setValue("Unsubscribed", forKey: "topicSubscription")
-            Messaging.messaging().unsubscribe(fromTopic: "push_notifications") { error in
-                if error == nil{
-                    print("Unsubscribed from push_notifications")
-                }
-            }
+            pushNotificationManager.unsubscribe()
+            
         }
     }
 

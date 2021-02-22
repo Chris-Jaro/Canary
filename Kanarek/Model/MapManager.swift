@@ -16,12 +16,13 @@ class MapManager {
     var delegate: MapManagerDelegate?
     
     var reportLocation: CLLocation?
-
+    
     //#### - Provides current city name in lowercase -> Not needed now 
     func getCurrentCity(for currentLocation: CLLocation?){
         let geoCoder = CLGeocoder()
+        // "preferredLocale:" variable forces the language of the geoCoder results (to English in this case "en")
         if let location = currentLocation{
-            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
+            geoCoder.reverseGeocodeLocation(location, preferredLocale: Locale.init(identifier: "en"), completionHandler: { (placemarks, _) -> Void in
                 if let placemark = placemarks?.first{
                     if let city = placemark.locality {
                         self.delegate!.loadPoints(for: city.lowercased())

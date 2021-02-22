@@ -16,7 +16,8 @@ class MainController: UIViewController{
     var databaseManager = DatabaseManager()
     var reportManagerMain = ReportManager()
     var notificationManager = NotificationManager()
-    
+    let pushNotificationManager = PushNotificationManager()
+    let userDefaults = UserDefaults.standard // Accessing user defaults
     var timer: Timer?
     
     @IBOutlet weak var mapView: MKMapView!
@@ -27,7 +28,6 @@ class MainController: UIViewController{
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-    
     //#### Two functions that hide the navigation bar on the main screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -66,6 +66,7 @@ class MainController: UIViewController{
     
     @objc func timerAction(){
         print("Timer Action")
+        
         databaseManager.renewStopStatus()
         for region in locationManager.monitoredRegions{
             locationManager.requestState(for: region)
@@ -98,12 +99,21 @@ class MainController: UIViewController{
 extension MainController: MapManagerDelegate{
     //#### Function is activated by MapManager when it returns the name of the city for the user's location and check if it is one of the supported cities, if not it loads the default (poznan)
     func loadPoints(for cityName: String) {
-        let cityNames = ["poznan"]
-        if cityNames.contains(cityName){
+        let supportedCityNames = ["poznan", "warsaw"]
+        if supportedCityNames.contains(cityName){
+            //REMOVE THE USER DEFUALT CITY NAME -> then every time the aplicaiton is loaded the city name is deleted and updated
+            userDefaults.removeObject(forKey: K.UserDefualts.cityName)
+            //SET UP THE CITY NAME AS A USER DEFUALT
+            userDefaults.setValue(cityName, forKey: K.UserDefualts.cityName)
             databaseManager.loadPoints(for: cityName)
         } else {
+            //REMOVE THE USER DEFUALT CITY NAME -> then every time the aplicaiton is loaded the city name is deleted and updated
+            userDefaults.removeObject(forKey: K.UserDefualts.cityName)
             databaseManager.loadPoints()
         }
+        
+        //## On app start the function is triggerd and checks the push notification settings
+        pushNotificationManager.onAppStart()
     }
 }
 

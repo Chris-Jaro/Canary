@@ -34,8 +34,8 @@ class DatabaseManager {
     }
     
     //#### Loads list of stops from the database and listens for the changes -> Not needed now
-    func loadPoints(for cityName: String = "poznan"){
-        db.collection("\(cityName)\(K.FirebaseQuery.stopsCollectionName)")
+    func loadPoints(for city: String = "poznan"){
+        db.collection("\(city)\(K.FirebaseQuery.stopsCollectionName)")
             .order(by: K.FirebaseQuery.date)
             .addSnapshotListener { (querySnapshot, error) in
                 self.stops = []
@@ -75,7 +75,7 @@ class DatabaseManager {
     }
     
     //Function that filters the stops depending on the hour of the day (night/day lines)
-    func filterStops(stops: [Stop]) -> [Stop]{
+    func filterStops(stops: [Stop]) -> [Stop] {
         //Accessing the current hour of the device
         let now = Calendar.current.dateComponents(in: .current, from: Date())
         if let currentHour = now.hour {
@@ -102,8 +102,8 @@ class DatabaseManager {
     }
     
     //#### - Loads the directions for the chosen line number and currnet city
-    func loadLineDirections(for chosenLineNumber: Int, cityName: String = "poznan"){
-        db.collectionGroup("\(cityName)\(K.FirebaseQuery.linesCollectionName)")
+    func loadLineDirections(for chosenLineNumber: Int, city: String = "poznan"){
+        db.collectionGroup("\(city)\(K.FirebaseQuery.linesCollectionName)")
             .whereField(K.FirebaseQuery.lineNumber, isEqualTo: chosenLineNumber)
             .addSnapshotListener { (querySnapshot, error) in
                 self.directions = []
@@ -126,8 +126,8 @@ class DatabaseManager {
     }
     
     //#### - Updates status variable of a stop in the database
-    func updatePointStatus(documentID stopName: String, status: Bool, direction: String, date:Double = 12.34, cityName: String = "poznan") {
-        db.collection("\(cityName)\(K.FirebaseQuery.stopsCollectionName)").document(stopName).setData([K.FirebaseQuery.status: status,
+    func updatePointStatus(documentID stopName: String, status: Bool, direction: String, date:Double = 12.34, city: String = "poznan") {
+        db.collection("\(city)\(K.FirebaseQuery.stopsCollectionName)").document(stopName).setData([K.FirebaseQuery.status: status,
                                                                                                        K.FirebaseQuery.date: date,
                                                                                                        K.FirebaseQuery.direction: direction], merge: true)
     }
@@ -137,18 +137,22 @@ class DatabaseManager {
         guard dangerousStops.count > 0 else {return}
         for stop in dangerousStops{
             if Date.timeIntervalSinceReferenceDate - stop.dateModified > 120 {
-                updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction")
+                if let cityName = UserDefaults.standard.string(forKey: K.UserDefualts.cityName){
+                    updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction", city: cityName)
+                } else {
+                    updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction")
+                }
             }
         }
         
     }
     
     //#### - Saves report details to the history collection
-    func saveReport(stop:String, line:Int, direction:String){
+    func saveReport(stop:String, line:Int, direction:String, city: String = "poznan"){
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm E, d MMM y" // 12:05 Tue, 16 Feb 2021
-        db.collection(K.FirebaseQuery.historyCollectionName).document().setData([
+        db.collection("\(city)\(K.FirebaseQuery.historyCollectionName)").document().setData([
             "user_email" : userLoginDetails.value(forKey: "UserEmail")!, // For history + purposes
             "date": dateFormatter.string(from: date), // For timeline purposes
             "stop_name":stop, // In the title of the noftification
