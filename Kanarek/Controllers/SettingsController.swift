@@ -28,8 +28,8 @@ class SettingsController: UIViewController {
     //## Checks the settings and adjusts the switch state on the screen accordingly
     override func viewWillAppear(_ animated: Bool) {
         //## These two lines round up the corners of the white line
-        whiteLineView.layer.cornerRadius = 10
-        mainSettingsView.layer.cornerRadius = 10
+        whiteLineView.layer.cornerRadius = 15
+        mainSettingsView.layer.cornerRadius = 15
         
         //## These two lines round up the corners of the white line
         logOutButton.layer.cornerRadius = 8
