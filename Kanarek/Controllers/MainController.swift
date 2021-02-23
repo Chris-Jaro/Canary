@@ -87,13 +87,26 @@ class MainController: UIViewController{
     }
     
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
-        guard let location = reportManagerMain.currentLocation else { return } // guards the function from being executed if the user did not allow locaiton
+        // guards the function from being executed if the user did not allow locaiton
+        guard let location = reportManagerMain.currentLocation, reportManagerMain.defaultLocation == nil else {
+            mapManager.setUsersLocation(for: reportManagerMain.defaultLocation!, map: mapView, zoom: 0.1)
+            return
+        }
         mapManager.setUsersLocation(for: location, map: mapView)
         reportManagerMain.hiddenLocationButton = true
     }
     
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        guard let location = reportManagerMain.currentLocation else { return } // guards the function from being executed if the user did not allow locaiton
+        // guards the function from being executed if the user did not allow locaiton
+        guard let location = reportManagerMain.currentLocation else {
+            //Alert is show to let the user know that they will not be able to report anything without allowing location services
+            let alert = UIAlertController(title: "Brak Lokalizacji Użytkownika", message: "Wymagana jest lokaclizacja użytkowinika do zgłaszania przstanków. \nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        
         mapManager.reportLocation = location
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
@@ -108,11 +121,18 @@ class MainController: UIViewController{
         
 }
 
-//MARK: - Map Manager Delegate Methods
+//MARK: - MapManagerDelegate Methods
 extension MainController: MapManagerDelegate{
     //#### Function is activated by MapManager when it returns the name of the city for the user's location and check if it is one of the supported cities, if not it loads the default (poznan)
     func loadPoints(for cityName: String) {
         let supportedCityNames = ["poznan", "warsaw"]
+        
+        //## If the user did not allow location services this variable is created with the default value for Poznan or Warsaw
+        guard reportManagerMain.defaultLocation == nil else {
+            databaseManager.loadPoints(for: cityName) //Load the points for defualt city chosen by the user
+            return
+        }
+        
         if supportedCityNames.contains(cityName){
             //REMOVE THE USER DEFUALT CITY NAME -> then every time the aplicaiton is loaded the city name is deleted and updated
             userDefaults.removeObject(forKey: K.UserDefualts.cityName)
@@ -130,7 +150,7 @@ extension MainController: MapManagerDelegate{
     }
 }
 
-//MARK: - Database Manager Delegate Methods
+//MARK: - DatabaseManagerDelegate Methods
 extension MainController: DatabaseManagerDelegate {
     //#### Funciton is triggered by database manager when the points from the database are loaded and then it refreshes the mapView with the new data
     func updateUI(list:[Any]) {
@@ -149,7 +169,7 @@ extension MainController: DatabaseManagerDelegate {
 
 }
 
-//MARK: - MapView Delegate Methods
+//MARK: - MapViewDelegate Methods
 extension MainController: MKMapViewDelegate{
     //#### - DEFINES THE VIEW OF THE CIRCLE
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -211,15 +231,42 @@ extension MainController: MKMapViewDelegate{
 
 }
 
-//MARK: - LocationManager Delegate Methods
+//MARK: - LocationManagerDelegate Methods
 extension MainController: CLLocationManagerDelegate{
     
     //#### - Takes care of the authorization status
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         //## Guards the authorization status of location request
-        guard locationManager.authorizationStatus != .denied else { return } // IMPLEMENT AN ALERT ON MAIN SCREEN TO NOTIFY THE USER
+        guard locationManager.authorizationStatus != .denied else {
+            // If the user does not allow location services they have to chose one of the two cities as the default location
+            let alert = UIAlertController(title: "Brak Lokalizacji", message: "Ze względu na brak udostępnienia lokalizacji proszę wybrać jedno z dostępnych miast jako podstawową opcję", preferredStyle: .alert)
+            
+            //Loading the points for the current defualt lcoation in central Poznan
+            alert.addAction(UIAlertAction(title: "Poznań", style: .default, handler: { (_) in
+                // Setting the default location for Poznan
+                self.reportManagerMain.defaultLocation = CLLocation(latitude: 52.40719427249367, longitude: 16.919447576063167)
+                // Loading the points in Poznan
+                self.mapManager.getCurrentCity(for: self.reportManagerMain.defaultLocation)
+                // Setting the deafult location in the middle of user's mapView
+                self.mapManager.setUsersLocation(for: self.reportManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
+            }))
+            
+            //Loading the points for the current defualt lcoation in central Warsaw
+            alert.addAction(UIAlertAction(title: "Warszawa", style: .default, handler: { (_) in
+                // Setting the default location for Warsaw
+                self.reportManagerMain.defaultLocation = CLLocation(latitude: 52.247982010547354, longitude: 21.015697127985522)
+                // Loading the points in Warsaw
+                self.mapManager.getCurrentCity(for: self.reportManagerMain.defaultLocation)
+                // Setting the deafult location in the middle of user's mapView
+                self.mapManager.setUsersLocation(for: self.reportManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        //# If user allowed location services -> start updating location
         locationManager.startUpdatingLocation()
-        
     }
     
     //#### - ACCESES THE currenLocation and updates every second

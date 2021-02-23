@@ -245,7 +245,7 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67H-XK-b4q">
-                                <rect key="frame" x="20" y="198" width="374" height="574"/>
+                                <rect key="frame" x="20" y="183" width="374" height="589"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mapa ostatnich zgłoszeń" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqJ-Ud-EKh">
@@ -255,10 +255,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7d9-pO-iRL">
-                                <rect key="frame" x="20" y="198" width="374" height="574"/>
+                                <rect key="frame" x="20" y="183" width="374" height="589"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZ0-qO-fmG">
-                                <rect key="frame" x="35" y="218" width="20" height="22"/>
+                                <rect key="frame" x="35" y="203" width="20" height="22"/>
                                 <color key="tintColor" name="LocationButton"/>
                                 <state key="normal" image="location.circle.fill" catalog="system">
                                     <color key="titleColor" name="LocationButton"/>
@@ -272,12 +272,12 @@
                         <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Z9y-7P-hE4" firstAttribute="leading" secondItem="RKV-wC-fxn" secondAttribute="leading" constant="30" id="74R-QD-EAa"/>
-                            <constraint firstItem="GZ0-qO-fmG" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="60" id="7xa-8u-37f"/>
+                            <constraint firstItem="GZ0-qO-fmG" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="45" id="7xa-8u-37f"/>
                             <constraint firstItem="GZ0-qO-fmG" firstAttribute="leading" secondItem="RKV-wC-fxn" secondAttribute="leading" constant="35" id="B2z-x3-IGq"/>
                             <constraint firstItem="RKV-wC-fxn" firstAttribute="bottom" secondItem="Z9y-7P-hE4" secondAttribute="bottom" constant="20" id="E6i-BA-WQz"/>
                             <constraint firstItem="67H-XK-b4q" firstAttribute="leading" secondItem="RKV-wC-fxn" secondAttribute="leading" constant="20" id="F3K-xs-aX5"/>
                             <constraint firstItem="RKV-wC-fxn" firstAttribute="trailing" secondItem="7d9-pO-iRL" secondAttribute="trailing" constant="20" id="I8O-rm-FTl"/>
-                            <constraint firstItem="7d9-pO-iRL" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="40" id="PdB-nx-dqW"/>
+                            <constraint firstItem="7d9-pO-iRL" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="25" id="PdB-nx-dqW"/>
                             <constraint firstItem="Z9y-7P-hE4" firstAttribute="top" secondItem="7d9-pO-iRL" secondAttribute="bottom" constant="20" id="QPm-GV-qFb"/>
                             <constraint firstItem="OqJ-Ud-EKh" firstAttribute="top" secondItem="RKV-wC-fxn" secondAttribute="top" constant="40" id="bAz-Yb-lHR"/>
                             <constraint firstItem="RKV-wC-fxn" firstAttribute="trailing" secondItem="u2x-N8-zaS" secondAttribute="trailing" constant="30" id="bJl-gK-R0G"/>
@@ -285,7 +285,7 @@
                             <constraint firstItem="RKV-wC-fxn" firstAttribute="bottom" secondItem="u2x-N8-zaS" secondAttribute="bottom" constant="20" id="hYU-4b-Dh7"/>
                             <constraint firstItem="Z9y-7P-hE4" firstAttribute="top" secondItem="67H-XK-b4q" secondAttribute="bottom" constant="20" id="mic-X5-jYn"/>
                             <constraint firstItem="RKV-wC-fxn" firstAttribute="trailing" secondItem="67H-XK-b4q" secondAttribute="trailing" constant="20" id="nuP-lx-3Vx"/>
-                            <constraint firstItem="67H-XK-b4q" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="40" id="sa8-1C-Dr6"/>
+                            <constraint firstItem="67H-XK-b4q" firstAttribute="top" secondItem="OqJ-Ud-EKh" secondAttribute="bottom" constant="25" id="sa8-1C-Dr6"/>
                             <constraint firstItem="OqJ-Ud-EKh" firstAttribute="centerX" secondItem="1hc-mj-aAl" secondAttribute="centerX" id="tbs-CQ-pMt"/>
                         </constraints>
                     </view>

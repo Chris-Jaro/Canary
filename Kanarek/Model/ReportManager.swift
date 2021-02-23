@@ -61,6 +61,7 @@ struct ReportManager{
     var startLocationLoaded = false
     var hiddenLocationButton = true
     var currentLocation: CLLocation?
+    var defaultLocation: CLLocation?//If the user choses the city from the pop-up and did not allow location services
     
     
 }

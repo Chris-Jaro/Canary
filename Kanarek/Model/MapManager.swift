@@ -61,9 +61,9 @@ class MapManager {
     }
     
     //#### - Resets current mapView and places the its center for any given location
-    func setUsersLocation(for location: CLLocation, map: MKMapView){
+    func setUsersLocation(for location: CLLocation, map: MKMapView, zoom: Double = 0.01){
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: zoom, longitudeDelta: zoom))
         map.setRegion(region, animated: true)
     }
     
