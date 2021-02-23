@@ -33,7 +33,7 @@ class MapManager {
         }
     }
     
-    //#### - Provides a list of stop names in a given area from current location -> To the ReportControllerOne list of stops
+    //#### - Provides a list of stop names in a given area (of 1000m) from current location -> To the ReportControllerOne list of stops
     func filterStopsInTheArea(stops:[Stop]) -> [Stop] {
         var stopsInMyArea = [Stop]()
         if let location = reportLocation{
@@ -56,7 +56,7 @@ class MapManager {
     func addDangerousStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location,
                  title: stop.stopName,
-                 subtitle:"report_status: \(stop.status)\nType: \(stop.type)\nlines: \(stop.lines)\n___REPORT___\nTime: \(dateConvertter(interval: stop.dateModified))\ndirection: \(stop.direction)", map: map)
+                 subtitle:"report_status: \(stop.status)\nType: \(stop.type)\nLines: \(stop.lines)\n___REPORT___\nTime: \(dateConvertter(interval: stop.dateModified))\nDetails: \(stop.reportDetails)", map: map)
         addCircle(where: stop.location, map: map)
     }
     

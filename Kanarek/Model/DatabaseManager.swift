@@ -21,9 +21,9 @@ class DatabaseManager {
     
     let db = Firestore.firestore()
     
-    var stops:[Stop] = []
-    var dangerousStops:[Stop] = []
-    var directions:[String] = []
+    var stops = [Stop]()
+    var dangerousStops = [Stop]()
+    var directions = [String]()
     
     func getStops() -> [Stop]{
         return stops
@@ -51,13 +51,13 @@ class DatabaseManager {
                                let lat = data[K.FirebaseQuery.lat] as? Double,
                                let lon = data [K.FirebaseQuery.lon] as? Double,
                                let lines = data[K.FirebaseQuery.lines] as? [Int],
-                               let direction = data[K.FirebaseQuery.direction] as? String,
+                               let reportDetails = data[K.FirebaseQuery.reportDetails] as? String,
                                let date = data[K.FirebaseQuery.date] as? Double,
                                let type = data[K.FirebaseQuery.type] as? String,
                                let nightWork = data[K.FirebaseQuery.nightWork] as? Bool{
                                 let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                                 let linesList = lines.sorted()
-                                let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, direction: direction, dateModified: date, type: type, nightwork: nightWork)
+                                let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, reportDetails: reportDetails, dateModified: date, type: type, nightwork: nightWork)
                                 self.stops.append(newStop)
                                 
                                 if newStop.status {
@@ -126,10 +126,11 @@ class DatabaseManager {
     }
     
     //#### - Updates status variable of a stop in the database
-    func updatePointStatus(documentID stopName: String, status: Bool, direction: String, date:Double = 12.34, city: String = "poznan") {
-        db.collection("\(city)\(K.FirebaseQuery.stopsCollectionName)").document(stopName).setData([K.FirebaseQuery.status: status,
-                                                                                                       K.FirebaseQuery.date: date,
-                                                                                                       K.FirebaseQuery.direction: direction], merge: true)
+    func updatePointStatus(documentID stopName: String, status: Bool, reportDetails: String, date:Double = 12.34, city: String = "poznan") {
+        db.collection("\(city)\(K.FirebaseQuery.stopsCollectionName)")
+            .document(stopName).setData([K.FirebaseQuery.status: status,
+                                         K.FirebaseQuery.date: date,
+                                         K.FirebaseQuery.reportDetails: reportDetails], merge: true)
     }
     
     //#### - Restores the stop back to its normal state
@@ -138,9 +139,9 @@ class DatabaseManager {
         for stop in dangerousStops{
             if Date.timeIntervalSinceReferenceDate - stop.dateModified > 120 {
                 if let cityName = UserDefaults.standard.string(forKey: K.UserDefualts.cityName){
-                    updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction", city: cityName)
+                    updatePointStatus(documentID: stop.stopName, status: false, reportDetails: "No details", city: cityName)
                 } else {
-                    updatePointStatus(documentID: stop.stopName, status: false, direction: "No direction")
+                    updatePointStatus(documentID: stop.stopName, status: false, reportDetails: "No details")
                 }
             }
         }

@@ -28,7 +28,7 @@ struct K {
         static let type: String = "type"
         static let nightWork: String = "night_work"
         static let stopName: String = "stop_name"
-        static let direction: String = "direction"
+        static let reportDetails: String = "report_details"
         static let lines: String = "lines"
         static let linesCollectionName = "_lines"
         static let stopsCollectionName = "_stops"

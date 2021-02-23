@@ -13,7 +13,7 @@ struct Stop {
     let status: Bool
     let location: CLLocationCoordinate2D
     let lines: [Int]
-    let direction: String
+    let reportDetails: String
     let dateModified: Double
     let type: String
     let nightwork: Bool
