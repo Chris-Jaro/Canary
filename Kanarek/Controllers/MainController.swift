@@ -68,9 +68,22 @@ class MainController: UIViewController{
         print("Timer Action")
         
         databaseManager.renewStopStatus()
-        for region in locationManager.monitoredRegions{
-            locationManager.requestState(for: region)
+        
+        //#### Delaying the code for a few seconds to allow the dangerous stop to be neutral before checking the region
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // Change `2.0` to the desired number of seconds.
+            //## Even if there are no regions to monitor the screen will get back to normal when the dangerous stop becomes neutral
+            guard self.locationManager.monitoredRegions.count > 0 else {
+                print("There are no regions")
+                self.warningView.isHidden = true
+                self.mapView.alpha = 1.0
+                return
+            }
+            //## If there are regions to monitor they are checked every minute and ui repspons is triggered according to the state(.inside/.outside)
+            for region in self.locationManager.monitoredRegions{
+                self.locationManager.requestState(for: region)
+            }
         }
+        
     }
     
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
