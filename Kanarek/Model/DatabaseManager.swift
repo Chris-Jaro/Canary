@@ -17,18 +17,18 @@ class DatabaseManager {
     
     var delegate: DatabaseManagerDelegate?
     
-    let userLoginDetails = UserDefaults.standard
+    let userLoginDetails = UserDefaults.standard //Accessing user defaults
     
-    let db = Firestore.firestore()
+    let db = Firestore.firestore() // Creating database reference
     
     var stops = [Stop]()
     var dangerousStops = [Stop]()
     var directions = [String]()
     
+    //## Functions return the data
     func getStops() -> [Stop]{
         return stops
     }
-    
     func getDirections() -> [String]{
         return directions
     }

@@ -46,23 +46,28 @@
                                 <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BP-9x-9yo">
-                                <rect key="frame" x="113" y="519" width="188" height="48"/>
+                                <rect key="frame" x="107" y="504" width="200" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="EcP-EO-di9"/>
+                                    <constraint firstAttribute="width" constant="200" id="az2-ux-AUb"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                 <state key="normal" title="Zarejestruj się">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="SignUpButtonPressed:" destination="fdP-tL-JqT" eventType="touchUpInside" id="5LZ-vX-Lj7"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="d8u-Hi-OJT">
-                                <rect key="frame" x="30" y="336" width="354" height="24"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="d8u-Hi-OJT">
+                                <rect key="frame" x="30" y="326" width="354" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" systemColor="systemRedColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HY4-Bg-bWs" userLabel="checkboxView">
-                                <rect key="frame" x="30" y="360" width="354" height="59"/>
+                                <rect key="frame" x="30" y="345" width="354" height="59"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smo-BQ-lvE">
                                         <rect key="frame" x="5" y="14" width="19.5" height="31"/>
@@ -117,11 +122,11 @@
                             <constraint firstItem="HY4-Bg-bWs" firstAttribute="centerX" secondItem="MMt-wH-84s" secondAttribute="centerX" id="FLF-Dm-pG7"/>
                             <constraint firstItem="5BP-9x-9yo" firstAttribute="centerX" secondItem="MMt-wH-84s" secondAttribute="centerX" id="Iiq-a8-vo9"/>
                             <constraint firstItem="Zce-3T-ksd" firstAttribute="trailing" secondItem="09R-zG-0JT" secondAttribute="trailing" constant="30" id="OfQ-7Z-vSW"/>
-                            <constraint firstItem="d8u-Hi-OJT" firstAttribute="top" secondItem="09R-zG-0JT" secondAttribute="bottom" constant="20" id="VOa-Bp-dyh"/>
+                            <constraint firstItem="d8u-Hi-OJT" firstAttribute="top" secondItem="09R-zG-0JT" secondAttribute="bottom" constant="10" id="VOa-Bp-dyh"/>
                             <constraint firstItem="09R-zG-0JT" firstAttribute="leading" secondItem="Zce-3T-ksd" secondAttribute="leading" constant="30" id="Zhm-3q-LYE"/>
                             <constraint firstItem="v7G-zS-0nq" firstAttribute="top" secondItem="Zce-3T-ksd" secondAttribute="top" constant="60" id="cLu-Jj-ppl"/>
                             <constraint firstItem="5BP-9x-9yo" firstAttribute="top" secondItem="HY4-Bg-bWs" secondAttribute="bottom" constant="100" id="fPx-Tm-QMR"/>
-                            <constraint firstItem="HY4-Bg-bWs" firstAttribute="top" secondItem="d8u-Hi-OJT" secondAttribute="bottom" id="mqq-Xd-bER"/>
+                            <constraint firstItem="HY4-Bg-bWs" firstAttribute="top" secondItem="d8u-Hi-OJT" secondAttribute="bottom" constant="-5" id="mqq-Xd-bER"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rXN-Io-KEc"/>
@@ -130,6 +135,7 @@
                         <outlet property="emailTextField" destination="lNY-Rt-4Qi" id="9VK-hI-sFO"/>
                         <outlet property="errorLabel" destination="d8u-Hi-OJT" id="DRp-8x-TiR"/>
                         <outlet property="passwordTextField" destination="ZRc-Ig-grR" id="Vrr-Qf-gMo"/>
+                        <outlet property="signUpButton" destination="5BP-9x-9yo" id="7vt-xL-TYj"/>
                         <segue destination="AIp-nZ-MyS" kind="presentation" identifier="SignUpToMain" modalPresentationStyle="fullScreen" id="3ze-cM-5Iy"/>
                     </connections>
                 </viewController>
@@ -655,11 +661,15 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZd-pt-jfC">
-                                <rect key="frame" x="134.5" y="620.5" width="145" height="48"/>
-                                <color key="backgroundColor" red="0.058823529409999999" green="0.5450980392" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="127" y="610.5" width="160" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="pt0-2W-Nfe"/>
+                                    <constraint firstAttribute="height" constant="50" id="tMB-gl-A62"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                 <state key="normal" title="Zaloguj się">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="logInButtonPressed:" destination="L7H-Zc-fKu" eventType="touchUpInside" id="XJG-xJ-FvI"/>
@@ -667,8 +677,8 @@
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cuv-eh-LEP">
                                 <rect key="frame" x="30" y="484" width="354" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" systemColor="systemRedColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logowanie:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VC-cb-S7V">
@@ -693,7 +703,7 @@
                             <constraint firstItem="0xA-vi-CT2" firstAttribute="trailing" secondItem="evN-CP-MqW" secondAttribute="trailing" constant="30" id="ezS-yP-83x"/>
                             <constraint firstItem="iZd-pt-jfC" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="i3W-Cq-rEq"/>
                             <constraint firstItem="zwN-46-xBy" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="lgS-Hs-LWJ"/>
-                            <constraint firstItem="iZd-pt-jfC" firstAttribute="top" secondItem="SL5-wN-RcV" secondAttribute="bottom" constant="80" id="mNB-nr-BQm"/>
+                            <constraint firstItem="iZd-pt-jfC" firstAttribute="top" secondItem="SL5-wN-RcV" secondAttribute="bottom" constant="70" id="mNB-nr-BQm"/>
                             <constraint firstItem="zwN-46-xBy" firstAttribute="top" secondItem="MCZ-06-FSR" secondAttribute="bottom" id="o1V-uG-To3"/>
                             <constraint firstItem="0xA-vi-CT2" firstAttribute="trailing" secondItem="Cuv-eh-LEP" secondAttribute="trailing" constant="30" id="pgM-X5-ls6"/>
                             <constraint firstItem="evN-CP-MqW" firstAttribute="leading" secondItem="0xA-vi-CT2" secondAttribute="leading" constant="30" id="vpw-Ur-pls"/>
@@ -704,6 +714,7 @@
                         <outlet property="emailTextField" destination="AAE-B5-mvn" id="5Mb-3y-LrJ"/>
                         <outlet property="errorLabel" destination="Cuv-eh-LEP" id="OBa-tE-XlT"/>
                         <outlet property="passwordTextField" destination="MDe-sD-DHy" id="ZaI-1S-ys2"/>
+                        <outlet property="signInButton" destination="iZd-pt-jfC" id="ezi-qt-Zcf"/>
                         <segue destination="AIp-nZ-MyS" kind="presentation" identifier="SignInToMain" modalPresentationStyle="fullScreen" id="aYq-z3-eLX"/>
                     </connections>
                 </viewController>
@@ -756,8 +767,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="aYq-z3-eLX"/>
-        <segue reference="vYh-DC-bqT"/>
+        <segue reference="3ze-cM-5Iy"/>
+        <segue reference="MVn-eN-aN6"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Kanarek_Logo_1_trans" width="1024" height="1024"/>

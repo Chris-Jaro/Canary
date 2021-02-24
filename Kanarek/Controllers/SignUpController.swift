@@ -16,14 +16,21 @@ class SignUpController: UIViewController{
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var checkbox: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var signUpButton: UIButton!
     
     //## - Changes the color of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        signUpButton.layer.cornerRadius = 10
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         setPlaceholder()
         errorLabel.isHidden = true
+        errorLabel.text = ""
 //        navigationController?.popToRootViewController(animated: true)
     }
     

@@ -49,20 +49,20 @@ class MapManager {
     
     //#### - Adds a non-dangerous stop to the mapView
     func addNeutralStop(for stop:Stop, on map: MKMapView){
-        addPoint(where: stop.location, title: stop.stopName, subtitle:"lines: \(stop.lines)\nType: \(stop.type)\nreport_status: \(stop.status)", map: map)
+        addPoint(where: stop.location, title: stop.stopName, subtitle:"Lines: \(stop.lines)\nType: \(stop.type)\nreport_status: \(stop.status)", map: map)
     }
     
     //#### - Adds a dangerous stop to the mapView
     func addDangerousStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location,
                  title: stop.stopName,
-                 subtitle:"report_status: \(stop.status)\nType: \(stop.type)\nLines: \(stop.lines)\n___REPORT___\nTime: \(dateConvertter(interval: stop.dateModified))\nDetails: \(stop.reportDetails)", map: map)
+                 subtitle:"report_status: \(stop.status)\nType: \(stop.type)\nLines: \(stop.lines)\n_____REPORT_____\nTime: \(dateConvertter(interval: stop.dateModified))\nDetails: \(stop.reportDetails)", map: map)
         addCircle(where: stop.location, map: map)
     }
     
-    //#### - Resets current mapView and places the its center for any given location
+    //#### - Resets current mapView and places the its center for any given location + adjusts zoom of the map
     func setUsersLocation(for location: CLLocation, map: MKMapView, zoom: Double = 0.01){
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let center = location.coordinate
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: zoom, longitudeDelta: zoom))
         map.setRegion(region, animated: true)
     }
@@ -91,18 +91,18 @@ class MapManager {
         }
     }
     
-    //#### - Sets up the region monitoring for provided regions
+    //#### - Sets up the region monitoring for provided region (in the for block in Main Controller)
     func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String, for locationManager: CLLocationManager) {
-        // MAKE SURE THE DIVICE SUPPORTS REGION MONITORING
-        guard locationManager.monitoredRegions.count <= 20 else { return } // only 20 allowed by Apple IMPLEMENT SOME SORT OF SORTING BASED ON THE DISTANCE TO THE USER?
+        // Checks if the divice supports Region Monitoring
+        guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) else { return }
         
-        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
-            let region = CLCircularRegion(center: center,radius: 200, identifier: identifier)
-            region.notifyOnEntry = true
-            region.notifyOnExit = true
-       
-            locationManager.startMonitoring(for: region)
-        }
+        // guard locationManager.monitoredRegions.count <= 20 else {return} - only 20 allowed by Apple (IMPLEMENT SOME SORT OF SORTING BASED ON THE DISTANCE TO THE USER?) ----- Highly Unlikely given that there would have to be reports every 6 seconds
+        
+        let region = CLCircularRegion(center: center,radius: 200, identifier: identifier)
+        region.notifyOnEntry = true
+        
+        locationManager.startMonitoring(for: region)
+        
     }
     
     //#### - Adds pointAnnotation to the map

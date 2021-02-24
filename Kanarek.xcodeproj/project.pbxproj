@@ -42,7 +42,6 @@
 		831105112576CA1000B1B1A2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		831105142578371B00B1B1A2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		831105152578371B00B1B1A2 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
-		831465F925C7150A00EBC311 /* DangerousStop.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DangerousStop.gpx; sourceTree = "<group>"; };
 		831465FA25C7152000EBC311 /* NeutralStop.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NeutralStop.gpx; sourceTree = "<group>"; };
 		831465FB25C7154100EBC311 /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
 		833F911625ACC88B00B0EEF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -60,6 +59,7 @@
 		835BFD7B256D3F5F00C97772 /* TermsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsController.swift; sourceTree = "<group>"; };
 		836765C525DDB686000A9349 /* LineCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCustomCell.swift; sourceTree = "<group>"; };
 		836765C625DDB686000A9349 /* LineCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineCustomCell.xib; sourceTree = "<group>"; };
+		83B4069425E6DAD200C761DA /* BydgoszczTest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BydgoszczTest.gpx; sourceTree = "<group>"; };
 		83C5B4D525D31ACB00D94669 /* Kanarek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kanarek.entitlements; sourceTree = "<group>"; };
 		83D56D9B25BF15E700BAF340 /* ReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManager.swift; sourceTree = "<group>"; };
 		83E5BFB0256AB648005C56B0 /* Kanarek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kanarek.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,10 +96,10 @@
 		831465F725C7146200EBC311 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				831465F925C7150A00EBC311 /* DangerousStop.gpx */,
 				831465FA25C7152000EBC311 /* NeutralStop.gpx */,
 				831465FB25C7154100EBC311 /* SimulatedLocations.gpx */,
 				83424E9C25E40700003C7B9E /* WarsawTest.gpx */,
+				83B4069425E6DAD200C761DA /* BydgoszczTest.gpx */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

@@ -65,7 +65,6 @@ class MainController: UIViewController{
     }
     
     @objc func timerAction(){
-        print("Timer Action")
         
         databaseManager.renewStopStatus()
         
@@ -106,7 +105,6 @@ class MainController: UIViewController{
             return
         }
         
-        
         mapManager.reportLocation = location
         performSegue(withIdentifier: "GoToReportOne", sender: self)
     }
@@ -123,7 +121,7 @@ class MainController: UIViewController{
 
 //MARK: - MapManagerDelegate Methods
 extension MainController: MapManagerDelegate{
-    //#### Function is activated by MapManager when it returns the name of the city for the user's location and check if it is one of the supported cities, if not it loads the default (poznan)
+    //#### Function is activated by MapManager when it returns the name of the city for the user's location and check if it is one of the supported cities, if not it loads the default (poznan) + shows alert to let the user know we only support Poznan and Warsaw
     func loadPoints(for cityName: String) {
         let supportedCityNames = ["poznan", "warsaw"]
         
@@ -134,14 +132,19 @@ extension MainController: MapManagerDelegate{
         }
         
         if supportedCityNames.contains(cityName){
-            //REMOVE THE USER DEFUALT CITY NAME -> then every time the aplicaiton is loaded the city name is deleted and updated
+            //Remove default city name -> then every time the aplicaiton is loaded the city name is deleted and updated
             userDefaults.removeObject(forKey: K.UserDefualts.cityName)
-            //SET UP THE CITY NAME AS A USER DEFUALT
+            //Set up city name as a default for the user
             userDefaults.setValue(cityName, forKey: K.UserDefualts.cityName)
             databaseManager.loadPoints(for: cityName)
         } else {
             //REMOVE THE USER DEFUALT CITY NAME -> then every time the aplicaiton is loaded the city name is deleted and updated
             userDefaults.removeObject(forKey: K.UserDefualts.cityName)
+            
+            //Show alert to notify the user that we only support Poznan and Warsaw -> which he can access with disabled location
+            let alert = UIAlertController(title: "Użytkownik poza obszarem", message: "No obecnym etapie dostępne są Poznań i Warszawa. Jest do nich dostęp przy odrzuceniu pozwolenia localizacji\nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             databaseManager.loadPoints()
         }
         
@@ -155,6 +158,7 @@ extension MainController: DatabaseManagerDelegate {
     //#### Funciton is triggered by database manager when the points from the database are loaded and then it refreshes the mapView with the new data
     func updateUI(list:[Any]) {
         guard let stops:[Stop] = list as? [Stop] else { return }
+
         mapManager.deleteOldPoints(on: mapView)
         mapManager.resetMonitoring(for: locationManager)
         for stop in stops {

@@ -15,6 +15,7 @@ class SignInController: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signInButton: UIButton!
     
     
     //## - Changes the color of battery and time an service to white
@@ -24,12 +25,15 @@ class SignInController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        signInButton.layer.cornerRadius = 10
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
         setPlaceholder()
         errorLabel.isHidden = true
+        errorLabel.text = "Error label"
     }
 
     override func viewDidLoad() {
