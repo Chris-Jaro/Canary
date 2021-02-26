@@ -1,5 +1,5 @@
 //
-//  ReportManager.swift
+//  DataManager.swift
 //  Kanarek
 //
 //  Created by Chris Yarosh on 25/01/2021.
@@ -9,13 +9,12 @@ import Foundation
 import CoreLocation
 
 struct DataManager{
-//--- ReportControllerOne Variables and Methods
+//_____ReportControllerOne Variables and Methods_____________
     var stopsInTheArea: [Stop]?
     var chosenStopIndex: Int?
     
-    //## - Function that filters the line numbers depending on the hour of the day (night/day lines)
     //## - Function is triggered by ReportOneController when preparing for segue and performs action:
-        // -> filerts the list of lineNumbers for of the chosen stop depending on the time of the day
+        // -> filerts the list of lineNumbers for of the chosen stop depending on the time of the day (night/day lines)
             // - <5:00-22:00) -> returns only day lineNumbers (x < 200  or 300 =< x )
             // - <22:00-00:00) + <04:00-05:00)  -> returns all lineNumbers because some lines are still operating and others already
             // - <00:00-04:00) -> returns only night lineNumbers (200 =< x < 300)
@@ -60,12 +59,14 @@ struct DataManager{
         }
     }
     
-//--- ReportControllerTwo Variables and Methods
+//_____ReportControllerTwo Variables and Methods______________
     var linesList: [Int]?
     var stopName: String?
     var selectedLine: Int?
     
-    //## - Function takes full lines list and converts it into a two-dimensional matrix to provide suit functionality for two-column table ([1,2,3,4] -> [[1,2],[3,4]])
+    //## - Function is triggered by ReportControllerTwo (when loading tableView) and performs action:
+        // -> convetrs the one-dimenstional array of lineNumbers into a two-dimensional array to be suitable for two-column table ([1,2,3,4] -> [[1,2],[3,4]])
+        // -> if lines list.count is odd zero is appended and then adjusted (and if a button.title == "0" it gets disabled)
     func adjustLinesList(list: [Int]) -> [[Int]]{
         var workingList = list
         var adjustedList = [[Int]]()
@@ -88,7 +89,9 @@ struct DataManager{
         return adjustedList
     }
     
-    //## - Function takes a list [Int] and provides a list of only the evenIndices (0,2,4,...) -> to allow creation of two-dimensional matrix
+    //## - Function is triggered by adjustLinesList and performs action:
+        // -> takes a list [Int]
+        // -> returns a list of only the even indices (0,2,4,...) -> to allow creation of two-dimensional matrix
     func filterEvenIndices(list:[Int]) -> [Int]{
         var evenIndices = [Int]()
         for (index, _) in list.enumerated() {
@@ -99,12 +102,12 @@ struct DataManager{
         return evenIndices
     }
     
-//--- ReportControllerThree Variables
+//_____ReportControllerThree Variables______________
     var chosenStopName: String?
     var lineNr: Int?
     var directionIndex: Int?
     
-//--- MainController Variables
+//_____MainController Variables______________
     var startLocationLoaded = false
     var hiddenLocationButton = true
     var currentLocation: CLLocation?

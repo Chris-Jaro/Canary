@@ -17,7 +17,9 @@ class MapManager {
     
     var reportLocation: CLLocation?
     
-    //#### - Provides current city name in lowercase -> Not needed now 
+    //## - Function is triggered by MainController and performs actions:
+        // -> takes provided location and performs reverseGeocoding which results in a city name for the location (in english)
+        // -> After receiving the city name MapManager delegate's (here MainController) method loadPoints is called with the city name
     func getCurrentCity(for currentLocation: CLLocation?){
         let geoCoder = CLGeocoder()
         // "preferredLocale:" variable forces the language of the geoCoder results (to English in this case "en")
@@ -33,7 +35,9 @@ class MapManager {
         }
     }
     
-    //#### - Provides a list of stop names in a given area (of 1000m) from current location -> To the ReportControllerOne list of stops
+    //## - Function is triggered by MainController during preparation for segue and perfroms actions:
+        // -> filters the stops list and returns the stops that are within 1000m from the user's location (report locaiton)
+        // -> if there are no stops the list is passes as an empty list and suitable error message is displayed in ReportOneController
     func filterStopsInTheArea(stops:[Stop]) -> [Stop] {
         var stopsInMyArea = [Stop]()
         if let location = reportLocation{
@@ -47,12 +51,15 @@ class MapManager {
         return stopsInMyArea
     }
     
-    //#### - Adds a non-dangerous stop to the mapView
+    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+        // -> adds a neutral stop to the mapView where it specifies stop's title, subtitle and location (unsing addPoint function)
     func addNeutralStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location, title: stop.stopName, subtitle:"Lines: \(stop.lines)\nType: \(stop.type)\nreport_status: \(stop.status)", map: map)
     }
     
-    //#### - Adds a dangerous stop to the mapView
+    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+        // -> adds a dangerous stop to the mapView where it specifies stop's title, subtitle and location (unsing addPoint function)
+        // -> adds circle overlay to the mapView at the location of the dangerous stop
     func addDangerousStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location,
                  title: stop.stopName,
@@ -60,14 +67,16 @@ class MapManager {
         addCircle(where: stop.location, map: map)
     }
     
-    //#### - Resets current mapView and places the its center for any given location + adjusts zoom of the map
+    //## - Function is triggered by MainController's locationManager (only once on the first load of the mapView) and tapping the currentLocationButton and performs action:
+        // -> resets the mapView region (the visible part of the map) with privided arguments (location and zoom)
     func setUsersLocation(for location: CLLocation, map: MKMapView, zoom: Double = 0.01){
         let center = location.coordinate
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: zoom, longitudeDelta: zoom))
         map.setRegion(region, animated: true)
     }
     
-    //#### - Cleans the whole map of all annotations
+    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+        // -> deletes all the annotation from the map (except for the userLocation annotation) - to avoid stucking stops when refreshing the map
     func deleteOldPoints(on map:MKMapView){
         var list = map.annotations
         if let userIndex = list.firstIndex(where: { (annotation) -> Bool in
@@ -83,7 +92,8 @@ class MapManager {
         map.removeOverlays(map.overlays)
     }
     
-    //#### - Cleans the list of currently monitrored stops
+    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+        // -> cleans the list of monitored regions (dangerous stops)
     func resetMonitoring(for manager: CLLocationManager){
         let regions = manager.monitoredRegions
         regions.forEach { (region) in
@@ -91,7 +101,8 @@ class MapManager {
         }
     }
     
-    //#### - Sets up the region monitoring for provided region (in the for block in Main Controller)
+    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+        // -> adds a region to monitoredRegions list of LocationManager
     func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String, for locationManager: CLLocationManager) {
         // Checks if the divice supports Region Monitoring
         guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) else { return }
@@ -105,7 +116,7 @@ class MapManager {
         
     }
     
-    //#### - Adds pointAnnotation to the map
+    //## - Function simplifies the process of adding the point to the mapView
     func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String, map: MKMapView){
         let point = MKPointAnnotation()
         point.coordinate = location
@@ -114,14 +125,14 @@ class MapManager {
         map.addAnnotation(point)
     }
     
-    //#### - Adds circle danger zone to the map
+    //## - Function simplifies the process of adding the circle overlay for dangerous stops
     func addCircle(where location: CLLocationCoordinate2D, map: MKMapView){
         let regionRadius = 200.0
         let circle = MKCircle(center: location, radius: regionRadius)
         map.addOverlay(circle)
     }
     
-    //#### Function converts timeIntervalSince2001 to 'HH:mm'
+    //## - Function converts timeIntervalSince2001 to 'HH:mm' which is then displayed in report details on the pop-up
     func dateConvertter(interval:TimeInterval ) -> String {
         let date = Date(timeIntervalSinceReferenceDate: interval)
         let dateFormatter = DateFormatter()

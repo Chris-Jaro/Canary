@@ -9,7 +9,7 @@ import UIKit
 
 class ReportControllerOne: UIViewController {
     
-    var dataManagerOne = ReportManager() // Accessing data variables and methods
+    var dataManagerOne = DataManager() // Accessing data variables and methods
 
     @IBOutlet weak var tableView: UITableView!
     

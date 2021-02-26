@@ -12,7 +12,9 @@ struct  PushNotificationManager {
     
     let userDefaults = UserDefaults.standard // Accessing the user defaults
     
-    //## Signing out from Push Notifications + setting the deault
+    //## - Function is triggered by SettingsController and onAppStart() and perfroms action:
+        // -> unsubscribes from all currently available pushNotificationTopics
+        // -> saves the set value of userDefaults to "Unsubscribed"
     func unsubscribe(){
         for topic in ["push_notifications_poznan", "push_notifications_warsaw"]{
             Messaging.messaging().unsubscribe(fromTopic: topic) { error in
@@ -25,7 +27,9 @@ struct  PushNotificationManager {
         print("Unsubscribed from ALL push_notifications")
     }
     
-    //## Signing up for Push Notifications + setting the deault
+    //## - Function is triggered by SettingsController and onAppStart() and perfroms action:
+        // -> subscribes to pushNotificationTopic for current city
+        // -> saves the set value of userDefaults to "Unsubscribed"
     func subscribe(to city: String){
         Messaging.messaging().subscribe(toTopic: "push_notifications_\(city)") { error in
             if error == nil{
@@ -35,12 +39,12 @@ struct  PushNotificationManager {
         }
     }
     
-    //## The initial subsciption happens only once ever -> then the whole process takes place in the settings
-    //## The Function performs the actions according to the Push Notification Subscription Status
-        //$$ If initial app launch (no value in userDefaults) and current city is defined -> Subscribes to the city push notifications
-        //$$ If Unsubscribed in the settings -> Do nothing
-        //$$ If Subscribed to the current city -> No nothing
-        //$$ IF Subscribed to a different city -> Unsubscribe form all cities and Subscribe to the current one
+    //## The initial subsciption happens only once ever (when there is no data in UserDefaults) -> then the whole process takes place in the settings
+    //## - Function performs the actions according to the Push Notification Subscription Status
+        // -> if initial app launch (no value in userDefaults) and current city is defined -> Subscribes to the city push notifications
+        // -> if Unsubscribed in the settings -> Do nothing
+        // -> if Subscribed to the current city -> No nothing
+        // -> if Subscribed to a different city -> Unsubscribe form all cities and Subscribe to the current one
     func onAppStart(){
         if let city = userDefaults.string(forKey: K.UserDefualts.cityName){
             if let subStatus = userDefaults.string(forKey:"topicSubscription"){ // Checks if the subscription status is defined

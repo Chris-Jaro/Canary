@@ -8,6 +8,7 @@ import UserNotifications
 import UIKit
 
 
+//## - Struct defines a localNotification object and its variables
 struct LocalNotification {
     var id: String
     var title: String
@@ -17,18 +18,24 @@ struct LocalNotification {
 struct NotificationManager {
     var notifications = [LocalNotification]()
     
-    func requestPermission(){
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
-                if granted == true && error == nil {
-                    // We have permission!
-                }
-            }
+    //## Function is triggered by MainController's locationManager when user enters dangerous region and prefroms action:
+        // -> adds the notification to the noticifation list
+        // -> shedules all the notifications in the list
+    mutating func setNotification(title: String, body: String, userInfo:[AnyHashable : Any]){
+        addNotification(title: title, body: body)
+        scheduleNotification(userInfo: userInfo)
     }
     
+    //## - Function is triggered by setNotification method and performs action:
+        // -> creates a localNotification object and appends it to the list
     mutating func addNotification(title: String, body: String){
         notifications.append(LocalNotification(id: UUID().uuidString, title: title, body: body))
     }
     
+    //## - Fuunction is triggered by the setNotification method and performs action:
+        // -> creates real notificaiton object for every notificaiton in the list
+        // -> removes all pending notifications
+        // -> clears the list on notificaiton after they are scheduled
     mutating func scheduleNotification(userInfo:[AnyHashable : Any]){
         UIApplication.shared.applicationIconBadgeNumber = 0
         for notification in notifications{
@@ -50,14 +57,5 @@ struct NotificationManager {
         notifications.removeAll()
     }
     
-    func cancel(){
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-    }
-    
-    mutating func setNotification(title: String, body: String, userInfo:[AnyHashable : Any]){
-        requestPermission()
-        addNotification(title: title, body: body)
-        scheduleNotification(userInfo: userInfo)
-    }
 }
 

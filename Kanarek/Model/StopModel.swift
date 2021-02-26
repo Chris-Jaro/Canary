@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+// - Struct defines the Stop object and its variables
 struct Stop {
     let stopName: String
     let status: Bool

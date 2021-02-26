@@ -9,7 +9,7 @@ import UIKit
 
 class ReportControllerTwo: UIViewController {
     
-    var dataManagerTwo = ReportManager()
+    var dataManagerTwo = DataManager()
     @IBOutlet weak var tableView: UITableView!
     
     //## - Changes the color of battery and time an service to white

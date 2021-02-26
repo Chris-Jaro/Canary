@@ -14,7 +14,7 @@ class MainController: UIViewController{
     let locationManager = CLLocationManager() // Accessing location-related methods
     var mapManager = MapManager() // Accessing map-related methods
     var databaseManager = DatabaseManager() // Accessing database-related methods and variables
-    var dataManagerMain = ReportManager() // Accessing all data related variables and methods needed by this controller
+    var dataManagerMain = DataManager() // Accessing all data related variables and methods needed by this controller
     var notificationManager = NotificationManager() // Accessing local notification methods
     let pushNotificationManager = PushNotificationManager() // Accessing puhs notification methods
     let userDefaults = UserDefaults.standard // Accessing user defaults
@@ -69,11 +69,13 @@ class MainController: UIViewController{
     }
     
     //## - Function is triggered every 60 seconds by the timer set up when the view is loaded and perforems action:
+        // -> user must allow location services for the timer to perform is action (to avoid database bugs if the user passively choses Warsaw with renewStopsStaus()) 
         // -> triggers renewStopsStatus function (which checks is a stops set to dangerous more than 2 minutes ago If so it sets it back to neutral)
         // -> delays the execution of the code for two seconds
             // -> if there are no dangerous stops or user is not in one -> the view normal map view is restored
             // -> if user is in the dangerous region -> the waring view is shown on the map
     @objc func timerAction(){
+        guard let _ = dataManagerMain.currentLocation else { return }
         databaseManager.renewStopStatus()
         //#### Delaying the code for a few seconds to allow the dangerous stop to be neutral before checking the region
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // Change `2.0` to the desired number of seconds.

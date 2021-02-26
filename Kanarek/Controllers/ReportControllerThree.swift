@@ -10,7 +10,7 @@ import UIKit
 class ReportControllerThree: UIViewController {
     
     var databaseManager = DatabaseManager() // Accessing the methods and variables for Firestore Database
-    var dataManagerThree = ReportManager() // Accessing the data variabeles and mathods
+    var dataManagerThree = DataManager() // Accessing the data variabeles and mathods
     let userDefaults = UserDefaults.standard // Accessing UserDefualts
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var reportButton: UIButton!
