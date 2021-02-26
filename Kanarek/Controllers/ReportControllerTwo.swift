@@ -9,14 +9,18 @@ import UIKit
 
 class ReportControllerTwo: UIViewController {
     
-    var reportManagerTwo = ReportManager()
-
+    var dataManagerTwo = ReportManager()
     @IBOutlet weak var tableView: UITableView!
     
     //## - Changes the color of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
+    
+    //## - Fuction is triggered then the view is loaded and performs actions:
+        // -> sets the dataSource and the delegate for tableView
+        // -> sets row height to 100 (for the numbers)
+        // -> registers both custom cells (text - for error message; number - for line numbers)
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,12 +34,14 @@ class ReportControllerTwo: UIViewController {
         
     }
 
+    //## - Function is triggered right before the segue and performs action:
+        // -> passes the chosen data (line number; stop name) to the dataManagerThree
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToReportThree"{
             let destinationVC = segue.destination as! ReportControllerThree
-            if let _ = reportManagerTwo.linesList, let line = reportManagerTwo.selectedLine, let stopName = reportManagerTwo.stopName{
-                destinationVC.reportManagerThree.lineNr = line
-                destinationVC.reportManagerThree.chosenStopName = stopName
+            if let _ = dataManagerTwo.linesList, let line = dataManagerTwo.selectedLine, let stopName = dataManagerTwo.stopName{
+                destinationVC.dataManagerThree.lineNr = line
+                destinationVC.dataManagerThree.chosenStopName = stopName
 
             }
         }
@@ -46,10 +52,10 @@ class ReportControllerTwo: UIViewController {
 //MARK: - TableView-related Methods
 extension ReportControllerTwo: UITableViewDataSource{
     
-    //#### - Function provides the number of section in the TableView | "One Row per Section" policy is applied to enable creating of the gap between the rows (by adding invisible headers of certain height)
+    //#### - Function provides the number of section in the TableView | "One Row per Section" policy is applied to enable creating the gap between the rows (by adding invisible headers of certain height)
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let lines = reportManagerTwo.linesList, lines.count > 0 else {return 1}
-        let adjustedLines = reportManagerTwo.adjustLinesList(list: lines)
+        guard let lines = dataManagerTwo.linesList, lines.count > 0 else {return 1}
+        let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
         
         return adjustedLines.count
     }
@@ -58,9 +64,13 @@ extension ReportControllerTwo: UITableViewDataSource{
     }
     
     //#### - Functions determins exactly what is to be displayed on every cell one by one
+        // -> If there are no lines -> error message is displayed
+        // -> If there are lines the list is adjusted to conform with the two columns (list dimensions are changed [1,2,3,4] -> [[1,2][3,4]])
+        // -> If lines.count is odd -> 0 is appended to the list and is button label is equal to 0 the button is diabled
+        // -> delegate is set for the cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //## - Guard statement protects this function from the lack of data and displays the message accordingly
-        guard let lines = reportManagerTwo.linesList, lines.count > 0 else {
+        guard let lines = dataManagerTwo.linesList, lines.count > 0 else {
             tableView.rowHeight = tableView.estimatedRowHeight
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
             cell.label?.text = "Błąd - brak lini do wyświetlenia"
@@ -70,8 +80,7 @@ extension ReportControllerTwo: UITableViewDataSource{
             return cell
         }
         
-        //#### -> HERE ID and class downcast
-        let adjustedLines = reportManagerTwo.adjustLinesList(list: lines)
+        let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.lineIdentifier, for: indexPath) as! LineCustomCell
         cell.leftButton.setTitle("\(adjustedLines[indexPath.section][0])", for: .normal)
         cell.rightButton.setTitle("\(adjustedLines[indexPath.section][1])", for: .normal)
@@ -100,16 +109,19 @@ extension ReportControllerTwo: UITableViewDelegate{
 //MARK: - LineCustomCellDelegate Methods
 extension ReportControllerTwo: LineCustomCellDelegate{
     
-    //#### - Function deselects all the cells and is initiated by the buttonClicked actions
+    //## - Function is triggered by the buttonClicked actions
+        // -> When a button with a line number is tapped the whole tableView gets deselected and then only the current button gets selected
     func setDeselected() {
         tableView.visibleCells.forEach { (cell) in
             cell.setSelected(false, animated: true)
         }
     }
     
-    //#### - Function performs action (saves data of the user's choise of line number and performs segue) | function id triggered by clicking the button
+    //## - Function is triggered by tapping on one of the buttons in the number cell and performs actions:
+        // -> saves data of the user's choise of line number
+        // -> performs segue
     func performAction(with selectedLine: Int) {
-        reportManagerTwo.selectedLine = selectedLine
+        dataManagerTwo.selectedLine = selectedLine
         performSegue(withIdentifier: "GoToReportThree" , sender: self)
     }
 }

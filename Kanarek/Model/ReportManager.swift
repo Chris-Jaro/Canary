@@ -13,6 +13,48 @@ struct ReportManager{
     var stopsInTheArea: [Stop]?
     var chosenStopIndex: Int?
     
+    //Function that filters the line numbers depending on the hour of the day (night/day lines) #### MOVE TO MANAGER
+    func filterLineNumbers(lines: [Int]) -> [Int] {
+        //Accessing the current hour of the device
+        let now = Calendar.current.dateComponents(in: .current, from: Date())
+        if let currentHour = now.hour {
+            /*
+             A -> If currentHour is between <5:00-22:00) -> We have day
+             B -> if currentHour is between <22:00-00:00) + <04:00-05:00)  -> We have day&night
+             C -> if currentHour is between <00:00-04:00) -> We have night
+             */
+            
+            if 5 <= currentHour && currentHour < 22 {
+//              --A--
+                var filterdLines = [Int]()
+                lines.forEach { (line) in
+                    if line < 200 || line >= 300{
+                        filterdLines.append(line)
+                    }
+                }
+                return filterdLines
+                
+            } else if 0 <= currentHour && currentHour < 4 {
+//              --B--
+                var filterdLines = [Int]()
+                lines.forEach { (line) in
+                    if line >= 200 && line < 300{
+                        filterdLines.append(line)
+                    }
+                }
+                return filterdLines
+        
+            } else {
+//              --C--
+                return lines
+            }
+
+        } else {
+            print("Could not get device's current hour -> Night Lines")
+            return lines // If there is a problem loading the time
+        }
+    }
+    
 //#### ReportControllerTwo Variables
     var linesList: [Int]?
     var stopName: String?

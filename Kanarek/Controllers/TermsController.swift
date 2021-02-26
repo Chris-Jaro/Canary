@@ -17,6 +17,8 @@ class TermsController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
+    //## - Function is called when the view loades
+        // -> Rounds the coreners of rhe white rim
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,7 +26,7 @@ class TermsController: UIViewController {
         termsView.layer.cornerRadius = 15
         whiteLineView.layer.cornerRadius = 15
         
-        //## Sets the contant set Terms&Conditions text as the text of the textView
+        //## Sets the constant Terms&Conditions text as the text of the textView
         termsTextView.text = K.Regulamin.text
     }
     

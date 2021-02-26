@@ -10,10 +10,9 @@ import Firebase
 
 class SettingsController: UIViewController {
     
-    let pushNotificationManager = PushNotificationManager()
+    let pushNotificationManager = PushNotificationManager() // Getting the functionality to sunscribe and unsubscribe form push-notification topics
     let userDefaults = UserDefaults.standard // Accessing user defaults
     @IBOutlet weak var stateSwitch: UISwitch!
-    
     @IBOutlet weak var currentUserLabel: UILabel!
     @IBOutlet weak var mainSettingsView: UIView!
     @IBOutlet weak var whiteLineView: UIView!
@@ -25,7 +24,10 @@ class SettingsController: UIViewController {
         return .lightContent
     }
     
-    //## Checks the settings and adjusts the switch state on the screen accordingly
+    //## - Function is called before appearance of the view and performs actions:
+        // -> Checks the settings and adjusts the switch state on the screen accordingly
+        // -> Adjust the ui by rounding the corners and
+        // -> Displays the user identifier
     override func viewWillAppear(_ animated: Bool) {
         //## These two lines round up the corners of the white line
         whiteLineView.layer.cornerRadius = 15
@@ -53,12 +55,17 @@ class SettingsController: UIViewController {
             }
         }
     }
+    
+    //## - Functions is called when the view is loaded -> adds an observer to watch for the value change of the switch
     override func viewDidLoad() {
         super.viewDidLoad()
         
         stateSwitch.addTarget(self, action: #selector(stateChanged), for: .valueChanged) // sets up the observer of the switch - which triggers on value-change
     }
     
+    //## - Funciton is triggered when the user taps sign-out button and performs action:
+        // -> removes saved login data (kept for auto-login)
+        // -> dismisses main navigation controller (goes back to first navigation controller which handles the login/sign-up process)
     @IBAction func signOutButtonPressed(_ sender: UIButton) {
         userDefaults.removeObject(forKey: "UserPassword")
         userDefaults.removeObject(forKey: "UserEmail")
@@ -66,12 +73,12 @@ class SettingsController: UIViewController {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    //## preforms segue to the terms and conditions view
+    //## - Function is triggered when the user presses on "regulamin" label -> preforms segue to the terms and conditions view
     @IBAction func termsButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "GoToTermsFromSettings", sender: self)
     }
     
-    //## Implements the functionality of the switch
+    //## Implements the functionality of the switch -> subscribes to or unsubscribes from push notfications
     @objc func stateChanged(switchState: UISwitch) {
         if switchState.isOn {
             if let cityName = userDefaults.string(forKey: K.UserDefualts.cityName){
