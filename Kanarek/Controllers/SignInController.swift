@@ -44,7 +44,7 @@ class SignInController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setPlaceholder()
-        if let userEmail = userLoginDetails.string(forKey: "UserEmail"), let userPassword = userLoginDetails.string(forKey: "UserPassword") {
+        if let userEmail = userLoginDetails.string(forKey: K.UserDefaults.email), let userPassword = userLoginDetails.string(forKey: K.UserDefaults.password) {
             loggingIn(email: userEmail, password: userPassword)
         } else {
             print("No data in the user defaults")
@@ -78,10 +78,10 @@ class SignInController: UIViewController {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = "! \(e.localizedDescription) !"
             } else {
-                self.userLoginDetails.setValue(email, forKey: "UserEmail")
-                self.userLoginDetails.setValue(password, forKey: "UserPassword")
+                self.userLoginDetails.setValue(email, forKey: K.UserDefaults.email)
+                self.userLoginDetails.setValue(password, forKey: K.UserDefaults.password)
                 self.removeSpinner()
-                self.performSegue(withIdentifier: "SignInToMain", sender: self)
+                self.performSegue(withIdentifier: K.Segues.singInToMain, sender: self)
             }
         }
     }

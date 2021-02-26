@@ -151,7 +151,7 @@ class DatabaseManager {
         guard dangerousStops.count > 0 else {return}
         for stop in dangerousStops{
             if Date.timeIntervalSinceReferenceDate - stop.dateModified > 120 {
-                if let cityName = UserDefaults.standard.string(forKey: K.UserDefualts.cityName){
+                if let cityName = UserDefaults.standard.string(forKey: K.UserDefaults.cityName){
                     updatePointStatus(documentID: stop.stopName, status: false, reportDetails: "No details", date: Date.timeIntervalSinceReferenceDate ,city: cityName)
                 } else {
                     updatePointStatus(documentID: stop.stopName, status: false, reportDetails: "No details", date: Date.timeIntervalSinceReferenceDate)

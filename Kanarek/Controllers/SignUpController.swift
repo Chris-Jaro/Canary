@@ -87,10 +87,10 @@ class SignUpController: UIViewController{
                 self.errorLabel.isHidden = false
                 self.removeSpinner()
             } else {
-                self.userLoginDetails.setValue(email, forKey: "UserEmail")
-                self.userLoginDetails.setValue(password, forKey: "UserPassword")
+                self.userLoginDetails.setValue(email, forKey: K.UserDefaults.email)
+                self.userLoginDetails.setValue(password, forKey: K.UserDefaults.password)
                 self.removeSpinner()
-                self.performSegue(withIdentifier: "SignUpToMain", sender: self)
+                self.performSegue(withIdentifier: K.Segues.signUpToMain, sender: self)
             }
         }
         

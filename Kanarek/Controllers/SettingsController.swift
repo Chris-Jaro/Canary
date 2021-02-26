@@ -42,12 +42,12 @@ class SettingsController: UIViewController {
         stateSwitch.clipsToBounds = true
     
         //# This line sets the user to the current user If it exists (but it tecnically has to)
-        if let user = userDefaults.string(forKey: "UserEmail"){
+        if let user = userDefaults.string(forKey: K.UserDefaults.email){
             currentUserLabel.text = user
         }
         
         //## These lines set the switch state depending on the setting
-        if let subscriptionSetting = userDefaults.string(forKey: "topicSubscription"){
+        if let subscriptionSetting = userDefaults.string(forKey: K.UserDefaults.pushNotificationSubscription){
             if subscriptionSetting.contains("Subscribed"){
                 stateSwitch.isOn = true
             } else {
@@ -67,21 +67,21 @@ class SettingsController: UIViewController {
         // -> removes saved login data (kept for auto-login)
         // -> dismisses main navigation controller (goes back to first navigation controller which handles the login/sign-up process)
     @IBAction func signOutButtonPressed(_ sender: UIButton) {
-        userDefaults.removeObject(forKey: "UserPassword")
-        userDefaults.removeObject(forKey: "UserEmail")
+        userDefaults.removeObject(forKey: K.UserDefaults.password)
+        userDefaults.removeObject(forKey: K.UserDefaults.email)
         
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
     //## - Function is triggered when the user presses on "regulamin" label -> preforms segue to the terms and conditions view
     @IBAction func termsButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "GoToTermsFromSettings", sender: self)
+        performSegue(withIdentifier: K.Segues.toTerms, sender: self)
     }
     
     //## Implements the functionality of the switch -> subscribes to or unsubscribes from push notfications
     @objc func stateChanged(switchState: UISwitch) {
         if switchState.isOn {
-            if let cityName = userDefaults.string(forKey: K.UserDefualts.cityName){
+            if let cityName = userDefaults.string(forKey: K.UserDefaults.cityName){
                 pushNotificationManager.subscribe(to: cityName)
             }
         } else {

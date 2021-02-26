@@ -28,9 +28,9 @@ class ReportControllerTwo: UIViewController {
         tableView.dataSource = self
         tableView.rowHeight = 100
         // Regular line number cell
-        tableView.register(UINib(nibName: K.CustomCell.lineNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.lineIdentifier)
+        tableView.register(UINib(nibName: K.CustomCell.numberNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.numberIdentifier)
         // Stop cell - used to display error message
-        tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
+        tableView.register(UINib(nibName: K.CustomCell.textNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.textIdentifier)
         
     }
 
@@ -72,7 +72,7 @@ extension ReportControllerTwo: UITableViewDataSource{
         //## - Guard statement protects this function from the lack of data and displays the message accordingly
         guard let lines = dataManagerTwo.linesList, lines.count > 0 else {
             tableView.rowHeight = tableView.estimatedRowHeight
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
             cell.label?.text = "Błąd - brak lini do wyświetlenia"
             cell.isUserInteractionEnabled = false
             cell.typeImage.image = UIImage(systemName: "exclamationmark.triangle.fill")
@@ -81,7 +81,7 @@ extension ReportControllerTwo: UITableViewDataSource{
         }
         
         let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.lineIdentifier, for: indexPath) as! LineCustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.numberIdentifier, for: indexPath) as! NumberCell
         cell.leftButton.setTitle("\(adjustedLines[indexPath.section][0])", for: .normal)
         cell.rightButton.setTitle("\(adjustedLines[indexPath.section][1])", for: .normal)
         if cell.rightButton.currentTitle == "0"{
@@ -106,12 +106,12 @@ extension ReportControllerTwo: UITableViewDelegate{
     }
 }
 
-//MARK: - LineCustomCellDelegate Methods
-extension ReportControllerTwo: LineCustomCellDelegate{
+//MARK: - NumberCellDelegate Methods
+extension ReportControllerTwo: NumberCellDelegate{
     
     //## - Function is triggered by the buttonClicked actions
         // -> When a button with a line number is tapped the whole tableView gets deselected and then only the current button gets selected
-    func setDeselected() {
+    func deselectAllCells() {
         tableView.visibleCells.forEach { (cell) in
             cell.setSelected(false, animated: true)
         }
@@ -122,7 +122,7 @@ extension ReportControllerTwo: LineCustomCellDelegate{
         // -> performs segue
     func performAction(with selectedLine: Int) {
         dataManagerTwo.selectedLine = selectedLine
-        performSegue(withIdentifier: "GoToReportThree" , sender: self)
+        performSegue(withIdentifier: K.Segues.toReportThree, sender: self)
     }
 }
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol LineCustomCellDelegate {
+protocol NumberCellDelegate {
     func performAction(with selectedLine:Int)
     func deselectAllCells()
 }
@@ -17,18 +17,18 @@ class NumberCell: UITableViewCell {
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     
-    var delegate: LineCustomCellDelegate? // ideally ReportControllerTwo
+    var delegate: NumberCellDelegate? // ideally ReportControllerTwo
     var chosenNumber:String?
     
     //## - Function configires the way a cell looks form the begining (UI config)
+        // -> rounds the corners of the buttons of the cell
+        // -> changes button tint color to clear to avoid the button-selected functionality of small blue square around the title
     override func awakeFromNib() {
         super.awakeFromNib()
-        leftButton.layer.cornerRadius = 20 // to make the corners nicer
-        leftButton.tintColor = UIColor.clear // to avoid the button-selected functionality of small blue swuare around the title
+        leftButton.layer.cornerRadius = 20 
+        leftButton.tintColor = UIColor.clear
         rightButton.layer.cornerRadius = 20
         rightButton.tintColor = UIColor.clear
-        
-        
     }
 
     //## - Function is triggered by tapping of one of the buttons in the cell and performs action:
@@ -51,7 +51,7 @@ class NumberCell: UITableViewCell {
     }
     
     //## - Function reacts to the selection or deselection of the cells
-        // -> Selection : delegate performAction() is triggerd | buttons are recolored | the selected button is deselected but left with the color
+        // -> Selection : delegate's performAction() is triggerd | buttons are recolored | the selected button is deselected but left with the color
         // -> Deselection : all buttons are deselected | recolored accordingly
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -81,7 +81,11 @@ class NumberCell: UITableViewCell {
         
     }
     
-    //#### -> Function is responsible for the coloring of the buttons
+    //## - Function is responsible for the coloring of the buttons
+        // -> if enabled button is selected -> color to yellow
+        // -> if enabled button (has to be deselected because all selected are already yellow) starts with 2 and has 3 digits -> color black | text color to white
+        // -> if enabled button is neutral (others then the two cases specified above) -> color to white
+        // -> if disabled button -> color to clear (invisible and not working)
     func applyColor(to button: UIButton){
         let title = button.currentTitle!
         if button.isSelected && button.isEnabled{

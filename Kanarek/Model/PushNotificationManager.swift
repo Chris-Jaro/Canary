@@ -16,14 +16,14 @@ struct  PushNotificationManager {
         // -> unsubscribes from all currently available pushNotificationTopics
         // -> saves the set value of userDefaults to "Unsubscribed"
     func unsubscribe(){
-        for topic in ["push_notifications_poznan", "push_notifications_warsaw"]{
+        for topic in [K.PushNotifications.poznanTopic, K.PushNotifications.warsawTopic]{
             Messaging.messaging().unsubscribe(fromTopic: topic) { error in
                 if error != nil{
                     print(error!)
                 }
             }
         }
-        userDefaults.setValue("Unsubscribed", forKey: "topicSubscription")
+        userDefaults.setValue("Unsubscribed", forKey: K.UserDefaults.pushNotificationSubscription)
         print("Unsubscribed from ALL push_notifications")
     }
     
@@ -34,7 +34,7 @@ struct  PushNotificationManager {
         Messaging.messaging().subscribe(toTopic: "push_notifications_\(city)") { error in
             if error == nil{
                 print("Subscribed to push_notifications_\(city)")
-                userDefaults.setValue("Subscribed to \(city)", forKey: "topicSubscription")
+                userDefaults.setValue("Subscribed to \(city)", forKey: K.UserDefaults.pushNotificationSubscription)
             }
         }
     }
@@ -46,8 +46,8 @@ struct  PushNotificationManager {
         // -> if Subscribed to the current city -> No nothing
         // -> if Subscribed to a different city -> Unsubscribe form all cities and Subscribe to the current one
     func onAppStart(){
-        if let city = userDefaults.string(forKey: K.UserDefualts.cityName){
-            if let subStatus = userDefaults.string(forKey:"topicSubscription"){ // Checks if the subscription status is defined
+        if let city = userDefaults.string(forKey: K.UserDefaults.cityName){
+            if let subStatus = userDefaults.string(forKey: K.UserDefaults.pushNotificationSubscription){ // Checks if the subscription status is defined
                 if subStatus.contains("Unsubscribed"){
                     print("Already unsubscribed!")
                 } else if subStatus.contains(city) { // (if one is subscribing to poznan and is in poznan)

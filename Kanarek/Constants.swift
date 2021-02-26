@@ -9,15 +9,32 @@ import Foundation
 
 struct K {
     
-    struct UserDefualts {
+    struct UserDefaults {
         static let cityName = "cityName"
+        static let pushNotificationSubscription = "topicSubscription"
+        static let email = "UserEmail"
+        static let password = "UserPassword"
+    }
+    
+    struct PushNotifications{
+        static let poznanTopic = "push_notifications_poznan"
+        static let warsawTopic = "push_notifications_warsaw"
+    }
+    
+    struct Segues {
+        static let toReportOne = "GoToReportOne"
+        static let toReportTwo = "GoToReportTwo"
+        static let toReportThree = "GoToReportThree"
+        static let singInToMain = "SignInToMain"
+        static let signUpToMain = "SignUpToMain"
+        static let toTerms = "GoToTermsFromSettings"
     }
     
     struct CustomCell {
-        static let nibName = "CustomCell"
-        static let identifier = "CustomCell"
-        static let lineNibName = "LineCustomCell"
-        static let lineIdentifier = "LineCustomCell"
+        static let textNibName = "TextCell"
+        static let textIdentifier = "TextCell"
+        static let numberNibName = "NumberCell"
+        static let numberIdentifier = "NumberCell"
     }
     
     struct FirebaseQuery {

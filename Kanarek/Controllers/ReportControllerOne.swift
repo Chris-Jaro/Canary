@@ -27,8 +27,7 @@ class ReportControllerOne: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 80
-        tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
-        
+        tableView.register(UINib(nibName: K.CustomCell.textNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.textIdentifier)
     }
     
     //## - Function is triggered right before the segue and performs action:
@@ -62,7 +61,7 @@ extension ReportControllerOne: UITableViewDataSource{
         //## - This guard is executed if there are no stops in the 1km area from the user AND displays a message accordingly
         guard let stopsList = dataManagerOne.stopsInTheArea, stopsList.count > 0  else {
             tableView.rowHeight = tableView.estimatedRowHeight // Adjusts the row height to bigger message
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
             cell.label?.text = "Brak przystnaków w promieniu 1km"
             cell.isUserInteractionEnabled = false
             cell.typeImage.image = UIImage(systemName: "exclamationmark.triangle.fill")
@@ -71,7 +70,7 @@ extension ReportControllerOne: UITableViewDataSource{
         }
         
         //## - If there is at least one stop in the given area this part is executed
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
         cell.label?.text = stopsList[indexPath.row].stopName
         cell.typeImage.isHidden = false
         
@@ -95,7 +94,7 @@ extension ReportControllerOne: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let stopsList = dataManagerOne.stopsInTheArea, stopsList.count > 0  else { return }
         dataManagerOne.chosenStopIndex = indexPath.row
-        performSegue(withIdentifier: "GoToReportTwo" , sender: self)
+        performSegue(withIdentifier: K.Segues.toReportTwo , sender: self)
     }
     
 }

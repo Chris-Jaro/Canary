@@ -33,7 +33,7 @@ class ReportControllerThree: UIViewController {
         //### - Table View configuration
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: K.CustomCell.nibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.identifier)
+        tableView.register(UINib(nibName: K.CustomCell.textNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.textIdentifier)
         
         databaseManager.delegate = self
 
@@ -41,7 +41,7 @@ class ReportControllerThree: UIViewController {
         
         //# Loads the directions for given line number from the database for given city | If there is a city value in the defaults
         //# else if there is no city name it loads default for poznan
-        if let cityName = userDefaults.string(forKey: K.UserDefualts.cityName){
+        if let cityName = userDefaults.string(forKey: K.UserDefaults.cityName){
             databaseManager.loadLineDirections(for: lineNumber, city: cityName)
         } else {
             databaseManager.loadLineDirections(for: lineNumber)
@@ -59,7 +59,7 @@ class ReportControllerThree: UIViewController {
         let direction = databaseManager.getDirections()[dataManagerThree.directionIndex!]
         
         //## If there is cityName | Else default
-        if let cityName = userDefaults.string(forKey: K.UserDefualts.cityName){
+        if let cityName = userDefaults.string(forKey: K.UserDefaults.cityName){
             databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction, city: cityName)
             databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumebr) towards \(direction)", date: Date.timeIntervalSinceReferenceDate, city: cityName)
         } else {
@@ -103,14 +103,14 @@ extension ReportControllerThree: UITableViewDataSource{
         
         //If there is no data error message is displayed
         if directions.count > 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
             cell.label?.text = directions[indexPath.row]
             //##Because the data needs to load the First cell is the error cell for split second and it blocks userInteraction and reveals the image, therefore this has to be taken back while loading of the proper cells
             cell.typeImage.isHidden = true
             cell.isUserInteractionEnabled = true
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.identifier, for: indexPath) as! CustomCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
             cell.label?.text = "Błąd - Brak kierunków"
             cell.isUserInteractionEnabled = false
             cell.typeImage.image = UIImage(systemName: "exclamationmark.triangle.fill")

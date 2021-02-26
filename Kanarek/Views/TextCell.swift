@@ -1,5 +1,5 @@
 //
-//  CustomCell.swift
+//  TextCell.swift
 //  Kanarek
 //
 //  Created by Chris Yarosh on 02/12/2020.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomCell: UITableViewCell {
+class TextCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var labelBubble: UIView!

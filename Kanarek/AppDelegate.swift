@@ -15,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id" //Google cloud messaging key
     let userDefaults = UserDefaults.standard //Accessing user defaults
     
+    //## - Function is triggered when app finished launching (first lines of code action that are perfromed in app process) and performs actions:
+        // -> configures Firebase
+        // -> setting FirebaseCloudMessaging's delegate
+        // -> requesting user permission for notifications
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure() //Necessary for firebase functionalty
         
@@ -42,13 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    //## - Functions that handle the remoteNotification receiving
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         if let messageID = userInfo[gcmMessageIDKey] {
           print("Message ID: \(messageID)")
         }
-        
     }
-
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let messageID = userInfo[gcmMessageIDKey] {
           print("Message ID: \(messageID)")
@@ -56,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         completionHandler(UIBackgroundFetchResult.newData)
     }
-    
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Unable to register for remote notifications: \(error.localizedDescription)")
     }
@@ -66,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
+    //## - Function is triggered when remote notification was recieved and will be presentsed
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         
@@ -77,14 +80,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     //#### ACCESSING NOTIFICATION'S DATA When the user clicks on the notification
+    //## - Function is triggered when user taps on the push notification (response is recieved) and can perform action:
+        // -> notifications data can be accessed (coordinates of the stop that was reported to show it on the map)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
           print("Message ID: \(messageID)")
         }
-        
-          //##Printing the meta data
+          //##Printing the data
 //        if let lat = userInfo["latitude"], let lon = userInfo["longitude"] {
 //            print("Latitude: \(lat) \nLongitude: \(lon)")
 //        }
@@ -97,6 +101,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 extension AppDelegate: MessagingDelegate{
     
+    //## - Function is triggered when FCM registration token of the divice is received
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(String(describing: fcmToken))")
         

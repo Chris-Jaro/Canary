@@ -123,7 +123,7 @@ class MainController: UIViewController{
         }
         
         mapManager.reportLocation = location
-        performSegue(withIdentifier: "GoToReportOne", sender: self)
+        performSegue(withIdentifier: K.Segues.toReportOne, sender: self)
     }
     
     
@@ -158,13 +158,13 @@ extension MainController: MapManagerDelegate{
         
         if supportedCityNames.contains(cityName){
             //Remove default city name -> then every time the aplicaiton is loaded the city name is deleted and updated
-            userDefaults.removeObject(forKey: K.UserDefualts.cityName)
+            userDefaults.removeObject(forKey: K.UserDefaults.cityName)
             //Set up city name as a default for the user
-            userDefaults.setValue(cityName, forKey: K.UserDefualts.cityName)
+            userDefaults.setValue(cityName, forKey: K.UserDefaults.cityName)
             databaseManager.loadPoints(for: cityName)
         } else {
             //REMOVE THE USER DEFUALT CITY NAME -> then every time the aplicaiton is loaded the city name is deleted and updated
-            userDefaults.removeObject(forKey: K.UserDefualts.cityName)
+            userDefaults.removeObject(forKey: K.UserDefaults.cityName)
             
             //Show alert to notify the user that we only support Poznan and Warsaw -> which he can access with disabled location
             let alert = UIAlertController(title: "Użytkownik poza obszarem", message: "No obecnym etapie dostępne są Poznań i Warszawa. Jest do nich dostęp przy odrzuceniu pozwolenia localizacji\nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", preferredStyle: .alert)
