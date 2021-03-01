@@ -89,21 +89,31 @@
                                     <constraint firstItem="NRE-Wb-eja" firstAttribute="top" secondItem="HY4-Bg-bWs" secondAttribute="top" constant="14" id="lio-tM-n4v"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BP-9x-9yo">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0FV-8C-tch">
                                 <rect key="frame" x="97" y="509" width="220" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BP-9x-9yo">
+                                        <rect key="frame" x="2" y="2" width="216" height="56"/>
+                                        <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
+                                        <state key="normal" title="Zarejestruj się">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="SignUpButtonPressed:" destination="fdP-tL-JqT" eventType="touchUpInside" id="5LZ-vX-Lj7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="EcP-EO-di9"/>
-                                    <constraint firstAttribute="width" constant="220" id="az2-ux-AUb"/>
+                                    <constraint firstAttribute="height" constant="60" id="0b4-nh-hhM"/>
+                                    <constraint firstItem="5BP-9x-9yo" firstAttribute="top" secondItem="0FV-8C-tch" secondAttribute="top" constant="2" id="RMR-NY-l8a"/>
+                                    <constraint firstAttribute="trailing" secondItem="5BP-9x-9yo" secondAttribute="trailing" constant="2" id="RVh-Ak-3NF"/>
+                                    <constraint firstAttribute="width" constant="220" id="gkU-1S-9lu"/>
+                                    <constraint firstItem="5BP-9x-9yo" firstAttribute="leading" secondItem="0FV-8C-tch" secondAttribute="leading" constant="2" id="hYo-eT-eFR"/>
+                                    <constraint firstAttribute="bottom" secondItem="5BP-9x-9yo" secondAttribute="bottom" constant="2" id="llD-7Z-5CF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
-                                <state key="normal" title="Zarejestruj się">
-                                    <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="SignUpButtonPressed:" destination="fdP-tL-JqT" eventType="touchUpInside" id="5LZ-vX-Lj7"/>
-                                </connections>
-                            </button>
+                            </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="d8u-Hi-OJT">
                                 <rect key="frame" x="30" y="326" width="354" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -117,20 +127,21 @@
                             <constraint firstItem="HY4-Bg-bWs" firstAttribute="leading" secondItem="Zce-3T-ksd" secondAttribute="leading" constant="30" id="41A-q0-aig"/>
                             <constraint firstItem="v7G-zS-0nq" firstAttribute="leading" secondItem="Zce-3T-ksd" secondAttribute="leading" constant="30" id="6Vd-Ib-O8d"/>
                             <constraint firstItem="d8u-Hi-OJT" firstAttribute="leading" secondItem="Zce-3T-ksd" secondAttribute="leading" constant="30" id="759-ao-UQj"/>
+                            <constraint firstItem="0FV-8C-tch" firstAttribute="top" secondItem="HY4-Bg-bWs" secondAttribute="bottom" constant="100" id="8hc-aM-Pyu"/>
                             <constraint firstItem="09R-zG-0JT" firstAttribute="top" secondItem="v7G-zS-0nq" secondAttribute="bottom" constant="40" id="9ua-Q5-chS"/>
                             <constraint firstItem="Zce-3T-ksd" firstAttribute="trailing" secondItem="d8u-Hi-OJT" secondAttribute="trailing" constant="30" id="BtF-iL-Kgg"/>
                             <constraint firstItem="HY4-Bg-bWs" firstAttribute="centerX" secondItem="MMt-wH-84s" secondAttribute="centerX" id="FLF-Dm-pG7"/>
-                            <constraint firstItem="5BP-9x-9yo" firstAttribute="centerX" secondItem="MMt-wH-84s" secondAttribute="centerX" id="Iiq-a8-vo9"/>
+                            <constraint firstItem="0FV-8C-tch" firstAttribute="centerX" secondItem="MMt-wH-84s" secondAttribute="centerX" id="Mib-rd-RKx"/>
                             <constraint firstItem="Zce-3T-ksd" firstAttribute="trailing" secondItem="09R-zG-0JT" secondAttribute="trailing" constant="30" id="OfQ-7Z-vSW"/>
                             <constraint firstItem="d8u-Hi-OJT" firstAttribute="top" secondItem="09R-zG-0JT" secondAttribute="bottom" constant="10" id="VOa-Bp-dyh"/>
                             <constraint firstItem="09R-zG-0JT" firstAttribute="leading" secondItem="Zce-3T-ksd" secondAttribute="leading" constant="30" id="Zhm-3q-LYE"/>
                             <constraint firstItem="v7G-zS-0nq" firstAttribute="top" secondItem="Zce-3T-ksd" secondAttribute="top" constant="60" id="cLu-Jj-ppl"/>
-                            <constraint firstItem="5BP-9x-9yo" firstAttribute="top" secondItem="HY4-Bg-bWs" secondAttribute="bottom" constant="100" id="fPx-Tm-QMR"/>
                             <constraint firstItem="HY4-Bg-bWs" firstAttribute="top" secondItem="d8u-Hi-OJT" secondAttribute="bottom" id="mqq-Xd-bER"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rXN-Io-KEc"/>
                     <connections>
+                        <outlet property="buttonRim" destination="0FV-8C-tch" id="yA9-aG-Yv8"/>
                         <outlet property="checkbox" destination="Smo-BQ-lvE" id="KW9-Bs-4Yf"/>
                         <outlet property="emailTextField" destination="lNY-Rt-4Qi" id="9VK-hI-sFO"/>
                         <outlet property="errorLabel" destination="d8u-Hi-OJT" id="DRp-8x-TiR"/>
@@ -424,26 +435,36 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rzO-8S-7eB" userLabel="button">
                                         <rect key="frame" x="0.0" y="342" width="414" height="342"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QF7-Gw-FUl">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YJh-8O-6c7">
                                                 <rect key="frame" x="147" y="141" width="120" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QF7-Gw-FUl">
+                                                        <rect key="frame" x="2" y="2" width="116" height="56"/>
+                                                        <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
+                                                        <state key="normal" title="Zgłoś">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="reportButtonPressed:" destination="fCm-jF-uDb" eventType="touchUpInside" id="Lgd-qx-iKF"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="120" id="DqC-Gf-f95"/>
-                                                    <constraint firstAttribute="height" constant="60" id="WMQ-fS-STp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="QF7-Gw-FUl" secondAttribute="trailing" constant="2" id="A0b-CV-lEM"/>
+                                                    <constraint firstAttribute="width" constant="120" id="Fwr-V1-OrJ"/>
+                                                    <constraint firstItem="QF7-Gw-FUl" firstAttribute="top" secondItem="YJh-8O-6c7" secondAttribute="top" constant="2" id="b60-bz-jHu"/>
+                                                    <constraint firstAttribute="bottom" secondItem="QF7-Gw-FUl" secondAttribute="bottom" constant="2" id="eI9-mU-c1H"/>
+                                                    <constraint firstItem="QF7-Gw-FUl" firstAttribute="leading" secondItem="YJh-8O-6c7" secondAttribute="leading" constant="2" id="k9q-3U-bDa"/>
+                                                    <constraint firstAttribute="height" constant="60" id="qXO-D7-Bh4"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
-                                                <state key="normal" title="Zgłoś">
-                                                    <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="reportButtonPressed:" destination="fCm-jF-uDb" eventType="touchUpInside" id="Lgd-qx-iKF"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="QF7-Gw-FUl" firstAttribute="centerX" secondItem="rzO-8S-7eB" secondAttribute="centerX" id="Ez2-OT-Q0e"/>
-                                            <constraint firstItem="QF7-Gw-FUl" firstAttribute="centerY" secondItem="rzO-8S-7eB" secondAttribute="centerY" id="P1h-t4-KAM"/>
+                                            <constraint firstItem="YJh-8O-6c7" firstAttribute="centerX" secondItem="rzO-8S-7eB" secondAttribute="centerX" id="SF8-Rc-Uja"/>
+                                            <constraint firstItem="YJh-8O-6c7" firstAttribute="centerY" secondItem="rzO-8S-7eB" secondAttribute="centerY" id="cXQ-PN-rQq"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -463,13 +484,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="aF0-BQ-TGo"/>
                     <connections>
+                        <outlet property="buttonRim" destination="YJh-8O-6c7" id="vwA-UC-KpD"/>
                         <outlet property="reportButton" destination="QF7-Gw-FUl" id="fUb-Ri-F0A"/>
                         <outlet property="tableView" destination="1IP-eL-9oY" id="0YO-zw-W1V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qcv-Xz-2cM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4770" y="528"/>
+            <point key="canvasLocation" x="4647.826086956522" y="527.67857142857144"/>
         </scene>
         <!--Settings Controller-->
         <scene sceneID="Swd-lV-eK6">
@@ -665,21 +687,31 @@
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZd-pt-jfC">
-                                <rect key="frame" x="117" y="611.5" width="180" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IjE-N0-BJt">
+                                <rect key="frame" x="107" y="611.5" width="200" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZd-pt-jfC">
+                                        <rect key="frame" x="2" y="2" width="196" height="56"/>
+                                        <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
+                                        <state key="normal" title="Zaloguj się">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="logInButtonPressed:" destination="L7H-Zc-fKu" eventType="touchUpInside" id="XJG-xJ-FvI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="pt0-2W-Nfe"/>
-                                    <constraint firstAttribute="height" constant="60" id="tMB-gl-A62"/>
+                                    <constraint firstAttribute="width" constant="200" id="525-Wx-Nar"/>
+                                    <constraint firstAttribute="height" constant="60" id="AqT-gC-V9Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="iZd-pt-jfC" secondAttribute="trailing" constant="2" id="LUv-lv-xAW"/>
+                                    <constraint firstItem="iZd-pt-jfC" firstAttribute="leading" secondItem="IjE-N0-BJt" secondAttribute="leading" constant="2" id="YL3-gz-kUT"/>
+                                    <constraint firstItem="iZd-pt-jfC" firstAttribute="top" secondItem="IjE-N0-BJt" secondAttribute="top" constant="2" id="gry-ZD-Iyb"/>
+                                    <constraint firstAttribute="bottom" secondItem="iZd-pt-jfC" secondAttribute="bottom" constant="2" id="zrI-Gq-9wY"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
-                                <state key="normal" title="Zaloguj się">
-                                    <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="logInButtonPressed:" destination="L7H-Zc-fKu" eventType="touchUpInside" id="XJG-xJ-FvI"/>
-                                </connections>
-                            </button>
+                            </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cuv-eh-LEP">
                                 <rect key="frame" x="30" y="484" width="354" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -706,9 +738,9 @@
                             <constraint firstItem="MCZ-06-FSR" firstAttribute="top" secondItem="0xA-vi-CT2" secondAttribute="top" constant="10" id="Utv-6X-Ozt"/>
                             <constraint firstItem="MCZ-06-FSR" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="ej1-sh-kHW"/>
                             <constraint firstItem="0xA-vi-CT2" firstAttribute="trailing" secondItem="evN-CP-MqW" secondAttribute="trailing" constant="30" id="ezS-yP-83x"/>
-                            <constraint firstItem="iZd-pt-jfC" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="i3W-Cq-rEq"/>
+                            <constraint firstItem="IjE-N0-BJt" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="f0o-zq-TmV"/>
+                            <constraint firstItem="IjE-N0-BJt" firstAttribute="top" secondItem="SL5-wN-RcV" secondAttribute="bottom" constant="70" id="hL1-TQ-1BV"/>
                             <constraint firstItem="zwN-46-xBy" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="lgS-Hs-LWJ"/>
-                            <constraint firstItem="iZd-pt-jfC" firstAttribute="top" secondItem="SL5-wN-RcV" secondAttribute="bottom" constant="70" id="mNB-nr-BQm"/>
                             <constraint firstItem="zwN-46-xBy" firstAttribute="top" secondItem="MCZ-06-FSR" secondAttribute="bottom" id="o1V-uG-To3"/>
                             <constraint firstItem="0xA-vi-CT2" firstAttribute="trailing" secondItem="Cuv-eh-LEP" secondAttribute="trailing" constant="30" id="pgM-X5-ls6"/>
                             <constraint firstItem="evN-CP-MqW" firstAttribute="leading" secondItem="0xA-vi-CT2" secondAttribute="leading" constant="30" id="vpw-Ur-pls"/>
@@ -716,6 +748,7 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="zNg-YY-vft"/>
                     <connections>
+                        <outlet property="buttonRim" destination="IjE-N0-BJt" id="osZ-yN-r8Q"/>
                         <outlet property="emailTextField" destination="AAE-B5-mvn" id="5Mb-3y-LrJ"/>
                         <outlet property="errorLabel" destination="Cuv-eh-LEP" id="OBa-tE-XlT"/>
                         <outlet property="passwordTextField" destination="MDe-sD-DHy" id="ZaI-1S-ys2"/>

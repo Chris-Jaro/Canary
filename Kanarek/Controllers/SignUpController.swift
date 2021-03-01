@@ -18,6 +18,7 @@ class SignUpController: UIViewController{
     @IBOutlet weak var checkbox: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var buttonRim: UIView!
     
     //## - Changes the color of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -25,7 +26,8 @@ class SignUpController: UIViewController{
     }
     //## - Rounding button corners
     override func viewWillAppear(_ animated: Bool) {
-        signUpButton.layer.cornerRadius = 10
+        signUpButton.layer.cornerRadius = 15
+        buttonRim.layer.cornerRadius = 15
     }
     //## - Resetting error label and placeholders
     override func viewDidDisappear(_ animated: Bool) {

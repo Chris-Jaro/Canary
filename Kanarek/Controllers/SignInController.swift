@@ -16,6 +16,7 @@ class SignInController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var buttonRim: UIView!
     
     //## - Changes the color of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -25,7 +26,8 @@ class SignInController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        signInButton.layer.cornerRadius = 10
+        signInButton.layer.cornerRadius = 15
+        buttonRim.layer.cornerRadius = 15
         
     }
     //## - Function reveals navigation bar, resets placeholders and error label
@@ -61,7 +63,6 @@ class SignInController: UIViewController {
     
     //## - Functions performs log-in when 'log in' button is pressed provided that text fields are not empty
     @IBAction func logInButtonPressed(_ sender: UIButton) {
-        print(signInButton.constraints)
         if let email = emailTextField.text, let password = passwordTextField.text{
             loggingIn(email: email, password: password)
         }
