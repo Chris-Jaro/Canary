@@ -45,29 +45,8 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BP-9x-9yo">
-                                <rect key="frame" x="107" y="504" width="200" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="EcP-EO-di9"/>
-                                    <constraint firstAttribute="width" constant="200" id="az2-ux-AUb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
-                                <state key="normal" title="Zarejestruj się">
-                                    <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="SignUpButtonPressed:" destination="fdP-tL-JqT" eventType="touchUpInside" id="5LZ-vX-Lj7"/>
-                                </connections>
-                            </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="d8u-Hi-OJT">
-                                <rect key="frame" x="30" y="326" width="354" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HY4-Bg-bWs" userLabel="checkboxView">
-                                <rect key="frame" x="30" y="345" width="354" height="59"/>
+                                <rect key="frame" x="30" y="350" width="354" height="59"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smo-BQ-lvE">
                                         <rect key="frame" x="5" y="14" width="19.5" height="31"/>
@@ -110,6 +89,27 @@
                                     <constraint firstItem="NRE-Wb-eja" firstAttribute="top" secondItem="HY4-Bg-bWs" secondAttribute="top" constant="14" id="lio-tM-n4v"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BP-9x-9yo">
+                                <rect key="frame" x="97" y="509" width="220" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="EcP-EO-di9"/>
+                                    <constraint firstAttribute="width" constant="220" id="az2-ux-AUb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
+                                <state key="normal" title="Zarejestruj się">
+                                    <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="SignUpButtonPressed:" destination="fdP-tL-JqT" eventType="touchUpInside" id="5LZ-vX-Lj7"/>
+                                </connections>
+                            </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="d8u-Hi-OJT">
+                                <rect key="frame" x="30" y="326" width="354" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zce-3T-ksd"/>
                         <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -126,7 +126,7 @@
                             <constraint firstItem="09R-zG-0JT" firstAttribute="leading" secondItem="Zce-3T-ksd" secondAttribute="leading" constant="30" id="Zhm-3q-LYE"/>
                             <constraint firstItem="v7G-zS-0nq" firstAttribute="top" secondItem="Zce-3T-ksd" secondAttribute="top" constant="60" id="cLu-Jj-ppl"/>
                             <constraint firstItem="5BP-9x-9yo" firstAttribute="top" secondItem="HY4-Bg-bWs" secondAttribute="bottom" constant="100" id="fPx-Tm-QMR"/>
-                            <constraint firstItem="HY4-Bg-bWs" firstAttribute="top" secondItem="d8u-Hi-OJT" secondAttribute="bottom" constant="-5" id="mqq-Xd-bER"/>
+                            <constraint firstItem="HY4-Bg-bWs" firstAttribute="top" secondItem="d8u-Hi-OJT" secondAttribute="bottom" id="mqq-Xd-bER"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rXN-Io-KEc"/>
@@ -425,10 +425,15 @@
                                         <rect key="frame" x="0.0" y="342" width="414" height="342"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QF7-Gw-FUl">
-                                                <rect key="frame" x="168.5" y="147" width="77" height="48"/>
+                                                <rect key="frame" x="147" y="141" width="120" height="60"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="DqC-Gf-f95"/>
+                                                    <constraint firstAttribute="height" constant="60" id="WMQ-fS-STp"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                                 <state key="normal" title="Zgłoś">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="reportButtonPressed:" destination="fCm-jF-uDb" eventType="touchUpInside" id="Lgd-qx-iKF"/>
@@ -628,7 +633,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SL5-wN-RcV">
-                                <rect key="frame" x="30" y="504.5" width="159" height="36"/>
+                                <rect key="frame" x="30" y="505.5" width="159" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <state key="normal" title="Załóż nowe konto">
                                     <color key="titleColor" red="0.99614375830000002" green="0.7417523265" blue="0.1342366636" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -661,11 +666,11 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZd-pt-jfC">
-                                <rect key="frame" x="127" y="610.5" width="160" height="50"/>
+                                <rect key="frame" x="117" y="611.5" width="180" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="pt0-2W-Nfe"/>
-                                    <constraint firstAttribute="height" constant="50" id="tMB-gl-A62"/>
+                                    <constraint firstAttribute="width" constant="180" id="pt0-2W-Nfe"/>
+                                    <constraint firstAttribute="height" constant="60" id="tMB-gl-A62"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
                                 <state key="normal" title="Zaloguj się">
@@ -676,8 +681,8 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cuv-eh-LEP">
-                                <rect key="frame" x="30" y="484" width="354" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <rect key="frame" x="30" y="484" width="354" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -720,7 +725,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1m-wT-jvd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1011.5942028985507" y="-208.25892857142856"/>
+            <point key="canvasLocation" x="1012" y="-208"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xmR-4n-KLj">
@@ -767,7 +772,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3ze-cM-5Iy"/>
+        <segue reference="aYq-z3-eLX"/>
         <segue reference="MVn-eN-aN6"/>
     </inferredMetricsTieBreakers>
     <resources>

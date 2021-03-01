@@ -12,6 +12,7 @@ class SignUpController: UIViewController{
     
     var signingUpView: UIView? //View displayed then the signing-up process is taking place
     let userLoginDetails = UserDefaults.standard //Accessing user defaults
+    let errorManager = ErrorManager()
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var checkbox: UIButton!
@@ -70,7 +71,7 @@ class SignUpController: UIViewController{
         // -> checks if the checkbox is selected
         // -> performs Authentication.createUser function and creates user in Firebase consol
         // -> saves the user's login data for Automatic SignIn
-        // -- If there are any error they are displayed on the error label
+        // -- If there are any error they are displayed on the error label (if possible with translation to Polish (only for the most common errors))
         // -- If everything is successful it performs a segue to Main View
     func signingUp(email: String, password: String){
         showSpinner(onView: self.view)
@@ -83,9 +84,10 @@ class SignUpController: UIViewController{
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let e = error{
-                self.errorLabel.text = "! \(e.localizedDescription) !"
+                self.errorLabel.text = "! \(self.errorManager.translateError(error: e)) !"
                 self.errorLabel.isHidden = false
                 self.removeSpinner()
+                print(e)
             } else {
                 self.userLoginDetails.setValue(email, forKey: K.UserDefaults.email)
                 self.userLoginDetails.setValue(password, forKey: K.UserDefaults.password)

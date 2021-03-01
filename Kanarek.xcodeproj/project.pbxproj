@@ -12,6 +12,7 @@
 		831105122576CA1100B1B1A2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105112576CA1000B1B1A2 /* Constants.swift */; };
 		831105162578371B00B1B1A2 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105142578371B00B1B1A2 /* TextCell.swift */; };
 		831105172578371B00B1B1A2 /* TextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831105152578371B00B1B1A2 /* TextCell.xib */; };
+		832262AC25ED3D9A00471746 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832262AB25ED3D9A00471746 /* ErrorManager.swift */; };
 		833F911725ACC88B00B0EEF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 833F911625ACC88B00B0EEF6 /* GoogleService-Info.plist */; };
 		83424E9F25E4245E003C7B9E /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83424E9E25E4245E003C7B9E /* PushNotificationManager.swift */; };
 		834943F025A758B30091CD3F /* StopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834943EF25A758B30091CD3F /* StopModel.swift */; };
@@ -44,6 +45,7 @@
 		831105152578371B00B1B1A2 /* TextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCell.xib; sourceTree = "<group>"; };
 		831465FA25C7152000EBC311 /* NeutralStop.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NeutralStop.gpx; sourceTree = "<group>"; };
 		831465FB25C7154100EBC311 /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
+		832262AB25ED3D9A00471746 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		833F911625ACC88B00B0EEF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		83424E9C25E40700003C7B9E /* WarsawTest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WarsawTest.gpx; sourceTree = "<group>"; };
 		83424E9E25E4245E003C7B9E /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				83D56D9B25BF15E700BAF340 /* DataManager.swift */,
 				835946ED25C890D000FD55CB /* NotificationManager.swift */,
 				83424E9E25E4245E003C7B9E /* PushNotificationManager.swift */,
+				832262AB25ED3D9A00471746 /* ErrorManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				835BFD7C256D3F5F00C97772 /* TermsController.swift in Sources */,
 				83E5BFB6256AB648005C56B0 /* SceneDelegate.swift in Sources */,
 				83424E9F25E4245E003C7B9E /* PushNotificationManager.swift in Sources */,
+				832262AC25ED3D9A00471746 /* ErrorManager.swift in Sources */,
 				834943F025A758B30091CD3F /* StopModel.swift in Sources */,
 				835BFD6D256D3EB600C97772 /* SignInController.swift in Sources */,
 				835BFD76256D3EE700C97772 /* ReportControllerTwo.swift in Sources */,

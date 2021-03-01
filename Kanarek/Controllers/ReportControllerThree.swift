@@ -29,6 +29,7 @@ class ReportControllerThree: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         reportButton.isEnabled = false // User cannot report anything until he chooses a valid direction
+        reportButton.layer.cornerRadius = 10
 
         //### - Table View configuration
         tableView.delegate = self
@@ -61,12 +62,12 @@ class ReportControllerThree: UIViewController {
         //## If there is cityName | Else default
         if let cityName = userDefaults.string(forKey: K.UserDefaults.cityName){
             databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction, city: cityName)
-            databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumebr) towards \(direction)", date: Date.timeIntervalSinceReferenceDate, city: cityName)
+            databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumebr) w kierunku \(direction)", date: Date.timeIntervalSinceReferenceDate, city: cityName)
         } else {
             //Reports History
             databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction)
             //Updating the status to dangerous
-            databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumebr) towards \(direction)", date: Date.timeIntervalSinceReferenceDate)
+            databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumebr) w kierunku \(direction)", date: Date.timeIntervalSinceReferenceDate)
         }
         
         navigationController?.popToRootViewController(animated: true)

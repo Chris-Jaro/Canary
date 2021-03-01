@@ -146,11 +146,11 @@ class DatabaseManager {
     }
     
     //## - Function is triggered by timer in MainController (only if the user allowed location services) and performs action:
-        // -> if the stop was reported more than 2 minutes (120s) ago its neutral status gets restored
+        // -> if the stop was reported more than 3 minutes (180s) ago its neutral status gets restored
     func renewStopStatus(){
         guard dangerousStops.count > 0 else {return}
         for stop in dangerousStops{
-            if Date.timeIntervalSinceReferenceDate - stop.dateModified > 120 {
+            if Date.timeIntervalSinceReferenceDate - stop.dateModified > 180 {
                 if let cityName = UserDefaults.standard.string(forKey: K.UserDefaults.cityName){
                     updatePointStatus(documentID: stop.stopName, status: false, reportDetails: "No details", date: Date.timeIntervalSinceReferenceDate ,city: cityName)
                 } else {

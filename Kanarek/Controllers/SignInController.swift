@@ -11,6 +11,7 @@ class SignInController: UIViewController {
     
     var loggingInView : UIView? //View displayed then the logging in process is taking place
     let userLoginDetails = UserDefaults.standard // Accessing user defaults
+    let errorManager = ErrorManager()
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -60,6 +61,7 @@ class SignInController: UIViewController {
     
     //## - Functions performs log-in when 'log in' button is pressed provided that text fields are not empty
     @IBAction func logInButtonPressed(_ sender: UIButton) {
+        print(signInButton.constraints)
         if let email = emailTextField.text, let password = passwordTextField.text{
             loggingIn(email: email, password: password)
         }
@@ -68,7 +70,7 @@ class SignInController: UIViewController {
     //## - Function defines the login process:
         // -> Displays spinnerView (to indicate loading process)
         // -> Performs sign-in to Firebase Consol
-        // -- If fails -> print error
+        // -- If fails -> chceks if it's one of the most common errors and prints its Polish translation -> if not common it returns localisedDescription (in English)
         // -- If succees -> save login data for auto-sign-in remove spinner and perform segue to Main View
     func loggingIn(email:String, password:String){
         showSpinner(onView: self.view)
@@ -76,7 +78,7 @@ class SignInController: UIViewController {
             if let e = error {
                 self.removeSpinner()
                 self.errorLabel.isHidden = false
-                self.errorLabel.text = "! \(e.localizedDescription) !"
+                self.errorLabel.text = "! \(self.errorManager.translateError(error: e)) !"
             } else {
                 self.userLoginDetails.setValue(email, forKey: K.UserDefaults.email)
                 self.userLoginDetails.setValue(password, forKey: K.UserDefaults.password)

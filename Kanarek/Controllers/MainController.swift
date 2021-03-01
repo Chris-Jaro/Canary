@@ -233,9 +233,9 @@ extension MainController: MKMapViewDelegate{
         }
         
         //#### Responsible for the image of the MarkerAnnotation
-        if annotation.subtitle!.contains("tram"){
+        if annotation.subtitle!.contains("tramwaj"){
             annotationView.glyphImage = UIImage(systemName: "tram")
-        } else if annotation.subtitle!.contains("bus") {
+        } else if annotation.subtitle!.contains("autobus") {
             annotationView.glyphImage = UIImage(systemName: "bus")
         } else {
             annotationView.glyphImage = UIImage(systemName: "face.smiling.fill")
@@ -341,7 +341,7 @@ extension MainController: CLLocationManagerDelegate{
     //## - Function is triggered when user enters the monitoring region and preforms action:
         // -> sends local notificatio to the user with the report details
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        notificationManager.setNotification(title: "Warning - Region Enterd", body: "Entered \(region.identifier)", userInfo: ["aps":["Coordinates":"To show on the map"]])
+        notificationManager.setNotification(title: "Uwaga - Wykryto Zagrożony Region", body: "Przystanek \(region.identifier)", userInfo: ["aps":["Coordinates":"To show on the map"]])
     }
     
     //## - Function is triggered when the user's state is determied inside or outside of dangerous region and performs action:
@@ -351,7 +351,7 @@ extension MainController: CLLocationManagerDelegate{
         if state == CLRegionState.inside{
             print("In the region")
             warningView.isHidden = false
-            mapView.alpha = 0.8
+            mapView.alpha = 0.7
         } else {
             print("Outside of the region")
             warningView.isHidden = true

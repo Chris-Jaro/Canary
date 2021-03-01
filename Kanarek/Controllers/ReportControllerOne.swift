@@ -75,9 +75,9 @@ extension ReportControllerOne: UITableViewDataSource{
         cell.typeImage.isHidden = false
         
         //#### Implemnting the image in the cell
-        if stopsList[indexPath.row].type == "tram" {
+        if stopsList[indexPath.row].type == "tramwaj" {
             cell.typeImage.image = UIImage(systemName: "tram")
-        } else if stopsList[indexPath.row].type == "bus" {
+        } else if stopsList[indexPath.row].type == "autobus" {
             cell.typeImage.image = UIImage(systemName: "bus")
         } else {
             cell.typeImage.image = UIImage(systemName: "face.smiling")
