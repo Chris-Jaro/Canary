@@ -17,16 +17,17 @@ class MainController: UIViewController{
     var dataManagerMain = DataManager() // Accessing all data related variables and methods needed by this controller
     var notificationManager = NotificationManager() // Accessing local notification methods
     let pushNotificationManager = PushNotificationManager() // Accessing puhs notification methods
+    let errorManager = ErrorManager()
     let userDefaults = UserDefaults.standard // Accessing user defaults
     var timer: Timer? // timer for refreshing the dangerous points
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var warningView: UIView!
-    
     //## - Changes the color of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
+    
     //#### Two functions that hide the navigation bar on the main screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,7 +37,6 @@ class MainController: UIViewController{
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
-    
     //## - Function is triggered when the view is loaded ans performs actions:
         // -> rounds the corners of map and warning views
         // -> sets location manager delegate and configures it
@@ -116,9 +116,7 @@ class MainController: UIViewController{
         // guards the function from being executed if the user did not allow locaiton
         guard let location = dataManagerMain.currentLocation else {
             //Alert is show to let the user know that they will not be able to report anything without allowing location services
-            let alert = UIAlertController(title: "Brak Lokalizacji Użytkownika", message: "Wymagana jest lokaclizacja użytkowinika do zgłaszania przstanków. \nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            errorManager.displayBasicAlert(title: "Brak Lokalizacji Użytkownika", subtitle: "Wymagana jest lokaclizacja użytkowinika do zgłaszania przstanków. \nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", controller: self)
             return
         }
         
@@ -130,7 +128,7 @@ class MainController: UIViewController{
     //## - Function is triggerd just berofe the segue is initiated and performs action
         // -> passes a list of stops in the 1000m range from the user
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "GoToReportOne"{
+        if segue.identifier == K.Segues.toReportOne{
             let destinationVC = segue.destination as! ReportControllerOne
             destinationVC.dataManagerOne.stopsInTheArea = mapManager.filterStopsInTheArea(stops: databaseManager.getStops())
         }
@@ -140,11 +138,10 @@ class MainController: UIViewController{
 
 //MARK: - MapManagerDelegate Methods
 extension MainController: MapManagerDelegate{
-    
     //## - Function is triggered by mapManager (because it is its delegate's function) when it receives the info about current city of the user and performs ations :
-        // -> if user did not allow location services the defaul location for chosen city is displayed
+        // -> if user did not allow location services the default location for city chosen by the user is displayed
         // -> if user allowed location services and is in one of the supported cities -> databaseManager loads the points for the given city from the database
-        // -> if user allowed location services and is NOT in one of the supported cities -> alert is displayed to inform the user that we only support Poznan and Warsow and they can passively access then by not allowing location
+        // -> if user allowed location services and is NOT in one of the supported cities -> alert is displayed to inform the user that we only support Poznan and Warsow and they can passively access then by not allowing location (here the stops are not loaded)
         // -> resaves cityName (every time the application is run) to userDefaults to allow other parts of the app to access it (reportThreeView and Settings)
         // -> performs pushNotification subscription on initial app start or if someone changes city from Warsaw to Poznan (it changes the topic subscription accordingly)
     func loadPoints(for cityName: String) {
@@ -153,24 +150,24 @@ extension MainController: MapManagerDelegate{
         //## If the user did not allow location services this variable is created with the default value for Poznan or Warsaw
         guard dataManagerMain.defaultLocation == nil else {
             databaseManager.loadPoints(for: cityName) //Load the points for defualt city chosen by the user
+            print("Loading stops for default with no location")
             return
         }
         
         if supportedCityNames.contains(cityName){
+            print("Loading stops for location is supported cities")
             //Remove default city name -> then every time the aplicaiton is loaded the city name is deleted and updated
             userDefaults.removeObject(forKey: K.UserDefaults.cityName)
             //Set up city name as a default for the user
             userDefaults.setValue(cityName, forKey: K.UserDefaults.cityName)
             databaseManager.loadPoints(for: cityName)
         } else {
+            print("Loading  FUCK ALL - user not in supported cities")
             //REMOVE THE USER DEFUALT CITY NAME -> then every time the aplicaiton is loaded the city name is deleted and updated
             userDefaults.removeObject(forKey: K.UserDefaults.cityName)
             
             //Show alert to notify the user that we only support Poznan and Warsaw -> which he can access with disabled location
-            let alert = UIAlertController(title: "Użytkownik poza obszarem", message: "No obecnym etapie dostępne są Poznań i Warszawa. Jest do nich dostęp przy odrzuceniu pozwolenia localizacji\nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            databaseManager.loadPoints()
+            errorManager.displayBasicAlert(title: "Użytkownik poza obszarem", subtitle: "No obecnym etapie dostępne są Poznań i Warszawa. Jest do nich dostęp przy odrzuceniu pozwolenia localizacji\nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", controller: self)
         }
         
         //## On app start the function is triggerd and checks the push notification settings
@@ -180,7 +177,6 @@ extension MainController: MapManagerDelegate{
 
 //MARK: - DatabaseManagerDelegate Methods
 extension MainController: DatabaseManagerDelegate {
-    
     //## - Function is triggered by databaseManager (because it is its delegate's function) when it receives information regarding stops in this city from Firebase database and performs ations :
         // -> deletes old points from the map
         // -> resets the monitoring of dangerous regions
@@ -199,6 +195,12 @@ extension MainController: DatabaseManagerDelegate {
                 mapManager.addNeutralStop(for: stop, on: mapView)
             }
         }
+    }
+    
+    //## - Function is triggered by DatabaseManager if fails with error and performs action:
+        // -> shows an alert with the error message
+    func failedWithError(error: Error) {
+        errorManager.displayBasicAlert(title: "Błąd", subtitle: "Proszimy o przesłanie błędu na nasz adres email.\n\(error.localizedDescription)", controller: self)
     }
 
 }
@@ -256,11 +258,7 @@ extension MainController: MKMapViewDelegate{
         // -> show an alert with the details regarding the stop
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let annotation = view.annotation as? MKPointAnnotation else { return }
-        
-        let alert = UIAlertController(title: annotation.title, message: annotation.subtitle, preferredStyle: .alert) // Create a new alert
-        let alertAction = UIAlertAction(title: "OK", style: .default) // Creates the action button
-        alert.addAction(alertAction) // Add the action button
-        self.present(alert, animated: true, completion: nil) // Show the alert
+        errorManager.displayBasicAlert(title: annotation.title!, subtitle: annotation.subtitle!, controller: self)
     }
     
     //#### - ACCESES THE currenLocationButton
@@ -274,7 +272,6 @@ extension MainController: MKMapViewDelegate{
 
 //MARK: - LocationManagerDelegate Methods
 extension MainController: CLLocationManagerDelegate{
-    
     //## - Function is triggered when the user allows or denies location services and performs action:
         // -> if the user allows location services -> starts updating locaiton
         // -> if the user does not allow locaiton services -> displays an alert with the option to chose a default city and allow it's passive observation (only loads points, but does not allow reporting)
@@ -361,6 +358,6 @@ extension MainController: CLLocationManagerDelegate{
     
     //## - Function handles the error (prints for now)
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        print(error.localizedDescription)
     }
 }

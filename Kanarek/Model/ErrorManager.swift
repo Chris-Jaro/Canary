@@ -5,7 +5,7 @@
 //  Created by Chris Yarosh on 01/03/2021.
 //
 
-import Foundation
+import UIKit
 
 struct ErrorManager {
     
@@ -33,5 +33,15 @@ struct ErrorManager {
         } else {
             return error.localizedDescription
         }
+    }
+    
+    //## - Function is triggered by MainController, and performs action:
+        // -> creates a new Alert with given title and subtitle
+        // -> adds "OK" action button to the alert
+        // -> presents the Alert on the View
+    func displayBasicAlert(title: String, subtitle: String, controller: UIViewController){
+        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        controller.present(alert, animated: true, completion: nil)
     }
 }

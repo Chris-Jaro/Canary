@@ -11,6 +11,8 @@ import CoreLocation
 
 protocol DatabaseManagerDelegate {
     func updateUI(list:[Any])
+    
+    func failedWithError(error:Error)
 }
 
 class DatabaseManager {
@@ -39,14 +41,14 @@ class DatabaseManager {
         // -> reads data from the database, creates stop objects and adds them to proper lists
         // -> filters the list for only night stops between 00:00-04:00
         // -> calls its delegate to update the map with filtered stop list (which displays the stops on the map using MapManager methods)
-    func loadPoints(for city: String = "poznan"){
+    func loadPoints(for city: String){
         db.collection("\(city)\(K.FirebaseQuery.stopsCollectionName)")
             .order(by: K.FirebaseQuery.date)
             .addSnapshotListener { (querySnapshot, error) in
                 self.stops = []
                 self.dangerousStops = []
                 if let e = error{
-                    print ("There was an issue receiving data from firestore, \(e)")
+                    self.delegate?.failedWithError(error: e)
                 } else {
                     if let snapshotDocuments = querySnapshot?.documents {
                         for doc in snapshotDocuments {
@@ -112,12 +114,13 @@ class DatabaseManager {
         // -> connects to the database of the city
         // -> reads the directions list for privided line number
         // -> triggers updateUI method of ReportManagerThree (delegate) which refreshes the tableView data gathered from the database
-    func loadLineDirections(for chosenLineNumber: Int, city: String = "poznan"){
+    func loadLineDirections(for chosenLineNumber: Int, city: String){
         db.collectionGroup("\(city)\(K.FirebaseQuery.linesCollectionName)")
             .whereField(K.FirebaseQuery.lineNumber, isEqualTo: chosenLineNumber)
             .addSnapshotListener { (querySnapshot, error) in
                 self.directions = []
                 if let e = error {
+                    self.delegate?.failedWithError(error: e)
                     print("There was an issue recieving data from firestore, \(e)")
                 } else {
                     if let snapshotDocuments = querySnapshot?.documents {
@@ -138,7 +141,7 @@ class DatabaseManager {
     //## - Function is triggered by renewStopStatus() and ReportManagerThree and performs action:
         // -> connects to the database of the given city
         // -> updates the stop document in the database with the provided data (stopName = document's ID)
-    func updatePointStatus(documentID stopName: String, status: Bool, reportDetails: String, date:Double = 12.34, city: String = "poznan") {
+    func updatePointStatus(documentID stopName: String, status: Bool, reportDetails: String, date:Double = 12.34, city: String) {
         db.collection("\(city)\(K.FirebaseQuery.stopsCollectionName)")
             .document(stopName).setData([K.FirebaseQuery.status: status,
                                          K.FirebaseQuery.date: date,
@@ -153,18 +156,15 @@ class DatabaseManager {
             if Date.timeIntervalSinceReferenceDate - stop.dateModified > 180 {
                 if let cityName = UserDefaults.standard.string(forKey: K.UserDefaults.cityName){
                     updatePointStatus(documentID: stop.stopName, status: false, reportDetails: "No details", date: Date.timeIntervalSinceReferenceDate ,city: cityName)
-                } else {
-                    updatePointStatus(documentID: stop.stopName, status: false, reportDetails: "No details", date: Date.timeIntervalSinceReferenceDate)
                 }
             }
         }
-        
     }
     
     //## - Function is triggerd by ReportControllerThree and performs action:
         // -> connects to the database
         // -> takes the data and creates a new document in the history database collection for the current city
-    func saveReport(stop:String, line:Int, direction:String, city: String = "poznan"){
+    func saveReport(stop:String, line:Int, direction:String, city: String){
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm E, d MMM y" // "12:05 Tue, 16 Feb 2021" - format
@@ -180,17 +180,3 @@ class DatabaseManager {
     
 }
 
-/*
- For future reference -> STOPS CHART -> EXCEL TO CSV -> CSV + PYTHON -> DICTIONARY OF STOPS FOR EARIER ADDING TO THE DATABASE !!!
- 
- //#### Adds a point to the database -> Not needed now (insurence if there are no stops in the area)
- func addPointToDatabase(location: CLLocation, line: Int, stopName: String, cityName: String = "poznan"){
- db.collection("\(cityName)\(K.FirebaseQuery.stopsCollectionName)").document(stopName).setData([K.FirebaseQuery.date: Date.timeIntervalSinceReferenceDate,
- K.FirebaseQuery.lat:  location.coordinate.latitude,
- K.FirebaseQuery.lon: location.coordinate.longitude,
- K.FirebaseQuery.lines: [line],
- K.FirebaseQuery.status: true,
- K.FirebaseQuery.stopName: stopName,])
- }
- 
- */

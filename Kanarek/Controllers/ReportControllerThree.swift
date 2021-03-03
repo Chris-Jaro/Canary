@@ -11,6 +11,7 @@ class ReportControllerThree: UIViewController {
     
     var databaseManager = DatabaseManager() // Accessing the methods and variables for Firestore Database
     var dataManagerThree = DataManager() // Accessing the data variabeles and mathods
+    var errorManager = ErrorManager()
     let userDefaults = UserDefaults.standard // Accessing UserDefualts
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var reportButton: UIButton!
@@ -40,15 +41,13 @@ class ReportControllerThree: UIViewController {
         
         databaseManager.delegate = self
 
-        guard let lineNumber = dataManagerThree.lineNr else { return } // Guards from no data -> To avoid error from databse
+        guard let lineNumber = dataManagerThree.lineNr, let cityName = userDefaults.string(forKey: K.UserDefaults.cityName) else {
+            errorManager.displayBasicAlert(title: "Błąd", subtitle: "Użytkownik jest po za obszarem dostępnego miasta.", controller: self)
+            return
+        } // Guards from no data -> To avoid error from databse
         
-        //# Loads the directions for given line number from the database for given city | If there is a city value in the defaults
-        //# else if there is no city name it loads default for poznan
-        if let cityName = userDefaults.string(forKey: K.UserDefaults.cityName){
-            databaseManager.loadLineDirections(for: lineNumber, city: cityName)
-        } else {
-            databaseManager.loadLineDirections(for: lineNumber)
-        }
+        //# Loads the directions for given line number from the database for given city | If there is a city value in the defaults (to reach this stage there has to be)
+        databaseManager.loadLineDirections(for: lineNumber, city: cityName)
         
     }
     
@@ -57,20 +56,14 @@ class ReportControllerThree: UIViewController {
         // -> creats a report file in the history database for the current city usin database methods (which then triggers push notification)
         // -> popps the user to root view in the current navigation controller (mainView with the map of stops)
     @IBAction func reportButtonPressed(_ sender: UIButton) {
-        //## This guard statment is an additional precausion to disable the user from reporting without having chosen a valid direction
-        guard let stopName = dataManagerThree.chosenStopName, let lineNumebr = dataManagerThree.lineNr else {return}
+        //## This guard statment is an additional precausion to disable the user from reporting without having chosen a valid direction and without providing cityName
+        guard let stopName = dataManagerThree.chosenStopName, let lineNumebr = dataManagerThree.lineNr, let cityName = userDefaults.string(forKey: K.UserDefaults.cityName) else {return}
         let direction = databaseManager.getDirections()[dataManagerThree.directionIndex!]
         
-        //## If there is cityName | Else default
-        if let cityName = userDefaults.string(forKey: K.UserDefaults.cityName){
-            databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction, city: cityName)
-            databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumebr) w kierunku \(direction)", date: Date.timeIntervalSinceReferenceDate, city: cityName)
-        } else {
-            //Reports History
-            databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction)
-            //Updating the status to dangerous
-            databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumebr) w kierunku \(direction)", date: Date.timeIntervalSinceReferenceDate)
-        }
+        //## saves the report and updates the stopStatus provided there is cityName (which has to be provided to start the reporting process)
+        databaseManager.saveReport(stop: stopName, line: lineNumebr, direction: direction, city: cityName)
+        databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumebr) w kierunku \(direction)", date: Date.timeIntervalSinceReferenceDate, city: cityName)
+
         
         navigationController?.popToRootViewController(animated: true)
     }
@@ -82,6 +75,12 @@ extension ReportControllerThree: DatabaseManagerDelegate{
         // -> reloads the data in the tableView
     func updateUI(list:[Any]){
         tableView.reloadData()
+    }
+    
+    //## - Function is triggered by DatabaseManager if fails with error and performs action:
+        // -> shows an alert with the error message
+    func failedWithError(error: Error) {
+        errorManager.displayBasicAlert(title: "Błąd", subtitle: "Proszimy o przesłanie błędu na nasz adres email.\n\(error.localizedDescription)", controller: self)
     }
 }
 
