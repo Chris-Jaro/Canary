@@ -70,6 +70,7 @@ extension ReportControllerOne: UITableViewDataSource{
         }
         
         //## - If there is at least one stop in the given area this part is executed
+        tableView.rowHeight = tableView.estimatedRowHeight // Adjusts the row height to bigger message
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
         cell.label?.text = stopsList[indexPath.row].stopName
         cell.typeImage.isHidden = false

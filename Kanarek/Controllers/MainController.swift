@@ -150,19 +150,16 @@ extension MainController: MapManagerDelegate{
         //## If the user did not allow location services this variable is created with the default value for Poznan or Warsaw
         guard dataManagerMain.defaultLocation == nil else {
             databaseManager.loadPoints(for: cityName) //Load the points for defualt city chosen by the user
-            print("Loading stops for default with no location")
             return
         }
         
         if supportedCityNames.contains(cityName){
-            print("Loading stops for location is supported cities")
             //Remove default city name -> then every time the aplicaiton is loaded the city name is deleted and updated
             userDefaults.removeObject(forKey: K.UserDefaults.cityName)
             //Set up city name as a default for the user
             userDefaults.setValue(cityName, forKey: K.UserDefaults.cityName)
             databaseManager.loadPoints(for: cityName)
         } else {
-            print("Loading  FUCK ALL - user not in supported cities")
             //REMOVE THE USER DEFUALT CITY NAME -> then every time the aplicaiton is loaded the city name is deleted and updated
             userDefaults.removeObject(forKey: K.UserDefaults.cityName)
             
@@ -195,6 +192,9 @@ extension MainController: DatabaseManagerDelegate {
                 mapManager.addNeutralStop(for: stop, on: mapView)
             }
         }
+        
+        //## On app start the function is triggerd and renews any old dangerous stops
+        timerAction()
     }
     
     //## - Function is triggered by DatabaseManager if fails with error and performs action:
