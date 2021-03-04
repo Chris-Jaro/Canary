@@ -106,6 +106,9 @@ extension ReportControllerThree: UITableViewDataSource{
         //If there is no data error message is displayed
         if directions.count > 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
+            if directions[indexPath.row] == "nan"{
+                cell.isHidden = true
+            }
             cell.label?.text = directions[indexPath.row]
             //##Because the data needs to load the First cell is the error cell for split second and it blocks userInteraction and reveals the image, therefore this has to be taken back while loading of the proper cells
             cell.typeImage.isHidden = true

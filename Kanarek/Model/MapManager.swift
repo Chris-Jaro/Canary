@@ -36,14 +36,14 @@ class MapManager {
     }
     
     //## - Function is triggered by MainController during preparation for segue and perfroms actions:
-        // -> filters the stops list and returns the stops that are within 1000m from the user's location (report locaiton)
+        // -> filters the stops list and returns the stops that are within 500m from the user's location (report locaiton)
         // -> if there are no stops the list is passes as an empty list and suitable error message is displayed in ReportOneController
     func filterStopsInTheArea(stops:[Stop]) -> [Stop] {
         var stopsInMyArea = [Stop]()
         if let location = reportLocation{
             for stop in stops{
                 let distance = location.distance(from: CLLocation(latitude: stop.location.latitude, longitude: stop.location.longitude))
-                if distance < 1000 {
+                if distance < 500 {
                     stopsInMyArea.append(stop)
                 }
             }
