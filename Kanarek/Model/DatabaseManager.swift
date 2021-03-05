@@ -174,7 +174,7 @@ class DatabaseManager {
             "stop_name":stop, // In the title of the noftification
             "latitude":52.1231241231223, // For setting the map center on this stop on clikcing
             "longitude":16.214124123861289, // For setting the map center on this stop on clikcing
-            "details":"Line nr \(line) towards \(direction)"
+            "details":"Linia nr \(line) w kierunku \(direction)"
         ], merge : true)
     }
     
