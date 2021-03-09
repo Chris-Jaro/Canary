@@ -10,7 +10,7 @@ import Firebase
 
 class SettingsController: UIViewController {
     
-    let pushNotificationManager = PushNotificationManager() // Getting the functionality to sunscribe and unsubscribe form push-notification topics
+    let pushNotificationManager = PushNotificationManager() // Getting the functionality to subscribe and unsubscribe form push-notification topics
     let userDefaults = UserDefaults.standard // Accessing user defaults
     @IBOutlet weak var stateSwitch: UISwitch!
     @IBOutlet weak var currentUserLabel: UILabel!
@@ -19,7 +19,7 @@ class SettingsController: UIViewController {
     @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet weak var termsButton: UIButton!
     
-    //## - Changes the color of battery and time an service to white
+    //## - Changes the colour of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
@@ -41,7 +41,7 @@ class SettingsController: UIViewController {
         stateSwitch.layer.cornerRadius = 15
         stateSwitch.clipsToBounds = true
     
-        //# This line sets the user to the current user If it exists (but it tecnically has to)
+        //# This line sets the user to the current user If it exists (but it technically has to)
         if let user = userDefaults.string(forKey: K.UserDefaults.email){
             currentUserLabel.text = user
         }
@@ -63,7 +63,7 @@ class SettingsController: UIViewController {
         stateSwitch.addTarget(self, action: #selector(stateChanged), for: .valueChanged) // sets up the observer of the switch - which triggers on value-change
     }
     
-    //## - Funciton is triggered when the user taps sign-out button and performs action:
+    //## - Function is triggered when the user taps sign-out button and performs action:
         // -> removes saved login data (kept for auto-login)
         // -> dismisses main navigation controller (goes back to first navigation controller which handles the login/sign-up process)
     @IBAction func signOutButtonPressed(_ sender: UIButton) {
@@ -78,7 +78,7 @@ class SettingsController: UIViewController {
         performSegue(withIdentifier: K.Segues.toTerms, sender: self)
     }
     
-    //## Implements the functionality of the switch -> subscribes to or unsubscribes from push notfications
+    //## Implements the functionality of the switch -> subscribes to or unsubscribes from push notifications
     @objc func stateChanged(switchState: UISwitch) {
         if switchState.isOn {
             if let cityName = userDefaults.string(forKey: K.UserDefaults.cityName){

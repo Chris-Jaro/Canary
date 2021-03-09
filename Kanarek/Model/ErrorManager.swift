@@ -11,15 +11,15 @@ struct ErrorManager {
     
     //## - Function is triggered by SignInController or SignUpController and performs action:
         // -> takes the error provided by FirebaseAuth and depending on the error code it returns an appropriate message in Polish
-        // $ Only the most popular errors are translated, if something else happens the localized descripciton will be displayed (in English)
+        // $ Only the most popular errors are translated, if something else happens the localised description will be displayed (in English)
     func translateError(error: Error) -> String{
         let errorMessage = "\(error)"
         if errorMessage.contains("Code=17005"){
-            return "Użytkowink został zablokowany przez administratora."
+            return "Użytkownik został zablokowany przez administratora."
         } else if errorMessage.contains("Code=17007") {
             return "Konto już istnieje / jest w użytku."
         } else if errorMessage.contains("Code=17008") {
-            return "Źle sformułowany adress email."
+            return "Źle sformułowany adres email."
         } else if errorMessage.contains("Code=17009") {
             return "Wprowadzone hasło jest błędne."
         } else if errorMessage.contains("Code=17010") {

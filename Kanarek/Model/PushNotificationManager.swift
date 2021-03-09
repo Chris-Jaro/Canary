@@ -12,7 +12,7 @@ struct  PushNotificationManager {
     
     let userDefaults = UserDefaults.standard // Accessing the user defaults
     
-    //## - Function is triggered by SettingsController and onAppStart() and perfroms action:
+    //## - Function is triggered by SettingsController and onAppStart() and performs action:
         // -> unsubscribes from all currently available pushNotificationTopics
         // -> saves the set value of userDefaults to "Unsubscribed"
     func unsubscribe(){
@@ -27,7 +27,7 @@ struct  PushNotificationManager {
         print("Unsubscribed from ALL push_notifications")
     }
     
-    //## - Function is triggered by SettingsController and onAppStart() and perfroms action:
+    //## - Function is triggered by SettingsController and onAppStart() and performs action:
         // -> subscribes to pushNotificationTopic for current city
         // -> saves the set value of userDefaults to "Unsubscribed"
     func subscribe(to city: String){
@@ -39,7 +39,7 @@ struct  PushNotificationManager {
         }
     }
     
-    //## The initial subsciption happens only once ever (when there is no data in UserDefaults) -> then the whole process takes place in the settings
+    //## The initial subscription happens only once ever (when there is no data in UserDefaults) -> then the whole process takes place in the settings
     //## - Function performs the actions according to the Push Notification Subscription Status
         // -> if initial app launch (no value in userDefaults) and current city is defined -> Subscribes to the city push notifications
         // -> if Unsubscribed in the settings -> Do nothing
@@ -51,12 +51,12 @@ struct  PushNotificationManager {
                 if subStatus.contains("Unsubscribed"){
                     print("Already unsubscribed!")
                 } else if subStatus.contains(city) { // (if one is subscribing to poznan and is in poznan)
-                    print("Already subscried to current city")
+                    print("Already subscribed to current city")
                 } else { //(subStatus DOES NOT CONTAIN city but CONTAINS subscribed)
                     unsubscribe()
                     subscribe(to: city)
                     //unsubscribe form ALL && subscribe to push_notifications_city // (if one is subscribing to poznan and moves to warsaw)
-                    print("Unsubscribed from all cities and subscrbed to the new current city")
+                    print("Unsubscribed from all cities and subscribed to the new current city")
                 }
             } else { //(initial App Start-up only)
                 subscribe(to: city)

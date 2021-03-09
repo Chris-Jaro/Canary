@@ -27,6 +27,7 @@
 		835BFD7C256D3F5F00C97772 /* TermsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835BFD7B256D3F5F00C97772 /* TermsController.swift */; };
 		836765C725DDB686000A9349 /* NumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836765C525DDB686000A9349 /* NumberCell.swift */; };
 		836765C825DDB686000A9349 /* NumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836765C625DDB686000A9349 /* NumberCell.xib */; };
+		83BDD0E125F7C6E800C41620 /* SubscriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BDD0E025F7C6E800C41620 /* SubscriptionController.swift */; };
 		83D56D9C25BF15E700BAF340 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D56D9B25BF15E700BAF340 /* DataManager.swift */; };
 		83E5BFB4256AB648005C56B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5BFB3256AB648005C56B0 /* AppDelegate.swift */; };
 		83E5BFB6256AB648005C56B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E5BFB5256AB648005C56B0 /* SceneDelegate.swift */; };
@@ -62,6 +63,7 @@
 		836765C525DDB686000A9349 /* NumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberCell.swift; sourceTree = "<group>"; };
 		836765C625DDB686000A9349 /* NumberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberCell.xib; sourceTree = "<group>"; };
 		83B4069425E6DAD200C761DA /* BydgoszczTest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BydgoszczTest.gpx; sourceTree = "<group>"; };
+		83BDD0E025F7C6E800C41620 /* SubscriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionController.swift; sourceTree = "<group>"; };
 		83C5B4D525D31ACB00D94669 /* Kanarek.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kanarek.entitlements; sourceTree = "<group>"; };
 		83D56D9B25BF15E700BAF340 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		83E5BFB0256AB648005C56B0 /* Kanarek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kanarek.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 				835BFD75256D3EE700C97772 /* ReportControllerTwo.swift */,
 				835BFD78256D3F1300C97772 /* ReportControllerThree.swift */,
 				835BFD7B256D3F5F00C97772 /* TermsController.swift */,
+				83BDD0E025F7C6E800C41620 /* SubscriptionController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				83E5BFB6256AB648005C56B0 /* SceneDelegate.swift in Sources */,
 				83424E9F25E4245E003C7B9E /* PushNotificationManager.swift in Sources */,
 				832262AC25ED3D9A00471746 /* ErrorManager.swift in Sources */,
+				83BDD0E125F7C6E800C41620 /* SubscriptionController.swift in Sources */,
 				834943F025A758B30091CD3F /* StopModel.swift in Sources */,
 				835BFD6D256D3EB600C97772 /* SignInController.swift in Sources */,
 				835BFD76256D3EE700C97772 /* ReportControllerTwo.swift in Sources */,

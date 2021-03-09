@@ -15,13 +15,13 @@ class TextCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //UI congfig
+        //UI config
         labelBubble.layer.cornerRadius = labelBubble.frame.size.height / 3
     }
 
     //#### - Function reacts to row selection
-    //## Seleciton -> white background is changed to yellow
-    //## Deselection -> yellow backgournd is changed to white (original)
+    //## Selection -> white background is changed to yellow
+    //## Deselection -> yellow background is changed to white (original)
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

@@ -13,12 +13,12 @@ class TermsController: UIViewController {
     @IBOutlet weak var termsView: UIView!
     @IBOutlet weak var whiteLineView: UIView!
     
-    //## - Changes the color of battery and time an service to white
+    //## - Changes the colour of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-    //## - Function is called when the view loades
-        // -> Rounds the coreners of rhe white rim
+    //## - Function is called when the view loads
+        // -> Rounds the corners of the white rim
     override func viewDidLoad() {
         super.viewDidLoad()
         

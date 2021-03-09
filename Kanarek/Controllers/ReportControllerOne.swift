@@ -13,11 +13,11 @@ class ReportControllerOne: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    //## - Changes the color of battery and time an service to white
+    //## - Changes the colour of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-    //## - Function is triggred then the view is loaded and performs actions:
+    //## - Function is triggered then the view is loaded and performs actions:
         // -> sets the delegate and dataSource for the tableView
         // -> Adjusts the view of the cells (setting the height to 80px)
         // -> registering custom text cell
@@ -56,13 +56,13 @@ extension ReportControllerOne: UITableViewDataSource{
         return stopsList.count
     }
     
-    //## - Functions determins exactly what is to be displayed in every cell one by one
+    //## - Functions determines exactly what is to be displayed in every cell one by one
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //## - This guard is executed if there are no stops in the 1km area from the user AND displays a message accordingly
         guard let stopsList = dataManagerOne.stopsInTheArea, stopsList.count > 0  else {
             tableView.rowHeight = tableView.estimatedRowHeight // Adjusts the row height to bigger message
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
-            cell.label?.text = "Brak przystnaków w promieniu 1km"
+            cell.label?.text = "Brak przystanków w promieniu 1km"
             cell.isUserInteractionEnabled = false
             cell.typeImage.image = UIImage(systemName: "exclamationmark.triangle.fill")
             cell.typeImage.isHidden = false
@@ -75,7 +75,7 @@ extension ReportControllerOne: UITableViewDataSource{
         cell.label?.text = stopsList[indexPath.row].stopName
         cell.typeImage.isHidden = false
         
-        //#### Implemnting the image in the cell
+        //#### Implementing the image in the cell
         if stopsList[indexPath.row].type == "tramwaj" {
             cell.typeImage.image = UIImage(systemName: "tram")
         } else if stopsList[indexPath.row].type == "autobus" {
@@ -90,7 +90,7 @@ extension ReportControllerOne: UITableViewDataSource{
 
 extension ReportControllerOne: UITableViewDelegate{
     
-    //## - Function is triggered when a row is selected and performs segue acordingly
+    //## - Function is triggered when a row is selected and performs segue accordingly
         // -> saves the data about chosen stop in dataManager
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let stopsList = dataManagerOne.stopsInTheArea, stopsList.count > 0  else { return }

@@ -18,7 +18,7 @@ class SignInController: UIViewController {
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var buttonRim: UIView!
     
-    //## - Changes the color of battery and time an service to white
+    //## - Changes the colour of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
@@ -42,7 +42,7 @@ class SignInController: UIViewController {
     //## - Function is called after the view is loaded:
         // -> sets placeholders for text fields
         // -> performs auto-sign-in if there is a logged user(already registered that did not log out)
-        // -> sets up the tap gesutre for toggling the keyboard
+        // -> sets up the tap gesture for toggling the keyboard
         // -> sets the textField delegates
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class SignInController: UIViewController {
             print("No data in the user defaults")
         }
 
-        //#### When the user taps somewhere on the screen the keyboard toogles
+        //#### When the user taps somewhere on the screen the keyboard toggles
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
@@ -63,16 +63,18 @@ class SignInController: UIViewController {
     
     //## - Functions performs log-in when 'log in' button is pressed provided that text fields are not empty
     @IBAction func logInButtonPressed(_ sender: UIButton) {
-        if let email = emailTextField.text, let password = passwordTextField.text{
-            loggingIn(email: email, password: password)
-        }
+        
+        performSegue(withIdentifier: K.Segues.subscriptionViaSignIn, sender: self)
+//        if let email = emailTextField.text, let password = passwordTextField.text{
+//            loggingIn(email: email, password: password)
+//        }
     }
     
     //## - Function defines the login process:
         // -> Displays spinnerView (to indicate loading process)
-        // -> Performs sign-in to Firebase Consol
-        // -- If fails -> chceks if it's one of the most common errors and prints its Polish translation -> if not common it returns localisedDescription (in English)
-        // -- If succees -> save login data for auto-sign-in remove spinner and perform segue to Main View
+        // -> Performs sign-in to Firebase Console
+        // -- If fails -> checks if it's one of the most common errors and prints its Polish translation -> if not common it returns localisedDescription (in English)
+        // -- If success -> save login data for auto-sign-in remove spinner and perform segue to Main View
     func loggingIn(email:String, password:String){
         showSpinner(onView: self.view)
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
@@ -91,7 +93,7 @@ class SignInController: UIViewController {
     
     //## - Function sets the placeholder in both text fields
     func setPlaceholder(){
-        emailTextField.text = "Adress Email"
+        emailTextField.text = "Adres Email"
         passwordTextField.text = "Hasło"
         emailTextField.textColor = UIColor.gray
         passwordTextField.textColor = UIColor.gray
@@ -100,7 +102,7 @@ class SignInController: UIViewController {
 }
 
 
-//MARK: - Loading Indicaiton Methods
+//MARK: - Loading Spinner Methods
 extension SignInController {
     //## - Function create the spinner view and displays it on top of self.view by setting it as loggingInView
     func showSpinner(onView : UIView) {
@@ -131,13 +133,13 @@ extension SignInController {
 
 //MARK: - UITextFieldDelegate Methods
 extension SignInController: UITextFieldDelegate{
-    //## - Function handles the disapearance of the placeholder and adjusting text display when user strats editing
+    //## - Function handles the disappearance of the placeholder and adjusting text display when user starts editing
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text! == "Hasło"{
             textField.isSecureTextEntry = true
             textField.text = ""
         }
-        if textField.text! == "Adress Email"{
+        if textField.text! == "Adres Email"{
             textField.text = ""
         }
         textField.textColor = UIColor.black
@@ -148,7 +150,7 @@ extension SignInController: UITextFieldDelegate{
             setPlaceholder()
         }
     }
-    //## - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the passowrd text filed when return is pressed the login function is triggered
+    //## - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the passoword text filed when return is pressed the login function is triggered
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.isSecureTextEntry == true{
             if let email = emailTextField.text, let password = passwordTextField.text{

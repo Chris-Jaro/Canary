@@ -35,8 +35,8 @@ class DatabaseManager {
         return directions
     }
     
-    //## - Function is triggerd by MainController (in loadPoints method as the delegate of MapManager after recieving the city name) and performs action:
-        // -> connects to the databse (and constantly listens to the changes made in the database)
+    //## - Function is triggered by MainController (in loadPoints method as the delegate of MapManager after receiving the city name) and performs action:
+        // -> connects to the database (and constantly listens to the changes made in the database)
         // -> resets stops and dangerousStops lists
         // -> reads data from the database, creates stop objects and adds them to proper lists
         // -> filters the list for only night stops between 00:00-04:00
@@ -83,7 +83,7 @@ class DatabaseManager {
     
     //## - Function is triggered by loadPoints method and performs action:
         // -> returns all stops if it is between 04:00-24:00
-        // -> returns only nightStops if it is bewteen 00:00-04:00
+        // -> returns only nightStops if it is between 00:00-04:00
     func filterStops(stops: [Stop]) -> [Stop] {
         //Accessing the current hour of the device
         let now = Calendar.current.dateComponents(in: .current, from: Date())
@@ -94,11 +94,11 @@ class DatabaseManager {
              */
             if 0 <= currentHour && currentHour < 4  {
 //              --A--
-                var filterdStops = [Stop]()
+                var filteredStops = [Stop]()
                 stops.forEach { (stop) in
-                    if stop.nightwork {filterdStops.append(stop)} // 'nightwork' is a boolean value
+                    if stop.nightwork {filteredStops.append(stop)} // 'nightwork' is a boolean value
                 }
-                return filterdStops
+                return filteredStops
             } else {
 //              --B--
                 return stops
@@ -112,7 +112,7 @@ class DatabaseManager {
     
     //## - Function is triggered by ReportManagerThree with a lineNumber and cityName and performs action:
         // -> connects to the database of the city
-        // -> reads the directions list for privided line number
+        // -> reads the directions list for provided line number
         // -> triggers updateUI method of ReportManagerThree (delegate) which refreshes the tableView data gathered from the database
     func loadLineDirections(for chosenLineNumber: Int, city: String){
         db.collectionGroup("\(city)\(K.FirebaseQuery.linesCollectionName)")
@@ -121,7 +121,7 @@ class DatabaseManager {
                 self.directions = []
                 if let e = error {
                     self.delegate?.failedWithError(error: e)
-                    print("There was an issue recieving data from firestore, \(e)")
+                    print("There was an issue receiving data from Firestore, \(e)")
                 } else {
                     if let snapshotDocuments = querySnapshot?.documents {
                         for doc in snapshotDocuments{
@@ -161,7 +161,7 @@ class DatabaseManager {
         }
     }
     
-    //## - Function is triggerd by ReportControllerThree and performs action:
+    //## - Function is triggered by ReportControllerThree and performs action:
         // -> connects to the database
         // -> takes the data and creates a new document in the history database collection for the current city
     func saveReport(stop:String, line:Int, direction:String, city: String){
@@ -171,9 +171,9 @@ class DatabaseManager {
         db.collection("\(city)\(K.FirebaseQuery.historyCollectionName)").document().setData([
             "user_email" : userLoginDetails.value(forKey: "UserEmail")!, // For history + purposes
             "date": dateFormatter.string(from: date), // For timeline purposes
-            "stop_name":stop, // In the title of the noftification
-            "latitude":52.1231241231223, // For setting the map center on this stop on clikcing
-            "longitude":16.214124123861289, // For setting the map center on this stop on clikcing
+            "stop_name":stop, // In the title of the notification
+            "latitude":52.1231241231223, // For setting the map center on this stop on clicking
+            "longitude":16.214124123861289, // For setting the map center on this stop on clicking
             "details":"Linia nr \(line) w kierunku \(direction)"
         ], merge : true)
     }

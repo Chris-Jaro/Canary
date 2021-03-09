@@ -20,7 +20,7 @@ class SignUpController: UIViewController{
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var buttonRim: UIView!
     
-    //## - Changes the color of battery and time an service to white
+    //## - Changes the colour of battery and time an service to white
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
@@ -38,13 +38,13 @@ class SignUpController: UIViewController{
     
     //## - Function is called after the view is loaded:
         // -> sets placeholders for text fields
-        // -> sets up the tap gesutre for toggling the keyboard
+        // -> sets up the tap gesture for toggling the keyboard
         // -> sets the textField delegates
     override func viewDidLoad() {
         super.viewDidLoad()
         setPlaceholder()
         
-        //#### When the user taps somewhere on the screen the keyboard toogles
+        //#### When the user taps somewhere on the screen the keyboard toggles
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
@@ -71,7 +71,7 @@ class SignUpController: UIViewController{
     //## - Function handles clicking 'Sign up' button:
         // -> Displays and removes spinner on top of the views
         // -> checks if the checkbox is selected
-        // -> performs Authentication.createUser function and creates user in Firebase consol
+        // -> performs Authentication.createUser function and creates user in Firebase console
         // -> saves the user's login data for Automatic SignIn
         // -- If there are any error they are displayed on the error label (if possible with translation to Polish (only for the most common errors))
         // -- If everything is successful it performs a segue to Main View
@@ -102,7 +102,7 @@ class SignUpController: UIViewController{
 
     //## - Function sets the placeholder in both text fields
     func setPlaceholder(){
-        emailTextField.text = "Adress Email"
+        emailTextField.text = "Adres Email"
         passwordTextField.text = "Hasło"
         emailTextField.textColor = UIColor.gray
         passwordTextField.textColor = UIColor.gray
@@ -110,7 +110,7 @@ class SignUpController: UIViewController{
     }
 }
 
-//MARK: - Loading Indicaiton Methods
+//MARK: - Loading Indication Methods
 extension SignUpController {
     //## - Function create the spinner view and displays it on top of self.view by setting it as signingUpView
     func showSpinner(onView : UIView) {
@@ -141,13 +141,13 @@ extension SignUpController {
 
 //MARK: - UITextFieldDelegate
 extension SignUpController: UITextFieldDelegate{
-    //## - Function handles the disapearance of the placeholder and adjusting text display when user strats editing
+    //## - Function handles the disappearance of the placeholder and adjusting text display when user starts editing
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text! == "Hasło"{
             textField.isSecureTextEntry = true
             textField.text = ""
         }
-        if textField.text! == "Adress Email"{
+        if textField.text! == "Adres Email"{
             textField.text = ""
         }
         textField.textColor = UIColor.black
@@ -158,7 +158,7 @@ extension SignUpController: UITextFieldDelegate{
             setPlaceholder()
         }
     }
-    //## - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the passowrd text filed when return is pressed the sign-up function is triggered
+    //## - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the passoword text filed when return is pressed the sign-up function is triggered
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.isSecureTextEntry == true{
             if let email = emailTextField.text, let password = passwordTextField.text{

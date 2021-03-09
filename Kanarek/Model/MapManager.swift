@@ -35,8 +35,8 @@ class MapManager {
         }
     }
     
-    //## - Function is triggered by MainController during preparation for segue and perfroms actions:
-        // -> filters the stops list and returns the stops that are within 500m from the user's location (report locaiton)
+    //## - Function is triggered by MainController during preparation for segue and performs actions:
+        // -> filters the stops list and returns the stops that are within 500m from the user's location (report location)
         // -> if there are no stops the list is passes as an empty list and suitable error message is displayed in ReportOneController
     func filterStopsInTheArea(stops:[Stop]) -> [Stop] {
         var stopsInMyArea = [Stop]()
@@ -52,23 +52,23 @@ class MapManager {
     }
     
     //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
-        // -> adds a neutral stop to the mapView where it specifies stop's title, subtitle and location (unsing addPoint function)
+        // -> adds a neutral stop to the mapView where it specifies stop's title, subtitle and location (using addPoint function)
     func addNeutralStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location, title: stop.stopName, subtitle:"linie: \(stop.lines)\ntyp: \(stop.type)\nstatus_zgłoszenia: \(stop.status)", map: map)
     }
     
     //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
-        // -> adds a dangerous stop to the mapView where it specifies stop's title, subtitle and location (unsing addPoint function)
+        // -> adds a dangerous stop to the mapView where it specifies stop's title, subtitle and location (using addPoint function)
         // -> adds circle overlay to the mapView at the location of the dangerous stop
     func addDangerousStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location,
                  title: stop.stopName,
-                 subtitle:"!UWAGA!\nstatus_zgłoszenia: \(stop.status)\ntyp: \(stop.type)\nlinie: \(stop.lines)\n\n________ZGŁOSZENIE________\nczas: \(dateConvertter(interval: stop.dateModified))\n nr \(stop.reportDetails)\n____________________________", map: map)
+                 subtitle:"!UWAGA!\nstatus_zgłoszenia: \(stop.status)\ntyp: \(stop.type)\nlinie: \(stop.lines)\n\n________ZGŁOSZENIE________\nczas: \(dateConverter(interval: stop.dateModified))\n nr \(stop.reportDetails)\n____________________________", map: map)
         addCircle(where: stop.location, map: map)
     }
     
     //## - Function is triggered by MainController's locationManager (only once on the first load of the mapView) and tapping the currentLocationButton and performs action:
-        // -> resets the mapView region (the visible part of the map) with privided arguments (location and zoom)
+        // -> resets the mapView region (the visible part of the map) with provided arguments (location and zoom)
     func setUsersLocation(for location: CLLocation, map: MKMapView, zoom: Double = 0.01){
         let center = location.coordinate
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: zoom, longitudeDelta: zoom))
@@ -76,7 +76,7 @@ class MapManager {
     }
     
     //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
-        // -> deletes all the annotation from the map (except for the userLocation annotation) - to avoid stucking stops when refreshing the map
+        // -> deletes all the annotation from the map (except for the userLocation annotation) - to avoid stacking stops when refreshing the map
     func deleteOldPoints(on map:MKMapView){
         var list = map.annotations
         if let userIndex = list.firstIndex(where: { (annotation) -> Bool in
@@ -104,7 +104,7 @@ class MapManager {
     //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
         // -> adds a region to monitoredRegions list of LocationManager
     func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String, for locationManager: CLLocationManager) {
-        // Checks if the divice supports Region Monitoring
+        // Checks if the device supports Region Monitoring
         guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) else { return }
         
         // guard locationManager.monitoredRegions.count <= 20 else {return} - only 20 allowed by Apple (IMPLEMENT SOME SORT OF SORTING BASED ON THE DISTANCE TO THE USER?) ----- Highly Unlikely given that there would have to be reports every 6 seconds
@@ -137,7 +137,7 @@ extension MapManager {
     }
     
     //## - Function converts timeIntervalSince2001 to 'HH:mm' which is then displayed in report details on the pop-up
-    func dateConvertter(interval:TimeInterval ) -> String {
+    func dateConverter(interval:TimeInterval ) -> String {
         let date = Date(timeIntervalSinceReferenceDate: interval)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"

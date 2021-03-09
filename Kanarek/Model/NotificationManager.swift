@@ -18,9 +18,9 @@ struct LocalNotification {
 struct NotificationManager {
     var notifications = [LocalNotification]()
     
-    //## Function is triggered by MainController's locationManager when user enters dangerous region and prefroms action:
-        // -> adds the notification to the noticifation list
-        // -> shedules all the notifications in the list
+    //## Function is triggered by MainController's locationManager when user enters dangerous region and preforms action:
+        // -> adds the notification to the notification list
+        // -> schedules all the notifications in the list
     mutating func setNotification(title: String, body: String, userInfo:[AnyHashable : Any]){
         addNotification(title: title, body: body)
         scheduleNotification(userInfo: userInfo)
@@ -32,10 +32,10 @@ struct NotificationManager {
         notifications.append(LocalNotification(id: UUID().uuidString, title: title, body: body))
     }
     
-    //## - Fuunction is triggered by the setNotification method and performs action:
-        // -> creates real notificaiton object for every notificaiton in the list
+    //## - Function is triggered by the setNotification method and performs action:
+        // -> creates real notification object for every notification in the list
         // -> removes all pending notifications
-        // -> clears the list on notificaiton after they are scheduled
+        // -> clears the list on notification after they are scheduled
     mutating func scheduleNotification(userInfo:[AnyHashable : Any]){
         UIApplication.shared.applicationIconBadgeNumber = 0
         for notification in notifications{
