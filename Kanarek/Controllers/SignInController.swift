@@ -64,7 +64,7 @@ class SignInController: UIViewController {
     //## - Functions performs log-in when 'log in' button is pressed provided that text fields are not empty
     @IBAction func logInButtonPressed(_ sender: UIButton) {
         
-        performSegue(withIdentifier: K.Segues.subscriptionViaSignIn, sender: self)
+        performSegue(withIdentifier: K.Segues.subscription, sender: self)
 //        if let email = emailTextField.text, let password = passwordTextField.text{
 //            loggingIn(email: email, password: password)
 //        }
@@ -150,7 +150,7 @@ extension SignInController: UITextFieldDelegate{
             setPlaceholder()
         }
     }
-    //## - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the passoword text filed when return is pressed the login function is triggered
+    //## - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the password text filed when return is pressed the login function is triggered
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.isSecureTextEntry == true{
             if let email = emailTextField.text, let password = passwordTextField.text{

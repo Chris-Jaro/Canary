@@ -28,7 +28,7 @@ struct K {
         static let singInToMain = "SignInToMain"
         static let signUpToMain = "SignUpToMain"
         static let toTerms = "GoToTermsFromSettings"
-        static let subscriptionViaSignIn = "GoToSubscription"
+        static let subscription = "GoToSubscription"
     }
     
     struct CustomCell {

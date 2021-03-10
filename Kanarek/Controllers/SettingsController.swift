@@ -34,8 +34,8 @@ class SettingsController: UIViewController {
         mainSettingsView.layer.cornerRadius = 15
         
         //## These two lines round up the corners of the white line
-        logOutButton.layer.cornerRadius = 8
-        termsButton.layer.cornerRadius = 8
+        logOutButton.layer.cornerRadius = 10
+        termsButton.layer.cornerRadius = 10
         
         //## To make the switch background white and rounded
         stateSwitch.layer.cornerRadius = 15

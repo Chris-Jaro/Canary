@@ -9,7 +9,6 @@ import UIKit
 
 class SubscriptionController: UIViewController {
     
-    
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceButton: UIButton!
     @IBOutlet weak var subscribeButtonView: UIView!
@@ -22,12 +21,10 @@ class SubscriptionController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-    
     //#### Two functions that hide the navigation bar on the main screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        
         setUI()
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -37,7 +34,6 @@ class SubscriptionController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
 
         // Do any additional setup after loading the view.
@@ -53,6 +49,13 @@ class SubscriptionController: UIViewController {
         restoreButtonView.layer.cornerRadius = 15
     }
     
-    @IBAction func subscribeButtonPressed(_ sender: Any) {
+    @IBAction func subscribeButtonPressed(_ sender: UIButton) {
+        // Subscribes a new user
     }
+    
+    @IBAction func restoreButtonPressed(_ sender: UIButton) {
+        // Restores user's subscription
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
