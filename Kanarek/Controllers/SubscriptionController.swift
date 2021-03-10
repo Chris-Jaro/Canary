@@ -51,6 +51,7 @@ class SubscriptionController: UIViewController {
     
     @IBAction func subscribeButtonPressed(_ sender: UIButton) {
         // Subscribes a new user
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func restoreButtonPressed(_ sender: UIButton) {

@@ -63,12 +63,9 @@ class SignUpController: UIViewController{
     
     //## - Function handles clicking 'Sign up' button -> If text fields are not empty it triggers sign-up function
     @IBAction func SignUpButtonPressed(_ sender: UIButton) {
-        
-        performSegue(withIdentifier: K.Segues.subscription, sender: self)
-        
-//        if let email = emailTextField.text, let password = passwordTextField.text{
-//            signingUp(email: email, password: password)
-//        }
+        if let email = emailTextField.text, let password = passwordTextField.text{
+            signingUp(email: email, password: password)
+        }
     }
     
     //## - Function handles clicking 'Sign up' button:

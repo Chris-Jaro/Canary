@@ -216,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dDY-tK-w0r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="970" y="-625"/>
+            <point key="canvasLocation" x="-599" y="-984"/>
         </scene>
         <!--Sign Up Controller-->
         <scene sceneID="n19-X2-p8d">
@@ -356,12 +356,11 @@
                         <outlet property="passwordTextField" destination="ZRc-Ig-grR" id="Vrr-Qf-gMo"/>
                         <outlet property="signUpButton" destination="5BP-9x-9yo" id="7vt-xL-TYj"/>
                         <segue destination="AIp-nZ-MyS" kind="presentation" identifier="SignUpToMain" modalPresentationStyle="fullScreen" id="3ze-cM-5Iy"/>
-                        <segue destination="D8d-7Q-Lzb" kind="show" identifier="GoToSubscription" id="Amz-pA-4P7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J8l-TG-ADe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-136" y="-984"/>
+            <point key="canvasLocation" x="388" y="-984"/>
         </scene>
         <!--Terms Controller-->
         <scene sceneID="ceS-qc-68o">
@@ -967,7 +966,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1m-wT-jvd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-136" y="-208"/>
+            <point key="canvasLocation" x="388" y="-208"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xmR-4n-KLj">
@@ -1010,13 +1009,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Oc-Ur-awf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1123" y="-208"/>
+            <point key="canvasLocation" x="-599" y="-208"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3ze-cM-5Iy"/>
+        <segue reference="aYq-z3-eLX"/>
         <segue reference="MVn-eN-aN6"/>
-        <segue reference="Amz-pA-4P7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Kanarek_Logo_1_trans" width="1024" height="1024"/>

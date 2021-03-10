@@ -38,7 +38,7 @@ class SignInController: UIViewController {
         errorLabel.isHidden = true
         errorLabel.text = "Error label"
     }
-
+    
     //## - Function is called after the view is loaded:
         // -> sets placeholders for text fields
         // -> performs auto-sign-in if there is a logged user(already registered that did not log out)
@@ -46,6 +46,13 @@ class SignInController: UIViewController {
         // -> sets the textField delegates
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //##@@$$ IF there is subscription data saved in the UserDefaults (Apple ID is a subscriber) -> do nothing
+        //##@@$$ ELSE (Apple ID is not a subscriber) -> go to Subscription View to allow subscription or restoration
+        guard let _ = UserDefaults.standard.string(forKey: K.UserDefaults.appStoreSubscription) else {
+            performSegue(withIdentifier: K.Segues.subscription, sender: self)
+            return
+        }
         setPlaceholder()
         if let userEmail = userLoginDetails.string(forKey: K.UserDefaults.email), let userPassword = userLoginDetails.string(forKey: K.UserDefaults.password) {
             loggingIn(email: userEmail, password: userPassword)
@@ -64,7 +71,7 @@ class SignInController: UIViewController {
     //## - Functions performs log-in when 'log in' button is pressed provided that text fields are not empty
     @IBAction func logInButtonPressed(_ sender: UIButton) {
         
-        performSegue(withIdentifier: K.Segues.subscription, sender: self)
+        
 //        if let email = emailTextField.text, let password = passwordTextField.text{
 //            loggingIn(email: email, password: password)
 //        }
