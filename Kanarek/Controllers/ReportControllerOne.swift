@@ -12,12 +12,8 @@ class ReportControllerOne: UIViewController {
     var dataManagerOne = DataManager() // Accessing data variables and methods
 
     @IBOutlet weak var tableView: UITableView!
-    
-    //## - Changes the colour of battery and time an service to white
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
-    //## - Function is triggered then the view is loaded and performs actions:
+
+    ///# - Function is triggered then the view is loaded and performs actions:
         // -> sets the delegate and dataSource for the tableView
         // -> Adjusts the view of the cells (setting the height to 80px)
         // -> registering custom text cell
@@ -30,7 +26,7 @@ class ReportControllerOne: UIViewController {
         tableView.register(UINib(nibName: K.CustomCell.textNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.textIdentifier)
     }
     
-    //## - Function is triggered right before the segue and performs action:
+    ///# - Function is triggered right before the segue and performs action:
         // -> filters the list for night lines (depending on the time) and passes it to dataManager of ReportViewControllerTwo
         // -> passes the name of the chosen stop to the dataManager of ReportViewControllerTwo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -49,20 +45,20 @@ class ReportControllerOne: UIViewController {
 //MARK: - TableView-related Methods
 extension ReportControllerOne: UITableViewDataSource{
     
-    //## - Function returns number of rows to be displayed on the TableView (if there is nothing to displayed error message will be displayed)
+    ///# - Function returns number of rows to be displayed on the TableView (if there is nothing to displayed error message will be displayed)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let stopsList = dataManagerOne.stopsInTheArea, stopsList.count > 0  else { return 1 }
         
         return stopsList.count
     }
     
-    //## - Functions determines exactly what is to be displayed in every cell one by one
+    ///# - Functions determines exactly what is to be displayed in every cell one by one
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //## - This guard is executed if there are no stops in the 1km area from the user AND displays a message accordingly
+        //## - This guard is executed if there are no stops in the 500m area from the user AND displays a message accordingly
         guard let stopsList = dataManagerOne.stopsInTheArea, stopsList.count > 0  else {
             tableView.rowHeight = tableView.estimatedRowHeight // Adjusts the row height to bigger message
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
-            cell.label?.text = "Brak przystanków w promieniu 1km"
+            cell.label?.text = "Brak przystanków w promieniu 500m"
             cell.isUserInteractionEnabled = false
             cell.typeImage.image = UIImage(systemName: "exclamationmark.triangle.fill")
             cell.typeImage.isHidden = false
@@ -70,7 +66,7 @@ extension ReportControllerOne: UITableViewDataSource{
         }
         
         //## - If there is at least one stop in the given area this part is executed
-        tableView.rowHeight = tableView.estimatedRowHeight // Adjusts the row height to bigger message
+        tableView.rowHeight = tableView.estimatedRowHeight // Adjusts the row height for longer text
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
         cell.label?.text = stopsList[indexPath.row].stopName
         cell.typeImage.isHidden = false
@@ -83,14 +79,14 @@ extension ReportControllerOne: UITableViewDataSource{
         } else {
             cell.typeImage.image = UIImage(systemName: "face.smiling")
         }
-
+        
         return cell
     }
 }
 
 extension ReportControllerOne: UITableViewDelegate{
     
-    //## - Function is triggered when a row is selected and performs segue accordingly
+    ///# - Function is triggered when a row is selected and performs segue accordingly:
         // -> saves the data about chosen stop in dataManager
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let stopsList = dataManagerOne.stopsInTheArea, stopsList.count > 0  else { return }

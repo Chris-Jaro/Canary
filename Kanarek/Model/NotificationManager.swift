@@ -7,8 +7,7 @@
 import UserNotifications
 import UIKit
 
-
-//## - Struct defines a localNotification object and its variables
+///# - Struct defines a localNotification object and its variables
 struct LocalNotification {
     var id: String
     var title: String
@@ -18,7 +17,7 @@ struct LocalNotification {
 struct NotificationManager {
     var notifications = [LocalNotification]()
     
-    //## Function is triggered by MainController's locationManager when user enters dangerous region and preforms action:
+    ///# Function is triggered by MainController's locationManager when user enters dangerous region and preforms action:
         // -> adds the notification to the notification list
         // -> schedules all the notifications in the list
     mutating func setNotification(title: String, body: String, userInfo:[AnyHashable : Any]){
@@ -26,13 +25,13 @@ struct NotificationManager {
         scheduleNotification(userInfo: userInfo)
     }
     
-    //## - Function is triggered by setNotification method and performs action:
+    ///# - Function is triggered by setNotification method and performs action:
         // -> creates a localNotification object and appends it to the list
     mutating func addNotification(title: String, body: String){
         notifications.append(LocalNotification(id: UUID().uuidString, title: title, body: body))
     }
     
-    //## - Function is triggered by the setNotification method and performs action:
+    ///# - Function is triggered by the setNotification method and performs action:
         // -> creates real notification object for every notification in the list
         // -> removes all pending notifications
         // -> clears the list on notification after they are scheduled

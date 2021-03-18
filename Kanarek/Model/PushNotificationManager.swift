@@ -12,7 +12,7 @@ struct  PushNotificationManager {
     
     let userDefaults = UserDefaults.standard // Accessing the user defaults
     
-    //## - Function is triggered by SettingsController and onAppStart() and performs action:
+    ///# - Function is triggered by SettingsController and onAppStart() and performs action:
         // -> unsubscribes from all currently available pushNotificationTopics
         // -> saves the set value of userDefaults to "Unsubscribed"
     func unsubscribe(){
@@ -27,7 +27,7 @@ struct  PushNotificationManager {
         print("Unsubscribed from ALL push_notifications")
     }
     
-    //## - Function is triggered by SettingsController and onAppStart() and performs action:
+    ///# - Function is triggered by SettingsController and onAppStart() and performs action:
         // -> subscribes to pushNotificationTopic for current city
         // -> saves the set value of userDefaults to "Unsubscribed"
     func subscribe(to city: String){
@@ -39,8 +39,8 @@ struct  PushNotificationManager {
         }
     }
     
-    //## The initial subscription happens only once ever (when there is no data in UserDefaults) -> then the whole process takes place in the settings
-    //## - Function performs the actions according to the Push Notification Subscription Status
+    //# The initial subscription happens only once ever (when there is no data in UserDefaults) -> then the whole process takes place in the settings
+    ///# - Function performs the actions according to the Push Notification Subscription Status
         // -> if initial app launch (no value in userDefaults) and current city is defined -> Subscribes to the city push notifications
         // -> if Unsubscribed in the settings -> Do nothing
         // -> if Subscribed to the current city -> No nothing

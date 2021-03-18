@@ -19,21 +19,17 @@ class SettingsController: UIViewController {
     @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet weak var termsButton: UIButton!
     
-    //## - Changes the colour of battery and time an service to white
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
-    
-    //## - Function is called before appearance of the view and performs actions:
+    ///# - Function is called before appearance of the view and performs actions:
         // -> Checks the settings and adjusts the switch state on the screen accordingly
         // -> Adjust the ui by rounding the corners and
         // -> Displays the user identifier
     override func viewWillAppear(_ animated: Bool) {
-        //## These two lines round up the corners of the white line
+        super.viewWillAppear(animated)
+        // These two lines round up the corners of the white rim around the all the settings
         whiteLineView.layer.cornerRadius = 15
         mainSettingsView.layer.cornerRadius = 15
         
-        //## These two lines round up the corners of the white line
+        // These two lines round up the corners of the white line
         logOutButton.layer.cornerRadius = 10
         termsButton.layer.cornerRadius = 10
         
@@ -56,14 +52,14 @@ class SettingsController: UIViewController {
         }
     }
     
-    //## - Functions is called when the view is loaded -> adds an observer to watch for the value change of the switch
+    ///# - Functions is called when the view is loaded -> adds an observer to watch for the value change of the switch
     override func viewDidLoad() {
         super.viewDidLoad()
         
         stateSwitch.addTarget(self, action: #selector(stateChanged), for: .valueChanged) // sets up the observer of the switch - which triggers on value-change
     }
     
-    //## - Function is triggered when the user taps sign-out button and performs action:
+    ///# - Function is triggered when the user taps sign-out button and performs action:
         // -> removes saved login data (kept for auto-login)
         // -> dismisses main navigation controller (goes back to first navigation controller which handles the login/sign-up process)
     @IBAction func signOutButtonPressed(_ sender: UIButton) {
@@ -73,12 +69,12 @@ class SettingsController: UIViewController {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    //## - Function is triggered when the user presses on "regulamin" label -> preforms segue to the terms and conditions view
+    ///# - Function is triggered when the user presses on "regulamin" label -> preforms segue to the terms and conditions view
     @IBAction func termsButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: K.Segues.toTerms, sender: self)
     }
     
-    //## Implements the functionality of the switch -> subscribes to or unsubscribes from push notifications
+    ///# Implements the functionality of the switch -> subscribes to or unsubscribes from push notifications
     @objc func stateChanged(switchState: UISwitch) {
         if switchState.isOn {
             if let cityName = userDefaults.string(forKey: K.UserDefaults.cityName){

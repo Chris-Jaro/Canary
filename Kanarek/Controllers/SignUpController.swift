@@ -12,7 +12,7 @@ class SignUpController: UIViewController{
     
     var signingUpView: UIView? //View displayed then the signing-up process is taking place
     let userLoginDetails = UserDefaults.standard //Accessing user defaults
-    let errorManager = ErrorManager()
+    let errorManager = ErrorManager() // Accessing error-handling methods
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var checkbox: UIButton!
@@ -20,23 +20,21 @@ class SignUpController: UIViewController{
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var buttonRim: UIView!
     
-    //## - Changes the colour of battery and time an service to white
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
-    //## - Rounding button corners
+    ///# - Rounding button corners
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         signUpButton.layer.cornerRadius = 15
         buttonRim.layer.cornerRadius = 15
     }
-    //## - Resetting error label and placeholders
+    ///# - Resetting error label and placeholders
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         setPlaceholder()
         errorLabel.isHidden = true
         errorLabel.text = ""
     }
     
-    //## - Function is called after the view is loaded:
+    ///# - Function is called after the view is loaded:
         // -> sets placeholders for text fields
         // -> sets up the tap gesture for toggling the keyboard
         // -> sets the textField delegates
@@ -52,7 +50,7 @@ class SignUpController: UIViewController{
         passwordTextField.delegate = self
     }
     
-    //## - Functions handles clicking the 'I accept terms&conditions' checkbox
+    ///# - Functions handles clicking the 'I accept terms&conditions' checkbox
     @IBAction func checkboxClicked(_ sender: UIButton) {
         if checkbox.currentImage == UIImage.init(systemName: "square") {
         checkbox.setImage(UIImage.init(systemName: "checkmark.square"), for: .normal)
@@ -61,14 +59,14 @@ class SignUpController: UIViewController{
         }
     }
     
-    //## - Function handles clicking 'Sign up' button -> If text fields are not empty it triggers sign-up function
+    ///# - Function handles clicking 'Sign up' button -> If text fields are not empty it triggers sign-up function
     @IBAction func SignUpButtonPressed(_ sender: UIButton) {
         if let email = emailTextField.text, let password = passwordTextField.text{
             signingUp(email: email, password: password)
         }
     }
     
-    //## - Function handles clicking 'Sign up' button:
+    ///# - Function handles clicking 'Sign up' button:
         // -> Displays and removes spinner on top of the views
         // -> checks if the checkbox is selected
         // -> performs Authentication.createUser function and creates user in Firebase console
@@ -100,7 +98,7 @@ class SignUpController: UIViewController{
         
     }
 
-    //## - Function sets the placeholder in both text fields
+    ///# - Function sets the placeholder in both text fields
     func setPlaceholder(){
         emailTextField.text = "Adres Email"
         passwordTextField.text = "Hasło"
@@ -112,7 +110,7 @@ class SignUpController: UIViewController{
 
 //MARK: - Loading Indication Methods
 extension SignUpController {
-    //## - Function create the spinner view and displays it on top of self.view by setting it as signingUpView
+    ///# - Function create the spinner view and displays it on top of self.view by setting it as signingUpView
     func showSpinner(onView : UIView) {
         // The view and its background
         let spinnerView = UIView.init(frame: onView.bounds)
@@ -130,7 +128,7 @@ extension SignUpController {
         signingUpView = spinnerView
     }
     
-    //## - Functions that removes the spinnerView from self.view
+    ///# - Functions that removes the spinnerView from self.view
     func removeSpinner() {
         DispatchQueue.main.async {
             self.signingUpView?.removeFromSuperview()
@@ -141,7 +139,7 @@ extension SignUpController {
 
 //MARK: - UITextFieldDelegate
 extension SignUpController: UITextFieldDelegate{
-    //## - Function handles the disappearance of the placeholder and adjusting text display when user starts editing
+    ///# - Function handles the disappearance of the placeholder and adjusting text display when user starts editing
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text! == "Hasło"{
             textField.isSecureTextEntry = true
@@ -152,13 +150,13 @@ extension SignUpController: UITextFieldDelegate{
         }
         textField.textColor = UIColor.black
     }
-    //## - Function sets the placeholder back if the user left the textField empty
+    ///# - Function sets the placeholder back if the user left the textField empty
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text == ""{
             setPlaceholder()
         }
     }
-    //## - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the passoword text filed when return is pressed the sign-up function is triggered
+    ///# - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the password text filed when return is pressed the sign-up function is triggered
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.isSecureTextEntry == true{
             if let email = emailTextField.text, let password = passwordTextField.text{

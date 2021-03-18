@@ -18,16 +18,13 @@ protocol DatabaseManagerDelegate {
 class DatabaseManager {
     
     var delegate: DatabaseManagerDelegate?
-    
     let userLoginDetails = UserDefaults.standard //Accessing user defaults
-    
     let db = Firestore.firestore() // Creating database reference
-    
     var stops = [Stop]()
     var dangerousStops = [Stop]()
     var directions = [String]()
     
-    //## Functions return the data
+    ///# Functions return the data
     func getStops() -> [Stop]{
         return stops
     }
@@ -35,7 +32,7 @@ class DatabaseManager {
         return directions
     }
     
-    //## - Function is triggered by MainController (in loadPoints method as the delegate of MapManager after receiving the city name) and performs action:
+    ///# - Function is triggered by MainController (in loadPoints method as the delegate of MapManager after receiving the city name) and performs action:
         // -> connects to the database (and constantly listens to the changes made in the database)
         // -> resets stops and dangerousStops lists
         // -> reads data from the database, creates stop objects and adds them to proper lists
@@ -81,7 +78,7 @@ class DatabaseManager {
             }
     }
     
-    //## - Function is triggered by loadPoints method and performs action:
+    ///# - Function is triggered by loadPoints method and performs action:
         // -> returns all stops if it is between 04:00-24:00
         // -> returns only nightStops if it is between 00:00-04:00
     func filterStops(stops: [Stop]) -> [Stop] {
@@ -110,7 +107,7 @@ class DatabaseManager {
         }
     }
     
-    //## - Function is triggered by ReportManagerThree with a lineNumber and cityName and performs action:
+    ///# - Function is triggered by ReportManagerThree with a lineNumber and cityName and performs action:
         // -> connects to the database of the city
         // -> reads the directions list for provided line number
         // -> triggers updateUI method of ReportManagerThree (delegate) which refreshes the tableView data gathered from the database
@@ -138,7 +135,7 @@ class DatabaseManager {
             }
     }
     
-    //## - Function is triggered by renewStopStatus() and ReportManagerThree and performs action:
+    ///# - Function is triggered by renewStopStatus() and ReportManagerThree and performs action:
         // -> connects to the database of the given city
         // -> updates the stop document in the database with the provided data (stopName = document's ID)
     func updatePointStatus(documentID stopName: String, status: Bool, reportDetails: String, date:Double = 12.34, city: String) {
@@ -148,7 +145,7 @@ class DatabaseManager {
                                          K.FirebaseQuery.reportDetails: reportDetails], merge: true)
     }
     
-    //## - Function is triggered by timer in MainController (only if the user allowed location services) and performs action:
+    ///# - Function is triggered by timer in MainController (only if the user allowed location services) and performs action:
         // -> if the stop was reported more than 3 minutes (180s) ago its neutral status gets restored
     func renewStopStatus(){
         guard dangerousStops.count > 0 else {return}
@@ -161,7 +158,7 @@ class DatabaseManager {
         }
     }
     
-    //## - Function is triggered by ReportControllerThree and performs action:
+    ///# - Function is triggered by ReportControllerThree and performs action:
         // -> connects to the database
         // -> takes the data and creates a new document in the history database collection for the current city
     func saveReport(stop:String, line:Int, direction:String, city: String){

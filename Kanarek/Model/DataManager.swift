@@ -13,7 +13,7 @@ struct DataManager{
     var stopsInTheArea: [Stop]?
     var chosenStopIndex: Int?
     
-    //## - Function is triggered by ReportOneController when preparing for segue and performs action:
+    ///# - Function is triggered by ReportOneController when preparing for segue and performs action:
         // -> filters the list of lineNumbers for of the chosen stop depending on the time of the day (night/day lines)
             // - <5:00-22:00) -> returns only day lineNumbers (x < 200  or 300 =< x )
             // - <22:00-00:00) + <04:00-05:00)  -> returns all lineNumbers because some lines are still operating and others already
@@ -64,7 +64,7 @@ struct DataManager{
     var stopName: String?
     var selectedLine: Int?
     
-    //## - Function is triggered by ReportControllerTwo (when loading tableView) and performs action:
+    ///# - Function is triggered by ReportControllerTwo (when loading tableView) and performs action:
         // -> converts the one-dimensional array of lineNumbers into a two-dimensional array to be suitable for two-column table ([1,2,3,4] -> [[1,2],[3,4]])
         // -> if lines list.count is odd zero is appended and then adjusted (and if a button.title == "0" it gets disabled)
     func adjustLinesList(list: [Int]) -> [[Int]]{
@@ -89,7 +89,7 @@ struct DataManager{
         return adjustedList
     }
     
-    //## - Function is triggered by adjustLinesList and performs action:
+    ///# - Function is triggered by adjustLinesList and performs action:
         // -> takes a list [Int]
         // -> returns a list of only the even indices (0,2,4,...) -> to allow creation of two-dimensional matrix
     func filterEvenIndices(list:[Int]) -> [Int]{

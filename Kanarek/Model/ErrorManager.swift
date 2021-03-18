@@ -9,7 +9,7 @@ import UIKit
 
 struct ErrorManager {
     
-    //## - Function is triggered by SignInController or SignUpController and performs action:
+    ///# - Function is triggered by SignInController or SignUpController and performs action:
         // -> takes the error provided by FirebaseAuth and depending on the error code it returns an appropriate message in Polish
         // $ Only the most popular errors are translated, if something else happens the localised description will be displayed (in English)
     func translateError(error: Error) -> String{
@@ -35,13 +35,14 @@ struct ErrorManager {
         }
     }
     
-    //## - Function is triggered by MainController, and performs action:
+    ///# - Function is triggered by MainController, and performs actions:
         // -> creates a new Alert with given title and subtitle
         // -> adds "OK" action button to the alert
+            //$ custom handler can be added to the "OK" Button, it defaults to nil
         // -> presents the Alert on the View
-    func displayBasicAlert(title: String, subtitle: String, controller: UIViewController){
+    func displayBasicAlert(title: String, subtitle: String, controller: UIViewController, handler: ((UIAlertAction) -> Void)? = nil){
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: handler))
         controller.present(alert, animated: true, completion: nil)
     }
 }

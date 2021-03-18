@@ -15,6 +15,8 @@ struct K {
         static let email = "UserEmail"
         static let password = "UserPassword"
         static let appStoreSubscription = "appStoreSubscription"
+        static let reportCount = "reportCompletedCount"
+        static let lastReviewVersion = "lastVersionPromptedForReview"
     }
     
     struct PushNotifications{

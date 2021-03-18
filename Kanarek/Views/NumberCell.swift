@@ -20,7 +20,7 @@ class NumberCell: UITableViewCell {
     var delegate: NumberCellDelegate? // ideally ReportControllerTwo
     var chosenNumber:String?
     
-    //## - Function configures the way a cell looks form the beginning (UI config)
+    ///# - Function configures the way a cell looks form the beginning (UI config)
         // -> rounds the corners of the buttons of the cell
         // -> changes button tint colour to clear to avoid the button-selected functionality of small blue square around the title
     override func awakeFromNib() {
@@ -31,7 +31,7 @@ class NumberCell: UITableViewCell {
         rightButton.tintColor = UIColor.clear
     }
 
-    //## - Function is triggered by tapping of one of the buttons in the cell and performs action:
+    ///# - Function is triggered by tapping of one of the buttons in the cell and performs action:
         // -> calls its delegate to deselect all the table cells - deselectAllCells()
         // -> button's state is changed to "selected"
         // -> data chosen by the user is saved in a variable
@@ -50,7 +50,7 @@ class NumberCell: UITableViewCell {
         }
     }
     
-    //## - Function reacts to the selection or deselection of the cells
+    ///# - Function reacts to the selection or deselection of the cells:
         // -> Selection : delegate's performAction() is triggered | buttons are recoloured | the selected button is deselected but left with the colour
         // -> Deselection : all buttons are deselected | recoloured accordingly
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -81,7 +81,7 @@ class NumberCell: UITableViewCell {
         
     }
     
-    //## - Function is responsible for the colouring of the buttons
+    ///# - Function is responsible for the colouring of the buttons:
         // -> if enabled button is selected -> colour to yellow
         // -> if enabled button (has to be deselected because all selected are already yellow) starts with 2 and has 3 digits -> colour black | text colour to white
         // -> if enabled button is neutral (others then the two cases specified above) -> colour to white
@@ -90,7 +90,7 @@ class NumberCell: UITableViewCell {
         let title = button.currentTitle!
         if button.isSelected && button.isEnabled{
             //Every enabled button selected
-            button.backgroundColor = UIColor.init(cgColor: CGColor(red: 255/255, green: 210/255, blue: 40/255, alpha: 1))
+            button.backgroundColor = UIColor.init(cgColor: CGColor(red: 255/255, green: 201/255, blue: 60/255, alpha: 1))
         } else if button.isEnabled && (title[title.startIndex] == "2" && title.count == 3){
             //Night line button (need to be before all other not-selected enabled buttons)
             button.backgroundColor = UIColor.black

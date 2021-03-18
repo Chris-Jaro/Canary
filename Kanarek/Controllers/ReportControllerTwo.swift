@@ -12,12 +12,7 @@ class ReportControllerTwo: UIViewController {
     var dataManagerTwo = DataManager()
     @IBOutlet weak var tableView: UITableView!
     
-    //## - Changes the colour of battery and time an service to white
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
-    
-    //## - Function is triggered then the view is loaded and performs actions:
+    ///## - Function is triggered then the view is loaded and performs actions:
         // -> sets the dataSource and the delegate for tableView
         // -> sets row height to 100 (for the numbers)
         // -> registers both custom cells (text - for error message; number - for line numbers)
@@ -34,7 +29,7 @@ class ReportControllerTwo: UIViewController {
         
     }
 
-    //## - Function is triggered right before the segue and performs action:
+    ///# - Function is triggered right before the segue and performs action:
         // -> passes the chosen data (line number; stop name) to the dataManagerThree
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToReportThree"{
@@ -52,7 +47,7 @@ class ReportControllerTwo: UIViewController {
 //MARK: - TableView-related Methods
 extension ReportControllerTwo: UITableViewDataSource{
     
-    //#### - Function provides the number of section in the TableView | "One Row per Section" policy is applied to enable creating the gap between the rows (by adding invisible headers of certain height)
+    ///# - Function provides the number of section in the TableView | "One Row per Section" policy is applied to enable creating the gap between the rows (by adding invisible headers of certain height)
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let lines = dataManagerTwo.linesList, lines.count > 0 else {return 1}
         let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
@@ -63,7 +58,7 @@ extension ReportControllerTwo: UITableViewDataSource{
         return 1
     }
     
-    //#### - Functions determines exactly what is to be displayed on every cell one by one
+    ///# - Functions determines exactly what is to be displayed on every cell one by one:
         // -> If there are no lines -> error message is displayed
         // -> If there are lines the list is adjusted to conform with the two columns (list dimensions are changed [1,2,3,4] -> [[1,2][3,4]])
         // -> If lines.count is odd -> 0 is appended to the list and is button label is equal to 0 the button is disabled
@@ -94,9 +89,9 @@ extension ReportControllerTwo: UITableViewDataSource{
 
 extension ReportControllerTwo: UITableViewDelegate{
     
-    //#### -> These two functions are responsible for the gap between the rows
+    ///# -> These two functions are responsible for the gap between the rows
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10 // width of the gap between the cells
+        return 10 // the width of the gap between the cells in px
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         //# creates the gap between the cells
@@ -109,7 +104,7 @@ extension ReportControllerTwo: UITableViewDelegate{
 //MARK: - NumberCellDelegate Methods
 extension ReportControllerTwo: NumberCellDelegate{
     
-    //## - Function is triggered by the buttonClicked actions
+    ///# - Function is triggered by the buttonClicked actions
         // -> When a button with a line number is tapped the whole tableView gets deselected and then only the current button gets selected
     func deselectAllCells() {
         tableView.visibleCells.forEach { (cell) in
@@ -117,7 +112,7 @@ extension ReportControllerTwo: NumberCellDelegate{
         }
     }
     
-    //## - Function is triggered by tapping on one of the buttons in the number cell and performs actions:
+    ///# - Function is triggered by tapping on one of the buttons in the number cell and performs actions:
         // -> saves data of the user's choice of line number
         // -> performs segue
     func performAction(with selectedLine: Int) {

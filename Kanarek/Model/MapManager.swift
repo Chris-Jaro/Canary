@@ -17,9 +17,10 @@ class MapManager {
     
     var reportLocation: CLLocation?
     
-    //## - Function is triggered by MainController and performs actions:
+    ///# - Function is triggered by MainController and performs actions:
         // -> takes provided location and performs reverseGeocoding which results in a city name for the location (in english)
         // -> After receiving the city name MapManager delegate's (here MainController) method loadPoints is called with the city name
+        // -> Since now Poznań in english = "Poznań" the function changes "ń" to "n" in this city name; "Warszawa" = "Warsaw"
     func getCurrentCity(for currentLocation: CLLocation?){
         let geoCoder = CLGeocoder()
         // "preferredLocale:" variable forces the language of the geoCoder results (to English in this case "en")
@@ -27,7 +28,12 @@ class MapManager {
             geoCoder.reverseGeocodeLocation(location, preferredLocale: Locale.init(identifier: "en"), completionHandler: { (placemarks, _) -> Void in
                 if let placemark = placemarks?.first{
                     if let city = placemark.locality {
-                        self.delegate!.loadPoints(for: city.lowercased())
+                        var cityName = city.lowercased()
+                        // Poznań in English is "Poznań" (weirdly enough) so I have to replace 'ń' with 'n' | Warszawa in English is still 'Warsaw' (thankfully)
+                        if cityName.contains("ń"){
+                            cityName = cityName.replacingOccurrences(of: "ń", with: "n")
+                        }
+                        self.delegate!.loadPoints(for:cityName)
                     }
                     
                 }
@@ -35,7 +41,7 @@ class MapManager {
         }
     }
     
-    //## - Function is triggered by MainController during preparation for segue and performs actions:
+    ///# - Function is triggered by MainController during preparation for segue and performs actions:
         // -> filters the stops list and returns the stops that are within 500m from the user's location (report location)
         // -> if there are no stops the list is passes as an empty list and suitable error message is displayed in ReportOneController
     func filterStopsInTheArea(stops:[Stop]) -> [Stop] {
@@ -51,13 +57,13 @@ class MapManager {
         return stopsInMyArea
     }
     
-    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+    ///# - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
         // -> adds a neutral stop to the mapView where it specifies stop's title, subtitle and location (using addPoint function)
     func addNeutralStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location, title: stop.stopName, subtitle:"linie: \(stop.lines)\ntyp: \(stop.type)\nstatus_zgłoszenia: \(stop.status)", map: map)
     }
     
-    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+    ///# - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
         // -> adds a dangerous stop to the mapView where it specifies stop's title, subtitle and location (using addPoint function)
         // -> adds circle overlay to the mapView at the location of the dangerous stop
     func addDangerousStop(for stop:Stop, on map: MKMapView){
@@ -67,7 +73,7 @@ class MapManager {
         addCircle(where: stop.location, map: map)
     }
     
-    //## - Function is triggered by MainController's locationManager (only once on the first load of the mapView) and tapping the currentLocationButton and performs action:
+    ///# - Function is triggered by MainController's locationManager (only once on the first load of the mapView) and tapping the currentLocationButton and performs action:
         // -> resets the mapView region (the visible part of the map) with provided arguments (location and zoom)
     func setUsersLocation(for location: CLLocation, map: MKMapView, zoom: Double = 0.01){
         let center = location.coordinate
@@ -75,7 +81,7 @@ class MapManager {
         map.setRegion(region, animated: true)
     }
     
-    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+    ///# - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
         // -> deletes all the annotation from the map (except for the userLocation annotation) - to avoid stacking stops when refreshing the map
     func deleteOldPoints(on map:MKMapView){
         var list = map.annotations
@@ -92,7 +98,7 @@ class MapManager {
         map.removeOverlays(map.overlays)
     }
     
-    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+    ///# - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
         // -> cleans the list of monitored regions (dangerous stops)
     func resetMonitoring(for manager: CLLocationManager){
         let regions = manager.monitoredRegions
@@ -101,7 +107,7 @@ class MapManager {
         }
     }
     
-    //## - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
+    ///# - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
         // -> adds a region to monitoredRegions list of LocationManager
     func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String, for locationManager: CLLocationManager) {
         // Checks if the device supports Region Monitoring
@@ -120,8 +126,8 @@ class MapManager {
 //MARK: - Inner Methods
 // Methods used only by the methods within MapManager class
 extension MapManager {
-    //## - Function simplifies the process of adding the point to the mapView
-    func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String, map: MKMapView){
+    ///# - Function simplifies the process of adding the point to the mapView
+    fileprivate func addPoint(where location: CLLocationCoordinate2D, title: String, subtitle: String, map: MKMapView){
         let point = MKPointAnnotation()
         point.coordinate = location
         point.title = title
@@ -129,15 +135,15 @@ extension MapManager {
         map.addAnnotation(point)
     }
     
-    //## - Function simplifies the process of adding the circle overlay for dangerous stops
-    func addCircle(where location: CLLocationCoordinate2D, map: MKMapView){
+    ///# - Function simplifies the process of adding the circle overlay for dangerous stops
+    fileprivate func addCircle(where location: CLLocationCoordinate2D, map: MKMapView){
         let regionRadius = 200.0
         let circle = MKCircle(center: location, radius: regionRadius)
         map.addOverlay(circle)
     }
     
-    //## - Function converts timeIntervalSince2001 to 'HH:mm' which is then displayed in report details on the pop-up
-    func dateConverter(interval:TimeInterval ) -> String {
+    ///# - Function converts timeIntervalSince2001 to 'HH:mm' which is then displayed in report details on the pop-up
+    fileprivate func dateConverter(interval:TimeInterval ) -> String {
         let date = Date(timeIntervalSinceReferenceDate: interval)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"

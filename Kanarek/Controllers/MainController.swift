@@ -17,27 +17,32 @@ class MainController: UIViewController{
     var dataManagerMain = DataManager() // Accessing all data related variables and methods needed by this controller
     var notificationManager = NotificationManager() // Accessing local notification methods
     let pushNotificationManager = PushNotificationManager() // Accessing push notification methods
-    let errorManager = ErrorManager()
+    let errorManager = ErrorManager() // Accessing error-handling Methods
+    let reviewManager = ReviewManager() // Accessing review methods
     let userDefaults = UserDefaults.standard // Accessing user defaults
     var timer: Timer? // timer for refreshing the dangerous points
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var warningView: UIView!
-    //## - Changes the colour of battery and time an service to white
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
     
-    //#### Two functions that hide the navigation bar on the main screen
+    ///# - Function is called when the View is about to appear (even when the View is already loaded but becomes topView in the NavigationStack) and performs actions:
+        // -> hides the navigationBar
+        // -> calls the review manager to requestReview (which will only happen when the user popsToRoot (Main) after making report)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+    
+        reviewManager.requestReviewIfAppropriate()
     }
+    
+    ///# - Function is called when the View is about to disappear and performs action:
+        // -> reveals the navigationBar
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
-    //## - Function is triggered when the view is loaded ans performs actions:
+    
+    ///# - Function is triggered when the view is loaded ans performs actions:
         // -> rounds the corners of map and warning views
         // -> sets location manager delegate and configures it
         // -> sets map delegate and configures it
@@ -68,7 +73,7 @@ class MainController: UIViewController{
         mapManager.delegate = self
     }
     
-    //## - Function is triggered every 60 seconds by the timer set up when the view is loaded and performs action:
+    ///# - Function is triggered every 60 seconds by the timer set up when the view is loaded and performs action:
         // -> user must allow location services for the timer to perform is action (to avoid database bugs if the user passively choses Warsaw with renewStopsStatus())
         // -> triggers renewStopsStatus function (which checks is a stops set to dangerous more than 2 minutes ago If so it sets it back to neutral)
         // -> delays the execution of the code for two seconds
@@ -94,7 +99,7 @@ class MainController: UIViewController{
         
     }
     
-    //## - Function is triggered by tapping "currentLocationButton" in the top-left corner of the map and performs action:
+    ///# - Function is triggered by tapping "currentLocationButton" in the top-left corner of the map and performs actions:
         // -> if the user did not allow location services -> they are sent back to the default location and zoom for the chosen city
         // -> if user allowed location services -> set user's location as mapView center
         // -> hides the button until the user modifies the visible region of the maps
@@ -108,7 +113,7 @@ class MainController: UIViewController{
         dataManagerMain.hiddenLocationButton = true
     }
     
-    //## - Function is trigger by tapping "report button" and performs actions:
+    ///# - Function is trigger by tapping "report button" and performs actions:
         // -> if user did not allow location -> alert is displayed to inform the user and point to phone settings to allow location
         // -> passes the location of the report to dataManager
         // -> performs segue to ReportViewOne
@@ -124,8 +129,7 @@ class MainController: UIViewController{
         performSegue(withIdentifier: K.Segues.toReportOne, sender: self)
     }
     
-    
-    //## - Function is triggered just before the segue is initiated and performs action
+    ///# - Function is triggered just before the segue is initiated and performs action:
         // -> passes a list of stops in the 1000m range from the user
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segues.toReportOne{
@@ -138,7 +142,7 @@ class MainController: UIViewController{
 
 //MARK: - MapManagerDelegate Methods
 extension MainController: MapManagerDelegate{
-    //## - Function is triggered by mapManager (because it is its delegate's function) when it receives the info about current city of the user and performs actions :
+    ///# - Function is triggered by mapManager (because it is its delegate's function) when it receives the info about current city of the user and performs actions:
         // -> if user did not allow location services the default location for city chosen by the user is displayed
         // -> if user allowed location services and is in one of the supported cities -> databaseManager loads the points for the given city from the database
         // -> if user allowed location services and is NOT in one of the supported cities -> alert is displayed to inform the user that we only support Poznan and Warsaw and they can passively access then by not allowing location (here the stops are not loaded)
@@ -147,7 +151,7 @@ extension MainController: MapManagerDelegate{
     func loadPoints(for cityName: String) {
         let supportedCityNames = ["poznan", "warsaw"]
         
-        //## If the user did not allow location services this variable is created with the default value for Poznan or Warsaw
+        //# If the user did not allow location services this variable is created with the default value for Poznan or Warsaw
         guard dataManagerMain.defaultLocation == nil else {
             databaseManager.loadPoints(for: cityName) //Load the points for default city chosen by the user
             return
@@ -174,7 +178,7 @@ extension MainController: MapManagerDelegate{
 
 //MARK: - DatabaseManagerDelegate Methods
 extension MainController: DatabaseManagerDelegate {
-    //## - Function is triggered by databaseManager (because it is its delegate's function) when it receives information regarding stops in this city from Firebase database and performs actions :
+    ///# - Function is triggered by databaseManager (because it is its delegate's function) when it receives information regarding stops in this city from Firebase database and performs actions:
         // -> deletes old points from the map
         // -> resets the monitoring of dangerous regions
         // -> checks if the stop is dangerous or neutral and places it on the map accordingly
@@ -197,7 +201,7 @@ extension MainController: DatabaseManagerDelegate {
         timerAction()
     }
     
-    //## - Function is triggered by DatabaseManager if fails with error and performs action:
+    ///# - Function is triggered by DatabaseManager if it fails with error and performs action:
         // -> shows an alert with the error message
     func failedWithError(error: Error) {
         errorManager.displayBasicAlert(title: "Błąd", subtitle: "Prosimy o przesłanie błędu na nasz adres email.\n\(error.localizedDescription)", controller: self)
@@ -207,7 +211,7 @@ extension MainController: DatabaseManagerDelegate {
 
 //MARK: - MapViewDelegate Methods
 extension MainController: MKMapViewDelegate{
-    //## - Function defines the way the circle overlay is displayed on the map (in this case "danger zone" around the reported stop)
+    ///# - Function defines the way the circle overlay is displayed on the map (in this case "danger zone" around the reported stop)
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let color = UIColor.systemRed
         let circleRenderer = MKCircleRenderer(overlay: overlay)
@@ -216,10 +220,9 @@ extension MainController: MKMapViewDelegate{
         circleRenderer.fillColor = color
         circleRenderer.strokeColor = color
         return circleRenderer
-        }
+    }
     
-    //#### - DEFINES THE VIEW OF THE POINT
-    //## - Function defines the way an annotation is displayed on the map (in this case the stop)
+    ///# - Function defines the way an annotation is displayed on the map (in this case the stop):
         // -> colour of the annotation depending on stop status (blue/red)
         // -> glyph image if the annotation depending on the type of the stop (tram/bus/metro/train)
         // -> pop-up (callout) for the user to have access to stop details in a more suitable way
@@ -252,17 +255,14 @@ extension MainController: MKMapViewDelegate{
         
     }
     
-    //This function is responsible for the action after clicking the "detailDisclosure" button of the callout
-    
-    // - Function defines the action that is performed when an annotation pop-up's button is tapped
+    ///# - Function defines the action that is performed when an annotation pop-up's button is tapped ("detailDisclosure")
         // -> show an alert with the details regarding the stop
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let annotation = view.annotation as? MKPointAnnotation else { return }
         errorManager.displayBasicAlert(title: annotation.title!, subtitle: annotation.subtitle!, controller: self)
     }
     
-    //#### - ACCESSES THE currentLocationButton
-    //## - Function is triggered then the current region of the map (visible part) is changed and performs action:
+    ///# - Function is triggered then the current region of the map (visible part) is changed and performs action:
         // -> it reveals the currentLocation button to allow user the return to his location
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         dataManagerMain.hiddenLocationButton = false
@@ -272,7 +272,7 @@ extension MainController: MKMapViewDelegate{
 
 //MARK: - LocationManagerDelegate Methods
 extension MainController: CLLocationManagerDelegate{
-    //## - Function is triggered when the user allows or denies location services and performs action:
+    ///# - Function is triggered when the user allows or denies location services and performs action:
         // -> if the user allows location services -> starts updating location
         // -> if the user does not allow location services -> displays an alert with the option to chose a default city and allow it's passive observation (only loads points, but does not allow reporting)
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -309,7 +309,7 @@ extension MainController: CLLocationManagerDelegate{
         locationManager.startUpdatingLocation()
     }
     
-    //## - Function is triggered every second when the location is updated
+    ///# - Function is triggered every second when the location is updated and performs actions:
         // -> saves the current location in the dataManager
         // -> sets the initial location of the user on the map (on app launch)
         // -> updates the currentLocationButton visibility
@@ -335,13 +335,13 @@ extension MainController: CLLocationManagerDelegate{
         }
     }
     
-    //## - Function is triggered when user enters the monitoring region and preforms action:
+    ///# - Function is triggered when user enters the monitoring region and preforms action:
         // -> sends local notification to the user with the report details
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         notificationManager.setNotification(title: "Uwaga - Wykryto Zagrożony Region", body: "Przystanek \(region.identifier)", userInfo: ["aps":["Coordinates":"To show on the map"]])
     }
     
-    //## - Function is triggered when the user's state is determined inside or outside of dangerous region and performs action:
+    ///# - Function is triggered when the user's state is determined inside or outside of dangerous region and performs action:
         // -> if user is inside the dangerous region the warning view becomes visible and map becomes red
         // -> if user is outside the dangerous region the warning view becomes hidden and map normal state is restored
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
@@ -356,7 +356,7 @@ extension MainController: CLLocationManagerDelegate{
         }
     }
     
-    //## - Function handles the error (prints for now)
+    ///# - Function handles the error (prints for now)
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }

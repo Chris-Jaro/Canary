@@ -6,31 +6,46 @@
 //
 import UIKit
 import Firebase
+import Purchases
 
 class SignInController: UIViewController {
     
     var loggingInView : UIView? //View displayed then the logging in process is taking place
     let userLoginDetails = UserDefaults.standard // Accessing user defaults
-    let errorManager = ErrorManager()
+    let errorManager = ErrorManager() // Access the error-handling methods
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var buttonRim: UIView!
     
-    //## - Changes the colour of battery and time an service to white
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
-    //## - Function round the corners of 'log in' button and hides navigation bar
+    ///# - Function is called just before the view appears (also when the view gets back on top of the navigation stack) and performs actions:
+        // -> rounds the corners of 'log in' button and hides navigationBar
+        // -> checks if the current user has entitlements
+            // -> IF successful -> try auto-sign-in if there is a logged user(already registered that did not log out)
+            // -> ELSE go to SubscriptionView to either subscribe or restore
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         signInButton.layer.cornerRadius = 15
         buttonRim.layer.cornerRadius = 15
         
+        //Checks if the current user has entitlements
+        Purchases.shared.purchaserInfo { (purchaserInfo, error) in
+            if purchaserInfo?.entitlements.all["fullAccess"]?.isActive == true {
+                // if successful -> try to do automatic login
+                if let userEmail = self.userLoginDetails.string(forKey: K.UserDefaults.email), let userPassword = self.userLoginDetails.string(forKey: K.UserDefaults.password) {
+                    self.loggingIn(email: userEmail, password: userPassword)
+                }
+            } else {
+                // Go to SubscriptionView
+                self.performSegue(withIdentifier: K.Segues.subscription, sender: self)
+                return
+            }
+        }
+        
     }
-    //## - Function reveals navigation bar, resets placeholders and error label
+    ///## - Function reveals navigation bar, resets placeholders and error label
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
@@ -39,28 +54,15 @@ class SignInController: UIViewController {
         errorLabel.text = "Error label"
     }
     
-    //## - Function is called after the view is loaded:
+    ///# - Function is called after the view is loaded:
         // -> sets placeholders for text fields
-        // -> performs auto-sign-in if there is a logged user(already registered that did not log out)
         // -> sets up the tap gesture for toggling the keyboard
         // -> sets the textField delegates
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //##@@$$ IF there is subscription data saved in the UserDefaults (Apple ID is a subscriber) -> do nothing
-        //##@@$$ ELSE (Apple ID is not a subscriber) -> go to Subscription View to allow subscription or restoration
-        guard let _ = UserDefaults.standard.string(forKey: K.UserDefaults.appStoreSubscription) else {
-            performSegue(withIdentifier: K.Segues.subscription, sender: self)
-            return
-        }
         setPlaceholder()
-        if let userEmail = userLoginDetails.string(forKey: K.UserDefaults.email), let userPassword = userLoginDetails.string(forKey: K.UserDefaults.password) {
-            loggingIn(email: userEmail, password: userPassword)
-        } else {
-            print("No data in the user defaults")
-        }
 
-        //#### When the user taps somewhere on the screen the keyboard toggles
+        // When the user taps somewhere on the screen the keyboard toggles
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
         
@@ -68,16 +70,14 @@ class SignInController: UIViewController {
         passwordTextField.delegate = self
     }
     
-    //## - Functions performs log-in when 'log in' button is pressed provided that text fields are not empty
+    ///# - Functions performs log-in when 'log in' button is pressed provided that text fields are not empty
     @IBAction func logInButtonPressed(_ sender: UIButton) {
-        
-        
-//        if let email = emailTextField.text, let password = passwordTextField.text{
-//            loggingIn(email: email, password: password)
-//        }
+        if let email = emailTextField.text, let password = passwordTextField.text{
+            loggingIn(email: email, password: password)
+        }
     }
     
-    //## - Function defines the login process:
+    ///# - Function defines the login process:
         // -> Displays spinnerView (to indicate loading process)
         // -> Performs sign-in to Firebase Console
         // -- If fails -> checks if it's one of the most common errors and prints its Polish translation -> if not common it returns localisedDescription (in English)
@@ -98,7 +98,7 @@ class SignInController: UIViewController {
         }
     }
     
-    //## - Function sets the placeholder in both text fields
+    ///# - Function sets the placeholder in both text fields
     func setPlaceholder(){
         emailTextField.text = "Adres Email"
         passwordTextField.text = "Hasło"
@@ -108,10 +108,9 @@ class SignInController: UIViewController {
     }
 }
 
-
 //MARK: - Loading Spinner Methods
 extension SignInController {
-    //## - Function create the spinner view and displays it on top of self.view by setting it as loggingInView
+    ///# - Function create the spinner view and displays it on top of self.view by setting it as loggingInView
     func showSpinner(onView : UIView) {
         // The view and its background
         let spinnerView = UIView.init(frame: onView.bounds)
@@ -129,7 +128,7 @@ extension SignInController {
         loggingInView = spinnerView
     }
     
-    //## - Functions that removes the spinnerView from self.view
+    ///# - Functions that removes the spinnerView from self.view
     func removeSpinner() {
         DispatchQueue.main.async {
             self.loggingInView?.removeFromSuperview()
@@ -140,7 +139,7 @@ extension SignInController {
 
 //MARK: - UITextFieldDelegate Methods
 extension SignInController: UITextFieldDelegate{
-    //## - Function handles the disappearance of the placeholder and adjusting text display when user starts editing
+    ///# - Function handles the disappearance of the placeholder and adjusting text display when user starts editing
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text! == "Hasło"{
             textField.isSecureTextEntry = true
@@ -151,13 +150,13 @@ extension SignInController: UITextFieldDelegate{
         }
         textField.textColor = UIColor.black
     }
-    //## - Function sets the placeholder back if the user left the textField empty
+    ///# - Function sets the placeholder back if the user left the textField empty
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text == ""{
             setPlaceholder()
         }
     }
-    //## - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the password text filed when return is pressed the login function is triggered
+    ///# - Function toggles the keyboard when the user presses return button on the keyboard -> if the keyboard was editing the password text filed when return is pressed the login function is triggered
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.isSecureTextEntry == true{
             if let email = emailTextField.text, let password = passwordTextField.text{

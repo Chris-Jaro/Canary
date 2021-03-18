@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import UserNotifications
+import Purchases
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id" //Google cloud messaging key
     let userDefaults = UserDefaults.standard //Accessing user defaults
     
-    //## - Function is triggered when app finished launching (first lines of code action that are performed in app process) and performs actions:
+    ///## - Function is triggered when app finished launching (first lines of code action that are performed in app process) and performs actions:
         // -> configures Firebase
+        // -> configures RevenueCat
         // -> setting FirebaseCloudMessaging's delegate
         // -> requesting user permission for notifications
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -24,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Messaging.messaging().delegate = self
         
-        //#### -> Requesting notification from the user
+        //Requesting notification from the user
         if #available(iOS 10.0, *) {
           // For iOS 10 display notification (sent via APNS)
           UNUserNotificationCenter.current().delegate = self
@@ -42,6 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.main.async {
             application.registerForRemoteNotifications()
         }
+        
+        // Configure RevenueCat SDK
+        Purchases.debugLogsEnabled = true
+        Purchases.configure(withAPIKey: "CSHvQAbTAtiDdGnQYqowOCvGIXFzNDMN")
         
         return true
     }

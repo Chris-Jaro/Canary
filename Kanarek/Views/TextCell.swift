@@ -19,17 +19,16 @@ class TextCell: UITableViewCell {
         labelBubble.layer.cornerRadius = labelBubble.frame.size.height / 3
     }
 
-    //#### - Function reacts to row selection
-    //## Selection -> white background is changed to yellow
-    //## Deselection -> yellow background is changed to white (original)
+    ///# - Function reacts to row selection:
+        // Selection -> white background is changed to yellow
+        // Deselection -> yellow background is changed to white (original)
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         if selected{
-            labelBubble.layer.backgroundColor = CGColor(red: 255/255, green: 210/255, blue: 40/255, alpha: 1)
+            labelBubble.layer.backgroundColor = CGColor(red: 255/255, green: 201/255, blue: 60/255, alpha: 1)
         } else {
             labelBubble.layer.backgroundColor = UIColor.white.cgColor
-            
         }
     }
     

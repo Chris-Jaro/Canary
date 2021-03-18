@@ -86,7 +86,7 @@
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.9999777675" green="0.78875839709999995" blue="0.34311783309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="0.78823529411764703" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Yq0-hV-WkK" firstAttribute="leading" secondItem="oOD-1L-YZX" secondAttribute="leading" constant="4" id="2by-2D-hQ0"/>
                                     <constraint firstAttribute="bottom" secondItem="Yq0-hV-WkK" secondAttribute="bottom" constant="4" id="R0i-in-lC8"/>
@@ -97,7 +97,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8uB-6h-6VT">
                                 <rect key="frame" x="364" y="509.5" width="30" height="29"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" red="0.9999777675" green="0.78875839709999995" blue="0.34311783309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.78823529411764703" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="NOe-HJ-OzA"/>
                                     <constraint firstAttribute="height" constant="30" id="qAZ-jO-L7X"/>
@@ -142,7 +142,7 @@
                                         <rect key="frame" x="2" y="2" width="380" height="32"/>
                                         <color key="backgroundColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                        <state key="normal" title="Odnów subskrypcje">
+                                        <state key="normal" title="Odzyskaj subskrypcje">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
