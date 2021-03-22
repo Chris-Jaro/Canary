@@ -109,20 +109,19 @@ class DatabaseManager {
     
     ///# - Function is triggered by ReportManagerThree with a lineNumber and cityName and performs action:
         // -> connects to the database of the city
-        // -> reads the directions list for provided line number
+        // -> reads the directionsList document for provided line number
         // -> triggers updateUI method of ReportManagerThree (delegate) which refreshes the tableView data gathered from the database
     func loadLineDirections(for chosenLineNumber: Int, city: String){
-        db.collectionGroup("\(city)\(K.FirebaseQuery.linesCollectionName)")
-            .whereField(K.FirebaseQuery.lineNumber, isEqualTo: chosenLineNumber)
-            .addSnapshotListener { (querySnapshot, error) in
+        db.collection("\(city)\(K.FirebaseQuery.linesCollectionName)")
+            .document("\(chosenLineNumber)")
+            .getDocument(completion: { (document, error) in
                 self.directions = []
                 if let e = error {
                     self.delegate?.failedWithError(error: e)
                     print("There was an issue receiving data from Firestore, \(e)")
                 } else {
-                    if let snapshotDocuments = querySnapshot?.documents {
-                        for doc in snapshotDocuments{
-                            let data = doc.data()
+                    if let document = document, document.exists {
+                        if let data = document.data(){
                             if let lineDirections = data[K.FirebaseQuery.directions] as? [String]{
                                 self.directions.append(contentsOf: lineDirections)
                             }
@@ -132,7 +131,7 @@ class DatabaseManager {
                         }
                     }
                 }
-            }
+            })
     }
     
     ///# - Function is triggered by renewStopStatus() and ReportManagerThree and performs action:
@@ -176,4 +175,5 @@ class DatabaseManager {
     }
     
 }
+
 
