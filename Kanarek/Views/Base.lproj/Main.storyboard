@@ -35,8 +35,8 @@
                                 <rect key="frame" x="30" y="357.5" width="20" height="19"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Zgłaszanie &quot;Kanarków&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="RLv-di-iMx">
-                                <rect key="frame" x="70" y="357" width="314" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Zgłaszanie Kanarów" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="RLv-di-iMx">
+                                <rect key="frame" x="70" y="357" width="314" height="20"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -46,33 +46,33 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Dostęp do mapy ostatnich zgłoszeń" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="bhV-Yd-kW0">
-                                <rect key="frame" x="70" y="391.5" width="314" height="19.5"/>
+                                <rect key="frame" x="70" y="392" width="314" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nkc-qD-wOY">
-                                <rect key="frame" x="30" y="426.5" width="20" height="19"/>
+                                <rect key="frame" x="30" y="427" width="20" height="19"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YpN-SN-B4h">
-                                <rect key="frame" x="30" y="461" width="20" height="19"/>
+                                <rect key="frame" x="30" y="461.5" width="20" height="19"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Powiadomienia Push - przy każdym zgłoszeniu Kanarka" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vpY-Eq-YHi">
-                                <rect key="frame" x="70" y="460.5" width="324" height="38.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Powiadomienia Push - przy każdym zgłoszeniu Kanara" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vpY-Eq-YHi">
+                                <rect key="frame" x="70" y="461" width="324" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dostępne miasta: Poznań, Warszawa" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="htN-a2-HRl">
-                                <rect key="frame" x="70" y="426" width="314" height="19.5"/>
+                                <rect key="frame" x="70" y="426.5" width="314" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOD-1L-YZX" userLabel="Month Price">
-                                <rect key="frame" x="30" y="524" width="354" height="43"/>
+                                <rect key="frame" x="30" y="524.5" width="354" height="43"/>
                                 <subviews>
                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yq0-hV-WkK">
                                         <rect key="frame" x="4" y="4" width="346" height="35"/>
@@ -95,7 +95,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8uB-6h-6VT">
-                                <rect key="frame" x="364" y="509.5" width="30" height="29"/>
+                                <rect key="frame" x="364" y="510" width="30" height="29"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="1" green="0.78823529411764703" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -106,13 +106,13 @@
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anuluj w dowolnym momencie w App Store" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hvz-En-eSy">
-                                <rect key="frame" x="20" y="592" width="374" height="19.5"/>
+                                <rect key="frame" x="20" y="592.5" width="374" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uzc-lL-Vs6" userLabel="SubscribeButton">
-                                <rect key="frame" x="15" y="631.5" width="384" height="60"/>
+                                <rect key="frame" x="15" y="632" width="384" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dC3-8H-vmq">
                                         <rect key="frame" x="0.0" y="0.0" width="384" height="60"/>
@@ -740,26 +740,26 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </switch>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current User :" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xVK-hX-uh2">
-                                                <rect key="frame" x="15" y="30" width="126" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Użytkownik :" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xVK-hX-uh2">
+                                                <rect key="frame" x="15" y="30" width="115" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="some@emial.com" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="MnT-CX-xBM" userLabel="email">
-                                                <rect key="frame" x="151" y="32" width="214" height="21.5"/>
+                                                <rect key="frame" x="140" y="32" width="225" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Contact:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAa-Od-RHX">
-                                                <rect key="frame" x="15" y="616" width="78" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Kontact:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAa-Od-RHX">
+                                                <rect key="frame" x="15" y="616" width="75.5" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kanarek@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghk-2a-t3O">
-                                                <rect key="frame" x="103" y="616" width="262" height="22"/>
+                                                <rect key="frame" x="100.5" y="616" width="264.5" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -861,7 +861,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SL5-wN-RcV">
-                                <rect key="frame" x="30" y="510.5" width="159" height="36"/>
+                                <rect key="frame" x="30" y="515.5" width="159" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <state key="normal" title="Załóż nowe konto">
                                     <color key="titleColor" red="0.99614375830000002" green="0.7417523265" blue="0.1342366636" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -870,14 +870,14 @@
                                     <segue destination="fdP-tL-JqT" kind="show" id="hIu-h7-RYU"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kanarek" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwN-46-xBy" userLabel="name">
-                                <rect key="frame" x="150" y="303" width="114" height="39"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Canary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwN-46-xBy" userLabel="name">
+                                <rect key="frame" x="156" y="308" width="102.5" height="39"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="evN-CP-MqW" userLabel="Entries">
-                                <rect key="frame" x="30" y="391" width="354" height="88"/>
+                                <rect key="frame" x="30" y="396" width="354" height="88"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Adres Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AAE-B5-mvn">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="34"/>
@@ -894,7 +894,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IjE-N0-BJt">
-                                <rect key="frame" x="107" y="596.5" width="200" height="60"/>
+                                <rect key="frame" x="107" y="601.5" width="200" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZd-pt-jfC">
                                         <rect key="frame" x="2" y="2" width="196" height="56"/>
@@ -919,13 +919,13 @@
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error label" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cuv-eh-LEP">
-                                <rect key="frame" x="30" y="489" width="354" height="21.5"/>
+                                <rect key="frame" x="30" y="494" width="354" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logowanie:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VC-cb-S7V">
-                                <rect key="frame" x="30" y="352" width="102.5" height="24"/>
+                                <rect key="frame" x="30" y="357" width="102.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -948,7 +948,7 @@
                             <constraint firstItem="IjE-N0-BJt" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="f0o-zq-TmV"/>
                             <constraint firstItem="0xA-vi-CT2" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IjE-N0-BJt" secondAttribute="bottom" constant="35" id="hLn-g0-ypt"/>
                             <constraint firstItem="zwN-46-xBy" firstAttribute="centerX" secondItem="1sf-m2-WDm" secondAttribute="centerX" id="lgS-Hs-LWJ"/>
-                            <constraint firstItem="zwN-46-xBy" firstAttribute="top" secondItem="MCZ-06-FSR" secondAttribute="bottom" constant="5" id="o1V-uG-To3"/>
+                            <constraint firstItem="zwN-46-xBy" firstAttribute="top" secondItem="MCZ-06-FSR" secondAttribute="bottom" constant="10" id="o1V-uG-To3"/>
                             <constraint firstItem="0xA-vi-CT2" firstAttribute="trailing" secondItem="Cuv-eh-LEP" secondAttribute="trailing" constant="30" id="pgM-X5-ls6"/>
                             <constraint firstItem="evN-CP-MqW" firstAttribute="leading" secondItem="0xA-vi-CT2" secondAttribute="leading" constant="30" id="vpw-Ur-pls"/>
                         </constraints>
@@ -1014,7 +1014,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="aYq-z3-eLX"/>
-        <segue reference="MVn-eN-aN6"/>
+        <segue reference="vYh-DC-bqT"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Kanarek_Logo_Trans" width="1024" height="1024"/>

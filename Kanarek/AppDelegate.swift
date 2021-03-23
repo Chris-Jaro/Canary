@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Configure RevenueCat SDK
         Purchases.debugLogsEnabled = true
-        Purchases.configure(withAPIKey: "CSHvQAbTAtiDdGnQYqowOCvGIXFzNDMN")
+        Purchases.configure(withAPIKey: "QdVucDghYzVHFpChOcTZvuQvlCpUQDqN")
         
         return true
     }
