@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>895495224145-ol0iu947kqfksv817or34ra88ka25ark.apps.googleusercontent.com</string>
+	<string>895495224145-m99ksu0j1hondu4c8fndodp8001kvrr6.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.895495224145-ol0iu947kqfksv817or34ra88ka25ark</string>
+	<string>com.googleusercontent.apps.895495224145-m99ksu0j1hondu4c8fndodp8001kvrr6</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAaOw5vyGYke6T3RvgkoQkXkd6ozkE0X0M</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.CYDev.Kanarek</string>
+	<string>com.CYDev.Canary</string>
 	<key>PROJECT_ID</key>
 	<string>kanarek-9ed79</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:895495224145:ios:d57629dca5bdc836a8f170</string>
+	<string>1:895495224145:ios:dad77f788195f07ba8f170</string>
 </dict>
 </plist>
