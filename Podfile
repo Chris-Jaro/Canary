@@ -7,6 +7,7 @@ target 'Kanarek' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod ‘Firebase/Messaging’
+  pod 'Firebase/Analytics'
   pod 'Purchases'
 
 end

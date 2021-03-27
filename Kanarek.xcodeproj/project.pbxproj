@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		333AC651D27B4B5550131B1A /* Pods_Kanarek.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3517402E34C651B9D88844 /* Pods_Kanarek.framework */; };
 		8302AD1A25BB2B8600AA6A72 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302AD1925BB2B8600AA6A72 /* MapManager.swift */; };
 		831105122576CA1100B1B1A2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105112576CA1000B1B1A2 /* Constants.swift */; };
 		831105162578371B00B1B1A2 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831105142578371B00B1B1A2 /* TextCell.swift */; };
@@ -35,11 +36,9 @@
 		83E5BFBB256AB648005C56B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83E5BFB9256AB648005C56B0 /* Main.storyboard */; };
 		83E5BFBD256AB64C005C56B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E5BFBC256AB64C005C56B0 /* Assets.xcassets */; };
 		83E5BFC0256AB64C005C56B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83E5BFBE256AB64C005C56B0 /* LaunchScreen.storyboard */; };
-		8920B6459FB4F3E9EBDD7B89 /* Pods_Kanarek.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F291F3247F9716C94101984E /* Pods_Kanarek.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		55AC4A0AB3EA01E95E7296AB /* Pods-Kanarek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kanarek.release.xcconfig"; path = "Target Support Files/Pods-Kanarek/Pods-Kanarek.release.xcconfig"; sourceTree = "<group>"; };
 		8302AD1925BB2B8600AA6A72 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		831105112576CA1000B1B1A2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		831105142578371B00B1B1A2 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
@@ -75,8 +74,9 @@
 		83E5BFBC256AB64C005C56B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83E5BFBF256AB64C005C56B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83E5BFC1256AB64C005C56B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B47CCE2F960093F43C6D6963 /* Pods-Kanarek.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kanarek.debug.xcconfig"; path = "Target Support Files/Pods-Kanarek/Pods-Kanarek.debug.xcconfig"; sourceTree = "<group>"; };
-		F291F3247F9716C94101984E /* Pods_Kanarek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kanarek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E0AD3444099975D5A7F8A82 /* Pods-Kanarek.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kanarek.debug.xcconfig"; path = "Target Support Files/Pods-Kanarek/Pods-Kanarek.debug.xcconfig"; sourceTree = "<group>"; };
+		CD37ADAD3684CACC24B54B4B /* Pods-Kanarek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kanarek.release.xcconfig"; path = "Target Support Files/Pods-Kanarek/Pods-Kanarek.release.xcconfig"; sourceTree = "<group>"; };
+		EC3517402E34C651B9D88844 /* Pods_Kanarek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kanarek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,13 +84,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8920B6459FB4F3E9EBDD7B89 /* Pods_Kanarek.framework in Frameworks */,
+				333AC651D27B4B5550131B1A /* Pods_Kanarek.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6DDAF46CF2226B99615CAA1F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC3517402E34C651B9D88844 /* Pods_Kanarek.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		831465F725C7146200EBC311 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,7 +159,7 @@
 				83E5BFB2256AB648005C56B0 /* Kanarek */,
 				83E5BFB1256AB648005C56B0 /* Products */,
 				CD8A7570FC4EF9FA1CC44C74 /* Pods */,
-				9050E3FBEF8E7D38D33910FF /* Frameworks */,
+				6DDAF46CF2226B99615CAA1F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,19 +190,11 @@
 			path = Kanarek;
 			sourceTree = "<group>";
 		};
-		9050E3FBEF8E7D38D33910FF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F291F3247F9716C94101984E /* Pods_Kanarek.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		CD8A7570FC4EF9FA1CC44C74 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B47CCE2F960093F43C6D6963 /* Pods-Kanarek.debug.xcconfig */,
-				55AC4A0AB3EA01E95E7296AB /* Pods-Kanarek.release.xcconfig */,
+				9E0AD3444099975D5A7F8A82 /* Pods-Kanarek.debug.xcconfig */,
+				CD37ADAD3684CACC24B54B4B /* Pods-Kanarek.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -206,11 +206,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83E5BFC4256AB64C005C56B0 /* Build configuration list for PBXNativeTarget "Kanarek" */;
 			buildPhases = (
-				C855D12DCDBBA9A663E58540 /* [CP] Check Pods Manifest.lock */,
+				8BC20660E4C1AB2EAFE321A8 /* [CP] Check Pods Manifest.lock */,
 				83E5BFAC256AB648005C56B0 /* Sources */,
 				83E5BFAD256AB648005C56B0 /* Frameworks */,
 				83E5BFAE256AB648005C56B0 /* Resources */,
-				A9E434830B0C7FE85BDEFDEA /* [CP] Embed Pods Frameworks */,
+				2C8D185C99B4883944368273 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -270,7 +270,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A9E434830B0C7FE85BDEFDEA /* [CP] Embed Pods Frameworks */ = {
+		2C8D185C99B4883944368273 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -287,7 +287,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Kanarek/Pods-Kanarek-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C855D12DCDBBA9A663E58540 /* [CP] Check Pods Manifest.lock */ = {
+		8BC20660E4C1AB2EAFE321A8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -481,7 +481,7 @@
 		};
 		83E5BFC5256AB64C005C56B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B47CCE2F960093F43C6D6963 /* Pods-Kanarek.debug.xcconfig */;
+			baseConfigurationReference = 9E0AD3444099975D5A7F8A82 /* Pods-Kanarek.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -505,7 +505,7 @@
 		};
 		83E5BFC6256AB64C005C56B0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55AC4A0AB3EA01E95E7296AB /* Pods-Kanarek.release.xcconfig */;
+			baseConfigurationReference = CD37ADAD3684CACC24B54B4B /* Pods-Kanarek.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

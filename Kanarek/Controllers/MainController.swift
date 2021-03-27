@@ -242,6 +242,10 @@ extension MainController: MKMapViewDelegate{
             annotationView.glyphImage = UIImage(systemName: "tram")
         } else if annotation.subtitle!.contains("autobus") {
             annotationView.glyphImage = UIImage(systemName: "bus")
+        } else if annotation.subtitle!.contains("metro") {
+            annotationView.glyphImage = UIImage(systemName: "m.circle.fill")
+        } else if annotation.subtitle!.contains("kolej") {
+            annotationView.glyphImage = UIImage(systemName: "k.circle.fill")
         } else {
             annotationView.glyphImage = UIImage(systemName: "face.smiling.fill")
         }

@@ -23,9 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This one is shown later as a confirmation</string>
+	<string>Usługa lokalizacji gdy aplikacja jest wyłączona pozwala na monitorowanie niebezpiecznych regionów.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This one is shown first</string>
+	<string>Usługa lokalizacji jest wykorzystywana w procesie zgłaszania kontroli biletowej. Usługa ta jest niezbędne do poprawnego działania aplikacji.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
