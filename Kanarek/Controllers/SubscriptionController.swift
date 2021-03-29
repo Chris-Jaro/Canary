@@ -67,6 +67,7 @@ class SubscriptionController: UIViewController {
     
     ///# - Function is called when subscribeButton is pressed and performs actions:
         // -> Shows spinnerView (to indicate to the user that clicking the button initiated some process and purchase is loading)
+            //$ spinnerView is displayed only when a product is available for purchase (if user clicks too early an error message is displayed to let him know tho try again in a minute)
             //$ spinnerView is removed when 1. purchase is successful, 2. purchase fails (removed before the errorAlert)
         // -> tries to perform a purchase of the chosen package (in this case there is only one product -> monthly subscription)
         // -> IF SUCCESS -> pops the SubscriptionView and allows the user to perform sign-in or sign-up]
@@ -74,8 +75,8 @@ class SubscriptionController: UIViewController {
         // -> IF user cancelled the purchase -> simply return
         // -> IF FAILURE -> displays the alert to the user with the error message
     @IBAction func subscribeButtonPressed(_ sender: UIButton) {
-        showSpinner(onView: self.view)
         if let package = packageForPurchase{
+            showSpinner(onView: self.view)
             Purchases.shared.purchasePackage(package) { (transaction, purchaserInfo, error, userCancelled) in
                 if purchaserInfo?.entitlements.all["fullAccess"]?.isActive == true {
                     // Unlock that great "pro" content -> pop the view -> check for subscription with viewWillAppear -> perform actions
@@ -89,7 +90,10 @@ class SubscriptionController: UIViewController {
                     }
                 }
             }
+        } else {
+            errorManager.displayBasicAlert(title: "Brak produktu", subtitle: "Brak produktu do zakupu.\nSpróbuj jeszcze raz za chwilę.", controller: self)
         }
+        
     }
     
     ///# Function is called when the restoreButton is pressed and performs action:
