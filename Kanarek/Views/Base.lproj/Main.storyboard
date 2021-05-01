@@ -65,7 +65,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dostępne miasta: Poznań, Warszawa" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="htN-a2-HRl">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dostępne miasta: Poznań" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="htN-a2-HRl">
                                 <rect key="frame" x="70" y="426.5" width="314" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,7 +81,7 @@
                                             <constraint firstAttribute="height" constant="35" id="yFr-T0-efk"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
-                                        <state key="normal" title="1 miesiąc - 3,99zł">
+                                        <state key="normal" title="1 miesiąc - 1,99zł">
                                             <color key="titleColor" red="0.059217914939999998" green="0.54458409549999998" blue="0.80364388229999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>

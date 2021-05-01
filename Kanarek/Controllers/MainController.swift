@@ -121,7 +121,7 @@ class MainController: UIViewController{
         // guards the function from being executed if the user did not allow location
         guard let location = dataManagerMain.currentLocation else {
             //Alert is show to let the user know that they will not be able to report anything without allowing location services
-            errorManager.displayBasicAlert(title: "Brak Lokalizacji Użytkownika", subtitle: "Wymagana jest lokalizacja użytkownika do zgłaszania przystanków. \nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", controller: self)
+            errorManager.displayBasicAlert(title: "Brak Lokalizacji Użytkownika", subtitle: "Wymagana jest lokalizacja użytkownika do zgłaszania przystanków. \nAby zmienić: \nUstawienia -> Canary -> Lokalizacja", controller: self)
             return
         }
         
@@ -130,7 +130,7 @@ class MainController: UIViewController{
     }
     
     ///# - Function is triggered just before the segue is initiated and performs action:
-        // -> passes a list of stops in the 1000m range from the user
+        // -> passes a list of stops in the 500m range from the user
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segues.toReportOne{
             let destinationVC = segue.destination as! ReportControllerOne
@@ -149,7 +149,7 @@ extension MainController: MapManagerDelegate{
         // -> resaves cityName (every time the application is run) to userDefaults to allow other parts of the app to access it (reportThreeView and Settings)
         // -> performs pushNotification subscription on initial app start or if someone changes city from Warsaw to Poznan (it changes the topic subscription accordingly)
     func loadPoints(for cityName: String) {
-        let supportedCityNames = ["poznan", "warsaw"]
+        let supportedCityNames = ["poznan"] //, "warsaw"]
         
         //# If the user did not allow location services this variable is created with the default value for Poznan or Warsaw
         guard dataManagerMain.defaultLocation == nil else {
@@ -168,7 +168,7 @@ extension MainController: MapManagerDelegate{
             userDefaults.removeObject(forKey: K.UserDefaults.cityName)
             
             //Show alert to notify the user that we only support Poznan and Warsaw -> which he can access with disabled location
-            errorManager.displayBasicAlert(title: "Użytkownik poza obszarem", subtitle: "No obecnym etapie dostępne są Poznań i Warszawa. Jest do nich dostęp przy odrzuceniu pozwolenia lokalizacji\nAby zmienić: \nUstawienia -> Kanarek -> Lokalizacja", controller: self)
+            errorManager.displayBasicAlert(title: "Użytkownik poza obszarem", subtitle: "No obecnym etapie obsługiwane miasta to: Poznań. Bierny dostęp do mapy zgłoszeń jest przy odrzuceniu pozwolenia lokalizacji\nAby zmienić: \nUstawienia -> Canary -> Lokalizacja", controller: self)
         }
         
         //## On app start the function is triggered and checks the push notification settings
@@ -295,15 +295,18 @@ extension MainController: CLLocationManagerDelegate{
                 self.mapManager.setUsersLocation(for: self.dataManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
             }))
             
-            //Loading the points for the current default location in central Warsaw
-            alert.addAction(UIAlertAction(title: "Warszawa", style: .default, handler: { (_) in
-                // Setting the default location for Warsaw
-                self.dataManagerMain.defaultLocation = CLLocation(latitude: 52.247982010547354, longitude: 21.015697127985522)
-                // Loading the points in Warsaw
-                self.mapManager.getCurrentCity(for: self.dataManagerMain.defaultLocation)
-                // Setting the default location in the middle of user's mapView
-                self.mapManager.setUsersLocation(for: self.dataManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
-            }))
+            /* ACTION BUTTON TO PASSIVE WARSAW ACCESS
+             //Loading the points for the current default location in central Warsaw
+             alert.addAction(UIAlertAction(title: "Warszawa", style: .default, handler: { (_) in
+                 // Setting the default location for Warsaw
+                 self.dataManagerMain.defaultLocation = CLLocation(latitude: 52.247982010547354, longitude: 21.015697127985522)
+                 // Loading the points in Warsaw
+                 self.mapManager.getCurrentCity(for: self.dataManagerMain.defaultLocation)
+                 // Setting the default location in the middle of user's mapView
+                 self.mapManager.setUsersLocation(for: self.dataManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
+             }))
+             */
+            
             
             self.present(alert, animated: true, completion: nil)
             

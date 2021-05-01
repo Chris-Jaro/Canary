@@ -25,7 +25,7 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Usługa lokalizacji gdy aplikacja jest wyłączona pozwala na monitorowanie niebezpiecznych regionów.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Usługa lokalizacji jest wykorzystywana w procesie zgłaszania kontroli biletowej. Usługa ta jest niezbędne do poprawnego działania aplikacji.</string>
+	<string>Usługa lokalizacji jest wykorzystywana w procesie zgłaszania kontroli biletowej. Usługa ta jest niezbędna do poprawnego działania aplikacji.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
