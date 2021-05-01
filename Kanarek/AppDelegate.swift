@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Configure RevenueCat SDK
-        Purchases.debugLogsEnabled = true
+        //Purchases.debugLogsEnabled = true
         Purchases.configure(withAPIKey: "QdVucDghYzVHFpChOcTZvuQvlCpUQDqN")
         
         return true
@@ -81,8 +81,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         if let messageID = userInfo[gcmMessageIDKey] {
           print("Message ID: \(messageID)")
         }
-
-        completionHandler([[UNNotificationPresentationOptions.banner, .badge, .sound]])
+        
+        // iOS 14 or newer
+        if #available(iOS 14.0, *) {
+            completionHandler([[UNNotificationPresentationOptions.banner, .badge, .sound]])
+        } else {
+            // iOS 13 - 14
+            completionHandler([[.alert, .badge, .sound]])
+        }
+        
     }
     
     //#### ACCESSING NOTIFICATION'S DATA When the user clicks on the notification

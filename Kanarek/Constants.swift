@@ -62,21 +62,21 @@ struct K {
         static let text = """
     REGULAMIN APLIKACJI CANARY
 
-    POSTANOWIENIA WSTĘPNE
+    • POSTANOWIENIA WSTĘPNE
     Canary to serwis umożliwiający użytkownikom dzielenie się informacją odnośnie punktu kontroli biletowych w komunikacji miejskiej, dostępny przez aplikacje mobilną. Właścicielem Canary jest Krzysztof Jarosz.
 
     Canary działa na zasadach określonych w niniejszym Regulaminie. Niniejszy Regulamin określa ogólne zasady stanowiące prawne podstawy korzystania z aplikacji Canary. Każdy Użytkownik zobowiązany jest, z momentem podjęcia czynności zmierzających do korzystania z Canary, do przestrzegania postanowień niniejszego Regulaminu.
     Przed rozpoczęciem korzystania z Canary należy uważnie przeczytać poniższy Regulamin.
 
-    DEFINICJE
-        Canary – serwis umożliwiający użytkownikom dzielenie się informacją odnośnie kontroli biletowych w komunikacji miejskiej, dostępny przez aplikacje mobilne (obecnie tylko iOS);
-        Usługodawca – Krzysztof Jarosz
-        Użytkownik – każda osoba, która ukończyła 18 lat, korzystająca w jakikolwiek sposób z Canary;
-        Punkt Kontroli – punkt na mapie o kolorze czerwonym z otaczającym go 200m czerwonym okręgiem, gdzie została zgłoszona kontrola, punkt kontroli zamienia się w punkt neutralny po 3 minutach od zgłoszenia.
-        Punkt Neutralny — punkt na mapie o kolorze niebieskim, pokazuję lokalizacje przystanku oraz dostępne numery lini.
-        Regulamin – niniejszy Regulamin.
+    • DEFINICJE
+    Canary – serwis umożliwiający użytkownikom dzielenie się informacją odnośnie kontroli biletowych w komunikacji miejskiej, dostępny przez aplikacje mobilne (obecnie tylko iOS);
+    Usługodawca – Krzysztof Jarosz
+    Użytkownik – każda osoba, która ukończyła 18 lat, korzystająca w jakikolwiek sposób z Canary;
+    Punkt Kontroli – punkt na mapie o kolorze czerwonym z otaczającym go 200m czerwonym okręgiem, gdzie została zgłoszona kontrola, punkt kontroli zamienia się w punkt neutralny po 3 minutach od zgłoszenia.
+    Punkt Neutralny — punkt na mapie o kolorze niebieskim, pokazuję lokalizacje przystanku oraz dostępne numery lini.
+    Regulamin – niniejszy Regulamin.
 
-    ZASADY FUNKCJONOWANIA I KORZYSTANIA Z SERWISU
+    • ZASADY FUNKCJONOWANIA I KORZYSTANIA Z SERWISU
     Canary jest narzędziem, umożliwiającym użytkownikom dzielenie się informacją odnośnie punktów kontroli biletowych. Informacja o punkcie kontroli prezentowana jest w formie:
     Informacji tekstowej (powiadomienia) zawierającej nazwę przystanku,  numer lini oraz jej kierunek
     Graficznej, pokazanej na mapie w postaci punktów kontroli i neutralnych
@@ -88,7 +88,7 @@ struct K {
     Użytkownik zobowiązany jest do korzystania z Canary w sposób nie naruszający niniejszego regulaminu, obowiązujących przepisуw ani praw osób trzecich. W szczególności zabronione jest dostarczanie do Canary treści o charakterze bezprawnym.
     Użytkownik korzystający z aplikacji Canary,  podczas korzystania z transportu publicznego, jest zobowiązany posiadać ważny bilet komunikacji miejskiej.
 
-    ODPOWIEDZIALNOŚĆ
+    • ODPOWIEDZIALNOŚĆ
     Usługodawca zobowiązuje się do stałego i nieprzerwanego świadczenia usługi, z zastrzeżeniami wskazanymi w ustępach poniższych.
     Usługodawca informuje, iż:
     Nie gwarantuje pełnej poprawności i aktualności danych zawartych w bazach danych i na mapach wykorzystywanych w Canary oraz przydatności do konkretnych celów;
@@ -103,7 +103,7 @@ struct K {
     Odpowiedź na reklamację zostanie przesłana do Użytkownika na adres podany przez Użytkownika w reklamacji.
     Usługodawca zastrzega sobie prawo do wydłużenia terminu podanego w pkt 9 maksymalnie do 21 dni w przypadku, gdy rozpoznanie reklamacji wymaga wiadomości specjalnych lub napotyka przeszkody z przyczyn niezależnych od Usługodawcy (awarie sprzętu, sieci internetowej itp.). O wydłużeniu takim Użytkownik zostanie poinformowany, z podaniem przyczyny wydłużenia oraz podaniem nowego terminu rozpatrzenia reklamacji.
 
-    POSTANOWIENIA KOŃCOWE
+    • POSTANOWIENIA KOŃCOWE
     Usługodawca informuje, iż specyfika funkcjonowania sieci internet powoduje, że występuje w niej szereg mogących powodować szkody zagrożeń, takich jak a w szczególności włamania do systemu Użytkownika, przejęcia haseł przez osoby trzecie, zainfekowanie systemu Użytkownika wirusami.
     Wszelkie uwagi, komentarze i pytania związane z Canary prosimy kierować na adres: kanarekapp@gmail.com
     Wszelkie informacje o naruszeniach przez Użytkowników postanowień niniejszego Regulaminu proszę kierować na adres: kanarekapp@gmail.com
@@ -111,7 +111,7 @@ struct K {
     Jeżeli którekolwiek postanowienie Regulaminu zostanie uznane na mocy prawomocnego orzeczenia sądu za nieważne, pozostałe postanowienia Regulaminu pozostają w mocy.
     W sprawach nieuregulowanych w Regulaminie zastosowanie znajdują przepisy polskiego prawa.
 
-    ZMIANY REGULAMINU
+    • ZMIANY REGULAMINU
     Usługodawca zastrzega sobie prawo zmiany niniejszego Regulaminu, w zakresie w jakim jest to dopuszczalne przez obowiązujące przepisy, w przypadku zaistnienia istotnych przyczyn związanych z technicznym bądź merytorycznym aspektem funkcjonowania Canary, w tym w szczególności w przypadku stosownych zmian w obowiązujących przepisach prawa. Zmiany Regulaminu będą udostępniane w Canary oraz komunikowane uprzednio Użytkownikom w odpowiedni, umożliwiający analizę wspomnianych zmian, sposób. W przypadku niezaakceptowania zmian w Regulaminie, Użytkownik powinien powstrzymać się od korzystania z Canary.
     """
     }

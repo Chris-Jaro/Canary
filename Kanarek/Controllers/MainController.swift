@@ -277,12 +277,51 @@ extension MainController: MKMapViewDelegate{
 //MARK: - LocationManagerDelegate Methods
 extension MainController: CLLocationManagerDelegate{
     ///# - Function is triggered when the user allows or denies location services and performs action:
-        // -> if the user allows location services -> starts updating location
-        // -> if the user does not allow location services -> displays an alert with the option to chose a default city and allow it's passive observation (only loads points, but does not allow reporting)
+    // -> if the user allows location services -> starts updating location
+    // -> if the user does not allow location services -> displays an alert with the option to chose a default city and allow it's passive observation (only loads points, but does not allow reporting)
+    
+    // iOS 14 or newer
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        //## Guards the authorisation status of location request
-        guard locationManager.authorizationStatus != .denied else {
-            // If the user does not allow location services they have to chose one of the two cities as the default location
+        if #available(iOS 14.0, *) { // iOS 14 or newer
+            //## Guards the authorisation status of location request
+            guard locationManager.authorizationStatus != .denied else {
+                // If the user does not allow location services they have to chose one of the two cities as the default location
+                let alert = UIAlertController(title: "Brak Lokalizacji", message: "Ze względu na brak udostępnienia lokalizacji proszę wybrać jedno z dostępnych miast jako podstawową opcję", preferredStyle: .alert)
+                
+                //Loading the points for the current default location in central Poznan
+                alert.addAction(UIAlertAction(title: "Poznań", style: .default, handler: { (_) in
+                    // Setting the default location for Poznan
+                    self.dataManagerMain.defaultLocation = CLLocation(latitude: 52.40719427249367, longitude: 16.919447576063167)
+                    // Loading the points in Poznan
+                    self.mapManager.getCurrentCity(for: self.dataManagerMain.defaultLocation)
+                    // Setting the default location in the middle of user's mapView
+                    self.mapManager.setUsersLocation(for: self.dataManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
+                }))
+                
+                /* ACTION BUTTON TO PASSIVE WARSAW ACCESS
+                 //Loading the points for the current default location in central Warsaw
+                 alert.addAction(UIAlertAction(title: "Warszawa", style: .default, handler: { (_) in
+                 // Setting the default location for Warsaw
+                 self.dataManagerMain.defaultLocation = CLLocation(latitude: 52.247982010547354, longitude: 21.015697127985522)
+                 // Loading the points in Warsaw
+                 self.mapManager.getCurrentCity(for: self.dataManagerMain.defaultLocation)
+                 // Setting the default location in the middle of user's mapView
+                 self.mapManager.setUsersLocation(for: self.dataManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
+                 }))
+                 */
+                
+                self.present(alert, animated: true, completion: nil)
+                
+                return
+            }
+            //# If user allowed location services -> start updating location
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    // iOS 13 or later option
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard status != .denied else {
             let alert = UIAlertController(title: "Brak Lokalizacji", message: "Ze względu na brak udostępnienia lokalizacji proszę wybrać jedno z dostępnych miast jako podstawową opcję", preferredStyle: .alert)
             
             //Loading the points for the current default location in central Poznan
@@ -295,19 +334,6 @@ extension MainController: CLLocationManagerDelegate{
                 self.mapManager.setUsersLocation(for: self.dataManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
             }))
             
-            /* ACTION BUTTON TO PASSIVE WARSAW ACCESS
-             //Loading the points for the current default location in central Warsaw
-             alert.addAction(UIAlertAction(title: "Warszawa", style: .default, handler: { (_) in
-                 // Setting the default location for Warsaw
-                 self.dataManagerMain.defaultLocation = CLLocation(latitude: 52.247982010547354, longitude: 21.015697127985522)
-                 // Loading the points in Warsaw
-                 self.mapManager.getCurrentCity(for: self.dataManagerMain.defaultLocation)
-                 // Setting the default location in the middle of user's mapView
-                 self.mapManager.setUsersLocation(for: self.dataManagerMain.defaultLocation!, map: self.mapView, zoom: 0.1)
-             }))
-             */
-            
-            
             self.present(alert, animated: true, completion: nil)
             
             return
@@ -316,10 +342,13 @@ extension MainController: CLLocationManagerDelegate{
         locationManager.startUpdatingLocation()
     }
     
+    
+    
+    
     ///# - Function is triggered every second when the location is updated and performs actions:
-        // -> saves the current location in the dataManager
-        // -> sets the initial location of the user on the map (on app launch)
-        // -> updates the currentLocationButton visibility
+    // -> saves the current location in the dataManager
+    // -> sets the initial location of the user on the map (on app launch)
+    // -> updates the currentLocationButton visibility
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         guard let location = locations.last else { return }
@@ -343,14 +372,14 @@ extension MainController: CLLocationManagerDelegate{
     }
     
     ///# - Function is triggered when user enters the monitoring region and preforms action:
-        // -> sends local notification to the user with the report details
+    // -> sends local notification to the user with the report details
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         notificationManager.setNotification(title: "Uwaga - Wykryto Zagrożony Region", body: "Przystanek \(region.identifier)", userInfo: ["aps":["Coordinates":"To show on the map"]])
     }
     
     ///# - Function is triggered when the user's state is determined inside or outside of dangerous region and performs action:
-        // -> if user is inside the dangerous region the warning view becomes visible and map becomes red
-        // -> if user is outside the dangerous region the warning view becomes hidden and map normal state is restored
+    // -> if user is inside the dangerous region the warning view becomes visible and map becomes red
+    // -> if user is outside the dangerous region the warning view becomes hidden and map normal state is restored
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         if state == CLRegionState.inside{
             print("In the region")
