@@ -75,25 +75,14 @@ class SubscriptionController: UIViewController {
         // -> IF user cancelled the purchase -> simply return
         // -> IF FAILURE -> displays the alert to the user with the error message
     @IBAction func subscribeButtonPressed(_ sender: UIButton) {
-        if let package = packageForPurchase{
-            showSpinner(onView: self.view)
-            Purchases.shared.purchasePackage(package) { (transaction, purchaserInfo, error, userCancelled) in
-                if purchaserInfo?.entitlements.all["fullAccess"]?.isActive == true {
-                    // Unlock that great "pro" content -> pop the view -> check for subscription with viewWillAppear -> perform actions
-                    self.removeSpinner()
-                    self.navigationController?.popViewController(animated: true)
-                } else {
-                    self.removeSpinner()
-                    if userCancelled == true { return }
-                    if let e = error{
-                        self.errorManager.displayBasicAlert(title: "Błąd", subtitle: "Wystąpił błąd podczas dokonywania zakupu.\n Treść błędu: \(e.localizedDescription)", controller: self)
-                    }
-                }
-            }
-        } else {
-            errorManager.displayBasicAlert(title: "Brak produktu", subtitle: "Brak produktu do zakupu.\nSpróbuj jeszcze raz za chwilę.", controller: self)
-        }
         
+        let alert = UIAlertController(title: "Miesięczna Subskrypcja Canary" , message: "Po próbnym okresie (1 miesiąca) użytkownik zostanie obciążony 1.99PLN. Subskrypcja odnawia się automatycznie, można ją anulować w dowolnym momencie w App Store", preferredStyle: .alert)
+        
+        //Loading the points for the current default location in central Poznan
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            self.performPurchase()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     ///# Function is called when the restoreButton is pressed and performs action:
@@ -120,6 +109,27 @@ class SubscriptionController: UIViewController {
                 }
             }
          }
+    }
+    
+    func performPurchase(){
+        if let package = packageForPurchase{
+            showSpinner(onView: self.view)
+            Purchases.shared.purchasePackage(package) { (transaction, purchaserInfo, error, userCancelled) in
+                if purchaserInfo?.entitlements.all["fullAccess"]?.isActive == true {
+                    // Unlock that great "pro" content -> pop the view -> check for subscription with viewWillAppear -> perform actions
+                    self.removeSpinner()
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    self.removeSpinner()
+                    if userCancelled == true { return }
+                    if let e = error{
+                        self.errorManager.displayBasicAlert(title: "Błąd", subtitle: "Wystąpił błąd podczas dokonywania zakupu.\n Treść błędu: \(e.localizedDescription)", controller: self)
+                    }
+                }
+            }
+        } else {
+            errorManager.displayBasicAlert(title: "Brak produktu", subtitle: "Brak produktu do zakupu.\nSpróbuj jeszcze raz za chwilę.", controller: self)
+        }
     }
     
 }

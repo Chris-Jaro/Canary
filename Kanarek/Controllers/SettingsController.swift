@@ -18,6 +18,7 @@ class SettingsController: UIViewController {
     @IBOutlet weak var whiteLineView: UIView!
     @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet weak var termsButton: UIButton!
+    @IBOutlet weak var privacyPolicyButton: UIButton!
     
     ///# - Function is called before appearance of the view and performs actions:
         // -> Checks the settings and adjusts the switch state on the screen accordingly
@@ -30,8 +31,9 @@ class SettingsController: UIViewController {
         mainSettingsView.layer.cornerRadius = 15
         
         // These two lines round up the corners of the white line
-        logOutButton.layer.cornerRadius = 10
-        termsButton.layer.cornerRadius = 10
+        logOutButton.layer.cornerRadius = 15
+        termsButton.layer.cornerRadius = 15
+        privacyPolicyButton.layer.cornerRadius = 15
         
         //## To make the switch background white and rounded
         stateSwitch.layer.cornerRadius = 15
@@ -86,4 +88,9 @@ class SettingsController: UIViewController {
         }
     }
 
+    @IBAction func privacyPolicyButtonPressed(_ sender: UIButton) {
+        if let url = URL(string: "https://kanarekapp.wixsite.com/canaryapp" ) {
+            UIApplication.shared.open(url)
+        }
+    }
 }

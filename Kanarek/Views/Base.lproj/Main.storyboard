@@ -780,6 +780,21 @@
                                                     <action selector="signOutButtonPressed:" destination="wt1-fQ-TY4" eventType="touchUpInside" id="LkW-lq-Ofw"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JP2-yO-13E">
+                                                <rect key="frame" x="15" y="292.5" width="350" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Otf-ma-9EP"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Xkx-TC-eBS"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                <state key="normal" title="Polityka Prywatności">
+                                                    <color key="titleColor" red="0.058823529409999999" green="0.5450980392" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="privacyPolicyButtonPressed:" destination="wt1-fQ-TY4" eventType="touchUpInside" id="lfm-oU-1TF"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.058823529409999999" green="0.5450980392" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -794,12 +809,15 @@
                                             <constraint firstItem="xC7-jm-Ev0" firstAttribute="top" secondItem="MnT-CX-xBM" secondAttribute="bottom" constant="28" id="Hzj-wQ-x4V"/>
                                             <constraint firstItem="X7t-sE-jeA" firstAttribute="top" secondItem="xC7-jm-Ev0" secondAttribute="bottom" constant="40" id="O9f-6H-nZT"/>
                                             <constraint firstAttribute="trailing" secondItem="MnT-CX-xBM" secondAttribute="trailing" constant="15" id="RLh-Kc-PcZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="JP2-yO-13E" secondAttribute="trailing" constant="15" id="UYh-Iu-blD"/>
                                             <constraint firstItem="ghk-2a-t3O" firstAttribute="leading" secondItem="GAa-Od-RHX" secondAttribute="trailing" constant="10" id="V9T-k7-rMK"/>
                                             <constraint firstItem="xVK-hX-uh2" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="XR5-Ri-lCA"/>
                                             <constraint firstAttribute="trailing" secondItem="xC7-jm-Ev0" secondAttribute="trailing" constant="30" id="YRk-46-m41"/>
                                             <constraint firstItem="J4x-gy-Gyz" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="cBN-x7-HMw"/>
+                                            <constraint firstItem="JP2-yO-13E" firstAttribute="top" secondItem="J4x-gy-Gyz" secondAttribute="bottom" constant="30" id="nJI-jM-6OT"/>
                                             <constraint firstAttribute="trailing" secondItem="ghk-2a-t3O" secondAttribute="trailing" constant="15" id="ndS-MN-xcG"/>
                                             <constraint firstAttribute="bottom" secondItem="GAa-Od-RHX" secondAttribute="bottom" constant="30" id="qoV-6V-6Rp"/>
+                                            <constraint firstItem="JP2-yO-13E" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="qqV-Ai-TH4"/>
                                             <constraint firstItem="Qhc-d3-h8C" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="rbj-3y-1bG"/>
                                             <constraint firstItem="J4x-gy-Gyz" firstAttribute="top" secondItem="X7t-sE-jeA" secondAttribute="bottom" constant="30" id="wRi-i0-Jx1"/>
                                             <constraint firstItem="xVK-hX-uh2" firstAttribute="top" secondItem="sxy-AT-ooV" secondAttribute="top" constant="30" id="xNb-6a-O9b"/>
@@ -838,6 +856,7 @@
                         <outlet property="currentUserLabel" destination="MnT-CX-xBM" id="ejW-sJ-Mz5"/>
                         <outlet property="logOutButton" destination="J4x-gy-Gyz" id="MFE-2a-209"/>
                         <outlet property="mainSettingsView" destination="sxy-AT-ooV" id="6sV-6H-pee"/>
+                        <outlet property="privacyPolicyButton" destination="JP2-yO-13E" id="VRD-6C-jsV"/>
                         <outlet property="stateSwitch" destination="xC7-jm-Ev0" id="Pcq-Qe-kRC"/>
                         <outlet property="termsButton" destination="X7t-sE-jeA" id="OWz-RW-b0M"/>
                         <outlet property="whiteLineView" destination="aUC-Q4-DkE" id="IVa-Fm-NIA"/>
