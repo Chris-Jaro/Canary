@@ -73,7 +73,9 @@ class SettingsController: UIViewController {
     
     ///# - Function is triggered when the user presses on "regulamin" label -> preforms segue to the terms and conditions view
     @IBAction func termsButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: K.Segues.toTerms, sender: self)
+        if let url = URL(string: "https://kanarekapp.wixsite.com/canaryapp/about" ) {
+            UIApplication.shared.open(url)
+        }
     }
     
     ///# Implements the functionality of the switch -> subscribes to or unsubscribes from push notifications
@@ -89,7 +91,7 @@ class SettingsController: UIViewController {
     }
 
     @IBAction func privacyPolicyButtonPressed(_ sender: UIButton) {
-        if let url = URL(string: "https://kanarekapp.wixsite.com/canaryapp" ) {
+        if let url = URL(string: "https://kanarekapp.wixsite.com/canaryapp/blank-page" ) {
             UIApplication.shared.open(url)
         }
     }
