@@ -61,16 +61,6 @@ class SettingsController: UIViewController {
         stateSwitch.addTarget(self, action: #selector(stateChanged), for: .valueChanged) // sets up the observer of the switch - which triggers on value-change
     }
     
-    ///# - Function is triggered when the user taps sign-out button and performs action:
-        // -> removes saved login data (kept for auto-login)
-        // -> dismisses main navigation controller (goes back to first navigation controller which handles the login/sign-up process)
-    @IBAction func signOutButtonPressed(_ sender: UIButton) {
-        userDefaults.removeObject(forKey: K.UserDefaults.password)
-        userDefaults.removeObject(forKey: K.UserDefaults.email)
-        
-        navigationController?.dismiss(animated: true, completion: nil)
-    }
-    
     ///# - Function is triggered when the user presses on "regulamin" label -> preforms segue to the terms and conditions view
     @IBAction func termsButtonPressed(_ sender: UIButton) {
         if let url = URL(string: "https://kanarekapp.wixsite.com/canaryapp/about" ) {

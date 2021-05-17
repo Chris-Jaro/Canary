@@ -432,7 +432,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r94-Vr-YZI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1963.7681159420292" y="-984.375"/>
+            <point key="canvasLocation" x="1246" y="-984"/>
         </scene>
         <!--Main Controller-->
         <scene sceneID="qsp-mn-Sbj">
@@ -766,25 +766,10 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4x-gy-Gyz">
-                                                <rect key="frame" x="15" y="222.5" width="350" height="40"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="vJZ-XZ-HUX"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                <state key="normal" title="Wyloguj">
-                                                    <color key="titleColor" red="0.058823529409999999" green="0.5450980392" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="signOutButtonPressed:" destination="wt1-fQ-TY4" eventType="touchUpInside" id="LkW-lq-Ofw"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JP2-yO-13E">
-                                                <rect key="frame" x="15" y="292.5" width="350" height="40"/>
+                                                <rect key="frame" x="15" y="217.5" width="350" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="Otf-ma-9EP"/>
                                                     <constraint firstAttribute="height" constant="40" id="Xkx-TC-eBS"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
@@ -798,7 +783,6 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.058823529409999999" green="0.5450980392" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="J4x-gy-Gyz" secondAttribute="trailing" constant="15" id="4gZ-n8-jFv"/>
                                             <constraint firstItem="X7t-sE-jeA" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="5xn-dz-Z1f"/>
                                             <constraint firstItem="MnT-CX-xBM" firstAttribute="top" secondItem="sxy-AT-ooV" secondAttribute="top" constant="32" id="710-qv-1iU"/>
                                             <constraint firstItem="Qhc-d3-h8C" firstAttribute="top" secondItem="MnT-CX-xBM" secondAttribute="bottom" constant="30" id="75Q-Pk-vAB"/>
@@ -813,15 +797,13 @@
                                             <constraint firstItem="ghk-2a-t3O" firstAttribute="leading" secondItem="GAa-Od-RHX" secondAttribute="trailing" constant="10" id="V9T-k7-rMK"/>
                                             <constraint firstItem="xVK-hX-uh2" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="XR5-Ri-lCA"/>
                                             <constraint firstAttribute="trailing" secondItem="xC7-jm-Ev0" secondAttribute="trailing" constant="30" id="YRk-46-m41"/>
-                                            <constraint firstItem="J4x-gy-Gyz" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="cBN-x7-HMw"/>
-                                            <constraint firstItem="JP2-yO-13E" firstAttribute="top" secondItem="J4x-gy-Gyz" secondAttribute="bottom" constant="30" id="nJI-jM-6OT"/>
                                             <constraint firstAttribute="trailing" secondItem="ghk-2a-t3O" secondAttribute="trailing" constant="15" id="ndS-MN-xcG"/>
                                             <constraint firstAttribute="bottom" secondItem="GAa-Od-RHX" secondAttribute="bottom" constant="30" id="qoV-6V-6Rp"/>
                                             <constraint firstItem="JP2-yO-13E" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="qqV-Ai-TH4"/>
                                             <constraint firstItem="Qhc-d3-h8C" firstAttribute="leading" secondItem="sxy-AT-ooV" secondAttribute="leading" constant="15" id="rbj-3y-1bG"/>
-                                            <constraint firstItem="J4x-gy-Gyz" firstAttribute="top" secondItem="X7t-sE-jeA" secondAttribute="bottom" constant="30" id="wRi-i0-Jx1"/>
                                             <constraint firstItem="xVK-hX-uh2" firstAttribute="top" secondItem="sxy-AT-ooV" secondAttribute="top" constant="30" id="xNb-6a-O9b"/>
                                             <constraint firstItem="MnT-CX-xBM" firstAttribute="leading" secondItem="xVK-hX-uh2" secondAttribute="trailing" constant="10" id="zKQ-aj-qVH"/>
+                                            <constraint firstItem="JP2-yO-13E" firstAttribute="top" secondItem="X7t-sE-jeA" secondAttribute="bottom" constant="25" id="ztu-mR-TJP"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -854,13 +836,11 @@
                     <navigationItem key="navigationItem" id="JIa-B5-oKT"/>
                     <connections>
                         <outlet property="currentUserLabel" destination="MnT-CX-xBM" id="ejW-sJ-Mz5"/>
-                        <outlet property="logOutButton" destination="J4x-gy-Gyz" id="MFE-2a-209"/>
                         <outlet property="mainSettingsView" destination="sxy-AT-ooV" id="6sV-6H-pee"/>
                         <outlet property="privacyPolicyButton" destination="JP2-yO-13E" id="VRD-6C-jsV"/>
                         <outlet property="stateSwitch" destination="xC7-jm-Ev0" id="Pcq-Qe-kRC"/>
                         <outlet property="termsButton" destination="X7t-sE-jeA" id="OWz-RW-b0M"/>
                         <outlet property="whiteLineView" destination="aUC-Q4-DkE" id="IVa-Fm-NIA"/>
-                        <segue destination="IBc-Fq-ebW" kind="show" identifier="GoToTermsFromSettings" id="vYh-DC-bqT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urx-S0-eAR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1038,7 +1018,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="aYq-z3-eLX"/>
-        <segue reference="vYh-DC-bqT"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Kanarek_Logo_Trans" width="1024" height="1024"/>
