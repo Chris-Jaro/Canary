@@ -16,7 +16,6 @@ class SettingsController: UIViewController {
     @IBOutlet weak var currentUserLabel: UILabel!
     @IBOutlet weak var mainSettingsView: UIView!
     @IBOutlet weak var whiteLineView: UIView!
-    @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet weak var termsButton: UIButton!
     @IBOutlet weak var privacyPolicyButton: UIButton!
     
@@ -31,7 +30,6 @@ class SettingsController: UIViewController {
         mainSettingsView.layer.cornerRadius = 15
         
         // These two lines round up the corners of the white line
-        logOutButton.layer.cornerRadius = 15
         termsButton.layer.cornerRadius = 15
         privacyPolicyButton.layer.cornerRadius = 15
         
@@ -63,7 +61,7 @@ class SettingsController: UIViewController {
     
     ///# - Function is triggered when the user presses on "regulamin" label -> preforms segue to the terms and conditions view
     @IBAction func termsButtonPressed(_ sender: UIButton) {
-        if let url = URL(string: "https://kanarekapp.wixsite.com/canaryapp/about" ) {
+        if let url = URL(string: "https://www.canary-app.pl/regulamin-aplikacji" ) {
             UIApplication.shared.open(url)
         }
     }
@@ -81,7 +79,7 @@ class SettingsController: UIViewController {
     }
 
     @IBAction func privacyPolicyButtonPressed(_ sender: UIButton) {
-        if let url = URL(string: "https://kanarekapp.wixsite.com/canaryapp/blank-page" ) {
+        if let url = URL(string: "https://www.canary-app.pl/polityka-prywatnosci" ) {
             UIApplication.shared.open(url)
         }
     }
