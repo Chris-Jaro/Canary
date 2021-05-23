@@ -9,6 +9,7 @@ import UIKit
 
 class ReportControllerTwo: UIViewController {
     
+    var databaseManager = DatabaseManager()
     var dataManagerTwo = DataManager()
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,6 +19,8 @@ class ReportControllerTwo: UIViewController {
         // -> registers both custom cells (text - for error message; number - for line numbers)
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        databaseManager.loadLineNumbers()
         
         tableView.delegate = self
         tableView.dataSource = self

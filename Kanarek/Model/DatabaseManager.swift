@@ -23,6 +23,7 @@ class DatabaseManager {
     var stops = [Stop]()
     var dangerousStops = [Stop]()
     var directions = [String]()
+    var lineNumbers = Int()
     
     ///# Functions return the data
     func getStops() -> [Stop]{
@@ -105,6 +106,22 @@ class DatabaseManager {
             print("Could not get device's current hour -> Night Stops")
             return stops // If there is a problem loading the time
         }
+    }
+    
+    func loadLineNumbers(){
+        db.collection("poznan_tram_lines")
+            .order(by: "line_number")
+            .getDocuments { (querySnapshot, error) in
+                guard error == nil else {
+                    print("There was an error getting line numbers")
+                    return
+                }
+                for document in querySnapshot!.documents {
+                    if let lineNumber = document.data()["line_number"]{
+                        print (lineNumber)
+                    }
+                }
+            }
     }
     
     ///# - Function is triggered by ReportManagerThree with a lineNumber and cityName and performs action:

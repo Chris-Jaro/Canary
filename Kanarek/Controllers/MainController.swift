@@ -342,9 +342,6 @@ extension MainController: CLLocationManagerDelegate{
         locationManager.startUpdatingLocation()
     }
     
-    
-    
-    
     ///# - Function is triggered every second when the location is updated and performs actions:
     // -> saves the current location in the dataManager
     // -> sets the initial location of the user on the map (on app launch)
