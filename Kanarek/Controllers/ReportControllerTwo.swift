@@ -13,6 +13,14 @@ class ReportControllerTwo: UIViewController {
     var dataManagerTwo = DataManager()
     @IBOutlet weak var tableView: UITableView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        guard let chosenStopType = dataManagerTwo.chosenStopType else {
+            return
+        }
+        databaseManager.loadLineNumbers(for: chosenStopType)
+    }
+    
+    
     ///## - Function is triggered then the view is loaded and performs actions:
         // -> sets the dataSource and the delegate for tableView
         // -> sets row height to 100 (for the numbers)
@@ -20,16 +28,14 @@ class ReportControllerTwo: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        databaseManager.loadLineNumbers()
+        databaseManager.delegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 100
         // Regular line number cell
         tableView.register(UINib(nibName: K.CustomCell.numberNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.numberIdentifier)
         // Stop cell - used to display error message
         tableView.register(UINib(nibName: K.CustomCell.textNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.textIdentifier)
-        
     }
 
     ///# - Function is triggered right before the segue and performs action:
@@ -45,6 +51,20 @@ class ReportControllerTwo: UIViewController {
         }
     }
 
+}
+
+//MARK: - Database Manager Delegate methods
+
+extension ReportControllerTwo: DatabaseManagerDelegate{
+    func failedWithError(error: Error) {
+        print ("There was an error")
+    }
+    
+    func updateUI(list: [Any]) {
+        guard let linesList = list as? [Int] else { return }
+        dataManagerTwo.linesList = dataManagerTwo.filterLineNumbers(lines: linesList)
+        tableView.reloadData()
+    }
 }
 
 //MARK: - TableView-related Methods
@@ -79,6 +99,7 @@ extension ReportControllerTwo: UITableViewDataSource{
         }
         
         let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
+        tableView.rowHeight = 100
         let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.numberIdentifier, for: indexPath) as! NumberCell
         cell.leftButton.setTitle("\(adjustedLines[indexPath.section][0])", for: .normal)
         cell.rightButton.setTitle("\(adjustedLines[indexPath.section][1])", for: .normal)

@@ -33,7 +33,7 @@ class ReportControllerOne: UIViewController {
         if segue.identifier == "GoToReportTwo"{
             let destinationVC = segue.destination as! ReportControllerTwo
             if let stopsList = dataManagerOne.stopsInTheArea, let index = dataManagerOne.chosenStopIndex{
-                destinationVC.dataManagerTwo.linesList = dataManagerOne.filterLineNumbers(lines: stopsList[index].lines)
+                destinationVC.dataManagerTwo.chosenStopType = stopsList[index].type
                 destinationVC.dataManagerTwo.stopName = stopsList[index].stopName
                 
             }

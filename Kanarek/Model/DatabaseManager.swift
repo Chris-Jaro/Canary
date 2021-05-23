@@ -23,7 +23,7 @@ class DatabaseManager {
     var stops = [Stop]()
     var dangerousStops = [Stop]()
     var directions = [String]()
-    var lineNumbers = Int()
+    var lineNumbers = [Int]()
     
     ///# Functions return the data
     func getStops() -> [Stop]{
@@ -108,20 +108,45 @@ class DatabaseManager {
         }
     }
     
-    func loadLineNumbers(){
-        db.collection("poznan_tram_lines")
-            .order(by: "line_number")
-            .getDocuments { (querySnapshot, error) in
-                guard error == nil else {
-                    print("There was an error getting line numbers")
-                    return
-                }
-                for document in querySnapshot!.documents {
-                    if let lineNumber = document.data()["line_number"]{
-                        print (lineNumber)
+    func loadLineNumbers(for stopType: String){
+        if stopType == "tramwaj" {
+            db.collection("poznan_tram_lines")
+                .order(by: "line_number")
+                .getDocuments { (querySnapshot, error) in
+                    guard error == nil else {
+                        print("There was an error getting line numbers")
+                        return
+                    }
+                    self.lineNumbers = []
+                    for document in querySnapshot!.documents {
+                        if let lineNumber = document.data()["line_number"] as? Int{
+                            self.lineNumbers.append(lineNumber)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.delegate!.updateUI(list: self.lineNumbers)
                     }
                 }
-            }
+        } else if stopType == "autobus"{
+            db.collection("poznan_bus_lines")
+                .order(by: "line_number")
+                .getDocuments { (querySnapshot, error) in
+                    guard error == nil else {
+                        print("There was an error getting line numbers")
+                        return
+                    }
+                    self.lineNumbers = []
+                    for document in querySnapshot!.documents {
+                        if let lineNumber = document.data()["line_number"] as? Int{
+                            self.lineNumbers.append(lineNumber)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.delegate!.updateUI(list: self.lineNumbers)
+                    }
+                }
+        }
+        
     }
     
     ///# - Function is triggered by ReportManagerThree with a lineNumber and cityName and performs action:

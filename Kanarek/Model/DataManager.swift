@@ -61,6 +61,7 @@ struct DataManager{
     
 //_____ReportControllerTwo Variables and Methods______________
     var linesList: [Int]?
+    var chosenStopType: String?
     var stopName: String?
     var selectedLine: Int?
     
@@ -83,8 +84,6 @@ struct DataManager{
                 adjustedList.append(item)
             }
         }
-        
-        
         
         return adjustedList
     }
