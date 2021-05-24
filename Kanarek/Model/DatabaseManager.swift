@@ -55,14 +55,12 @@ class DatabaseManager {
                                let stopStatus = data[K.FirebaseQuery.status] as? Bool,
                                let lat = data[K.FirebaseQuery.lat] as? Double,
                                let lon = data [K.FirebaseQuery.lon] as? Double,
-                               let lines = data[K.FirebaseQuery.lines] as? [Int],
                                let reportDetails = data[K.FirebaseQuery.reportDetails] as? String,
                                let date = data[K.FirebaseQuery.date] as? Double,
                                let type = data[K.FirebaseQuery.type] as? String,
                                let nightWork = data[K.FirebaseQuery.nightWork] as? Bool{
                                 let stopLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                                let linesList = lines.sorted()
-                                let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, lines: linesList, reportDetails: reportDetails, dateModified: date, type: type, nightwork: nightWork)
+                                let newStop = Stop(stopName: stopName, status: stopStatus, location: stopLocation, reportDetails: reportDetails, dateModified: date, type: type, nightwork: nightWork)
                                 self.stops.append(newStop)
                                 
                                 if newStop.status {
@@ -153,26 +151,52 @@ class DatabaseManager {
         // -> reads the directionsList document for provided line number
         // -> triggers updateUI method of ReportManagerThree (delegate) which refreshes the tableView data gathered from the database
     func loadLineDirections(for chosenLineNumber: Int, city: String){
-        db.collection("\(city)\(K.FirebaseQuery.linesCollectionName)")
-            .document("\(chosenLineNumber)")
-            .getDocument(completion: { (document, error) in
-                self.directions = []
-                if let e = error {
-                    self.delegate?.failedWithError(error: e)
-                    print("There was an issue receiving data from Firestore, \(e)")
-                } else {
-                    if let document = document, document.exists {
-                        if let data = document.data(){
-                            if let lineDirections = data[K.FirebaseQuery.directions] as? [String]{
-                                self.directions.append(contentsOf: lineDirections)
+        if "\(chosenLineNumber)".count < 3 || chosenLineNumber == 201 {
+            // TRAM LINE NUMBERS
+            db.collection("poznan_tram_lines")
+                .document("\(chosenLineNumber)")
+                .getDocument(completion: { (document, error) in
+                    self.directions = []
+                    if let e = error {
+                        self.delegate?.failedWithError(error: e)
+                        print("There was an issue receiving data from Firestore, \(e)")
+                    } else {
+                        if let document = document, document.exists {
+                            if let data = document.data(){
+                                if let lineDirections = data[K.FirebaseQuery.directions] as? [String]{
+                                    self.directions.append(contentsOf: lineDirections)
+                                }
+                            }
+                            DispatchQueue.main.async {
+                                self.delegate!.updateUI(list: self.directions)
                             }
                         }
-                        DispatchQueue.main.async {
-                            self.delegate!.updateUI(list: self.directions)
+                    }
+                })
+            
+        } else if "\(chosenLineNumber)".count == 3 && chosenLineNumber != 201{
+            // BUS LINE NUMBERS
+            db.collection("poznan_bus_lines")
+                .document("\(chosenLineNumber)")
+                .getDocument(completion: { (document, error) in
+                    self.directions = []
+                    if let e = error {
+                        self.delegate?.failedWithError(error: e)
+                        print("There was an issue receiving data from Firestore, \(e)")
+                    } else {
+                        if let document = document, document.exists {
+                            if let data = document.data(){
+                                if let lineDirections = data[K.FirebaseQuery.directions] as? [String]{
+                                    self.directions.append(contentsOf: lineDirections)
+                                }
+                            }
+                            DispatchQueue.main.async {
+                                self.delegate!.updateUI(list: self.directions)
+                            }
                         }
                     }
-                }
-            })
+                })
+        }
     }
     
     ///# - Function is triggered by renewStopStatus() and ReportManagerThree and performs action:

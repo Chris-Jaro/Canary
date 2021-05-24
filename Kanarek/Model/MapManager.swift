@@ -60,7 +60,7 @@ class MapManager {
     ///# - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
         // -> adds a neutral stop to the mapView where it specifies stop's title, subtitle and location (using addPoint function)
     func addNeutralStop(for stop:Stop, on map: MKMapView){
-        addPoint(where: stop.location, title: stop.stopName, subtitle:"linie: \(stop.lines)\ntyp: \(stop.type)\nstatus_zgłoszenia: \(stop.status)", map: map)
+        addPoint(where: stop.location, title: stop.stopName, subtitle:"typ: \(stop.type)\nstatus_zgłoszenia: \(stop.status)", map: map)
     }
     
     ///# - Function is triggered by DatabaseManager (in MainController as its delegate with the updateUI method) and performs action:
@@ -69,7 +69,7 @@ class MapManager {
     func addDangerousStop(for stop:Stop, on map: MKMapView){
         addPoint(where: stop.location,
                  title: stop.stopName,
-                 subtitle:"!UWAGA!\nstatus_zgłoszenia: \(stop.status)\ntyp: \(stop.type)\nlinie: \(stop.lines)\n\n________ZGŁOSZENIE________\nczas: \(dateConverter(interval: stop.dateModified))\n nr \(stop.reportDetails)\n____________________________", map: map)
+                 subtitle:"!UWAGA!\nstatus_zgłoszenia: \(stop.status)\ntyp: \(stop.type)\n\n________ZGŁOSZENIE________\nczas: \(dateConverter(interval: stop.dateModified))\n nr \(stop.reportDetails)\n____________________________", map: map)
         addCircle(where: stop.location, map: map)
     }
     
