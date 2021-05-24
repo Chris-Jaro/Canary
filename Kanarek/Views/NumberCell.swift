@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NumberCellDelegate {
+protocol ReportTwoTableViewCellDelegate {
     func performAction(with selectedLine:Int?, or message:String?)
     func deselectAllCells()
 }
@@ -17,7 +17,7 @@ class NumberCell: UITableViewCell {
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     
-    var delegate: NumberCellDelegate? // ideally ReportControllerTwo
+    var delegate: ReportTwoTableViewCellDelegate? // ideally ReportControllerTwo
     var chosenNumber:String?
     
     ///# - Function configures the way a cell looks form the beginning (UI config)

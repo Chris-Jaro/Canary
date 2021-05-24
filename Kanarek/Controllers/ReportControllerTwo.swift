@@ -32,6 +32,10 @@ class ReportControllerTwo: UIViewController {
         tableView.dataSource = self
         // Regular line number cell
         tableView.register(UINib(nibName: K.CustomCell.numberNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.numberIdentifier)
+        
+        // "Standing on the stop" Message cell
+        tableView.register(UINib(nibName: "LineMessageCell", bundle: nil), forCellReuseIdentifier: "LineMessageCell")
+        
         // Stop cell - used to display error message
         tableView.register(UINib(nibName: K.CustomCell.textNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.textIdentifier)
     }
@@ -98,16 +102,11 @@ extension ReportControllerTwo: UITableViewDataSource{
         }
         
         if indexPath.section == 0 {
-            
-            //# TO CHANGE !!!!!
             tableView.rowHeight = 100
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
-            cell.label?.text = "Stoją na przystanku"
-            cell.isUserInteractionEnabled = false
-            cell.typeImage.image = UIImage(systemName: "figure.stand")
-            cell.typeImage.isHidden = false
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LineMessageCell", for: indexPath) as! LineMessageCell
+    
+            cell.delegate = self
             return cell
-            //# TO CHANGE !!!!!
             
         } else {
             let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
@@ -141,7 +140,7 @@ extension ReportControllerTwo: UITableViewDelegate{
 }
 
 //MARK: - NumberCellDelegate Methods
-extension ReportControllerTwo: NumberCellDelegate{
+extension ReportControllerTwo: ReportTwoTableViewCellDelegate{
     
     ///# - Function is triggered by the buttonClicked actions
         // -> When a button with a line number is tapped the whole tableView gets deselected and then only the current button gets selected
@@ -156,11 +155,13 @@ extension ReportControllerTwo: NumberCellDelegate{
         // -> performs segue
     func performAction(with selectedLine:Int?, or message:String?) {
         if let lineNumber = selectedLine {
+            print(lineNumber)
             dataManagerTwo.selectedLine = lineNumber
-        } else if let message = message {
+        } else if let message = message?.trimmingCharacters(in: .whitespaces) {
+            print(message)
             dataManagerTwo.stopMessage = message
         }
-        performSegue(withIdentifier: K.Segues.toReportThree, sender: self)
+//        performSegue(withIdentifier: K.Segues.toReportThree, sender: self)
         
     }
 }

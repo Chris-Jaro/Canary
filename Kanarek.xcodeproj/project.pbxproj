@@ -15,6 +15,8 @@
 		832262AC25ED3D9A00471746 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832262AB25ED3D9A00471746 /* ErrorManager.swift */; };
 		833F911725ACC88B00B0EEF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 833F911625ACC88B00B0EEF6 /* GoogleService-Info.plist */; };
 		83424E9F25E4245E003C7B9E /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83424E9E25E4245E003C7B9E /* PushNotificationManager.swift */; };
+		83472CC2265C37FB007C012F /* LineMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83472CC0265C37FB007C012F /* LineMessageCell.swift */; };
+		83472CC3265C37FB007C012F /* LineMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83472CC1265C37FB007C012F /* LineMessageCell.xib */; };
 		834943F025A758B30091CD3F /* StopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834943EF25A758B30091CD3F /* StopModel.swift */; };
 		8355D13725BB65CD0081B548 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355D13625BB65CD0081B548 /* DatabaseManager.swift */; };
 		835946EE25C890D000FD55CB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835946ED25C890D000FD55CB /* NotificationManager.swift */; };
@@ -49,6 +51,8 @@
 		833F911625ACC88B00B0EEF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		83424E9C25E40700003C7B9E /* WarsawTest.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WarsawTest.gpx; sourceTree = "<group>"; };
 		83424E9E25E4245E003C7B9E /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		83472CC0265C37FB007C012F /* LineMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineMessageCell.swift; sourceTree = "<group>"; };
+		83472CC1265C37FB007C012F /* LineMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineMessageCell.xib; sourceTree = "<group>"; };
 		834943EF25A758B30091CD3F /* StopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopModel.swift; sourceTree = "<group>"; };
 		8355D13625BB65CD0081B548 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		835946ED25C890D000FD55CB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 				831105152578371B00B1B1A2 /* TextCell.xib */,
 				836765C525DDB686000A9349 /* NumberCell.swift */,
 				836765C625DDB686000A9349 /* NumberCell.xib */,
+				83472CC0265C37FB007C012F /* LineMessageCell.swift */,
+				83472CC1265C37FB007C012F /* LineMessageCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -262,6 +268,7 @@
 				83E5BFC0256AB64C005C56B0 /* LaunchScreen.storyboard in Resources */,
 				83E5BFBD256AB64C005C56B0 /* Assets.xcassets in Resources */,
 				833F911725ACC88B00B0EEF6 /* GoogleService-Info.plist in Resources */,
+				83472CC3265C37FB007C012F /* LineMessageCell.xib in Resources */,
 				831105172578371B00B1B1A2 /* TextCell.xib in Resources */,
 				83E5BFBB256AB648005C56B0 /* Main.storyboard in Resources */,
 			);
@@ -336,6 +343,7 @@
 				834943F025A758B30091CD3F /* StopModel.swift in Sources */,
 				835BFD6D256D3EB600C97772 /* SignInController.swift in Sources */,
 				835BFD76256D3EE700C97772 /* ReportControllerTwo.swift in Sources */,
+				83472CC2265C37FB007C012F /* LineMessageCell.swift in Sources */,
 				831105162578371B00B1B1A2 /* TextCell.swift in Sources */,
 				835BFD6A256D3E3A00C97772 /* SignUpController.swift in Sources */,
 			);
