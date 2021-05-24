@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NumberCellDelegate {
-    func performAction(with selectedLine:Int)
+    func performAction(with selectedLine:Int?, or message:String?)
     func deselectAllCells()
 }
 
@@ -59,7 +59,7 @@ class NumberCell: UITableViewCell {
         if selected && (rightButton.isSelected || leftButton.isSelected){
             //SELECTION - where at least one of the buttons has to be selected
             if let delegate = delegate{
-                delegate.performAction(with: Int(chosenNumber!) ?? 0)
+                delegate.performAction(with: Int(chosenNumber!) ?? 0, or: nil)
             }
             applyColor(to: rightButton)
             applyColor(to: leftButton)

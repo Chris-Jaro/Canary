@@ -14,20 +14,17 @@ class ReportControllerTwo: UIViewController {
     var dataManagerTwo = DataManager()
     @IBOutlet weak var tableView: UITableView!
     
-    override func viewWillAppear(_ animated: Bool) {
-        guard let chosenStopType = dataManagerTwo.chosenStopType else {
-            return
-        }
-        databaseManager.loadLineNumbers(for: chosenStopType)
-    }
-    
-    
     ///## - Function is triggered then the view is loaded and performs actions:
         // -> sets the dataSource and the delegate for tableView
         // -> sets row height to 100 (for the numbers)
         // -> registers both custom cells (text - for error message; number - for line numbers)
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let chosenStopType = dataManagerTwo.chosenStopType else {
+            return
+        }
+        databaseManager.loadLineNumbers(for: chosenStopType)
         
         databaseManager.delegate = self
         
@@ -55,7 +52,6 @@ class ReportControllerTwo: UIViewController {
 }
 
 //MARK: - Database Manager Delegate methods
-
 extension ReportControllerTwo: DatabaseManagerDelegate{
     ///# - Function is triggered by DatabaseManager if fails with error and performs action:
         // -> shows an alert with the error message
@@ -78,7 +74,7 @@ extension ReportControllerTwo: UITableViewDataSource{
         guard let lines = dataManagerTwo.linesList, lines.count > 0 else {return 1}
         let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
         
-        return adjustedLines.count
+        return adjustedLines.count + 1 //# TO MAKE UP FOR THE ONE CELL -> "STANDING ON THE STOP"
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -101,16 +97,32 @@ extension ReportControllerTwo: UITableViewDataSource{
             return cell
         }
         
-        let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
-        tableView.rowHeight = 100
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.numberIdentifier, for: indexPath) as! NumberCell
-        cell.leftButton.setTitle("\(adjustedLines[indexPath.section][0])", for: .normal)
-        cell.rightButton.setTitle("\(adjustedLines[indexPath.section][1])", for: .normal)
-        if cell.rightButton.currentTitle == "0"{
-            cell.rightButton.isEnabled = false
+        if indexPath.section == 0 {
+            
+            //# TO CHANGE !!!!!
+            tableView.rowHeight = 100
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
+            cell.label?.text = "Stoją na przystanku"
+            cell.isUserInteractionEnabled = false
+            cell.typeImage.image = UIImage(systemName: "figure.stand")
+            cell.typeImage.isHidden = false
+            return cell
+            //# TO CHANGE !!!!!
+            
+        } else {
+            let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
+            tableView.rowHeight = 100
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.numberIdentifier, for: indexPath) as! NumberCell
+            cell.leftButton.setTitle("\(adjustedLines[indexPath.section][0])", for: .normal)
+            cell.rightButton.setTitle("\(adjustedLines[indexPath.section][1])", for: .normal)
+            if cell.rightButton.currentTitle == "0"{
+                cell.rightButton.isEnabled = false
+            }
+            cell.delegate = self
+            return cell
         }
-        cell.delegate = self
-        return cell
+        
+        
     }
 }
 
@@ -142,9 +154,14 @@ extension ReportControllerTwo: NumberCellDelegate{
     ///# - Function is triggered by tapping on one of the buttons in the number cell and performs actions:
         // -> saves data of the user's choice of line number
         // -> performs segue
-    func performAction(with selectedLine: Int) {
-        dataManagerTwo.selectedLine = selectedLine
+    func performAction(with selectedLine:Int?, or message:String?) {
+        if let lineNumber = selectedLine {
+            dataManagerTwo.selectedLine = lineNumber
+        } else if let message = message {
+            dataManagerTwo.stopMessage = message
+        }
         performSegue(withIdentifier: K.Segues.toReportThree, sender: self)
+        
     }
 }
 

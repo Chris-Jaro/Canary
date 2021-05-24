@@ -18,6 +18,7 @@ struct DataManager{
     var chosenStopType: String?
     var stopName: String?
     var selectedLine: Int?
+    var stopMessage: String?
     
 //_____ReportControllerThree Variables______________
     var chosenStopName: String?
