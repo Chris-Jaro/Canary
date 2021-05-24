@@ -13,6 +13,26 @@ struct DataManager{
     var stopsInTheArea: [Stop]?
     var chosenStopIndex: Int?
     
+//_____ReportControllerTwo Variables_____________
+    var linesList: [Int]?
+    var chosenStopType: String?
+    var stopName: String?
+    var selectedLine: Int?
+    
+//_____ReportControllerThree Variables______________
+    var chosenStopName: String?
+    var lineNr: Int?
+    var directionIndex: Int?
+    
+//_____MainController Variables______________
+    var startLocationLoaded = false
+    var hiddenLocationButton = true
+    var currentLocation: CLLocation?
+    var defaultLocation: CLLocation?//If the user choses the city from the pop-up and did not allow location services
+}
+
+//MARK: - ReportControllerOne Methods
+extension DataManager {
     ///# - Function is triggered by ReportOneController when preparing for segue and performs action:
         // -> filters the list of lineNumbers for of the chosen stop depending on the time of the day (night/day lines)
             // - <5:00-22:00) -> returns only day lineNumbers (x < 200  or 300 =< x )
@@ -40,13 +60,13 @@ struct DataManager{
                 
             } else if 0 <= currentHour && currentHour < 4 {
 //              --B--
-                var filterdLines = [Int]()
+                var filteredLines = [Int]()
                 lines.forEach { (line) in
                     if line >= 200 && line < 300{
-                        filterdLines.append(line)
+                        filteredLines.append(line)
                     }
                 }
-                return filterdLines
+                return filteredLines
         
             } else {
 //              --C--
@@ -58,19 +78,29 @@ struct DataManager{
             return lines // If there is a problem loading the time
         }
     }
-    
-//_____ReportControllerTwo Variables and Methods______________
-    var linesList: [Int]?
-    var chosenStopType: String?
-    var stopName: String?
-    var selectedLine: Int?
-    
+}
+
+//MARK: - ReportControllerTwo Methods
+extension DataManager{
     ///# - Function is triggered by ReportControllerTwo (when loading tableView) and performs action:
         // -> converts the one-dimensional array of lineNumbers into a two-dimensional array to be suitable for two-column table ([1,2,3,4] -> [[1,2],[3,4]])
         // -> if lines list.count is odd zero is appended and then adjusted (and if a button.title == "0" it gets disabled)
     func adjustLinesList(list: [Int]) -> [[Int]]{
         var workingList = list
         var adjustedList = [[Int]]()
+        
+        ///# - Function is triggered by adjustLinesList and performs action:
+            // -> takes a list [Int]
+            // -> returns a list of only the even indices (0,2,4,...) -> to allow creation of two-dimensional matrix
+        func filterEvenIndices(list:[Int]) -> [Int]{
+            var evenIndices = [Int]()
+            for (index, _) in list.enumerated() {
+                if index.isMultiple(of: 2) {
+                    evenIndices.append(index)
+                }
+            }
+            return evenIndices
+        }
         
         if workingList.count % 2 == 0 {
             for index in filterEvenIndices(list: workingList){
@@ -87,31 +117,4 @@ struct DataManager{
         
         return adjustedList
     }
-    
-    ///# - Function is triggered by adjustLinesList and performs action:
-        // -> takes a list [Int]
-        // -> returns a list of only the even indices (0,2,4,...) -> to allow creation of two-dimensional matrix
-    func filterEvenIndices(list:[Int]) -> [Int]{
-        var evenIndices = [Int]()
-        for (index, _) in list.enumerated() {
-            if index.isMultiple(of: 2) {
-                evenIndices.append(index)
-            }
-        }
-        return evenIndices
-    }
-    
-//_____ReportControllerThree Variables______________
-    var chosenStopName: String?
-    var lineNr: Int?
-    var directionIndex: Int?
-    
-//_____MainController Variables______________
-    var startLocationLoaded = false
-    var hiddenLocationButton = true
-    var currentLocation: CLLocation?
-    var defaultLocation: CLLocation?//If the user choses the city from the pop-up and did not allow location services
-    
-    
 }
-

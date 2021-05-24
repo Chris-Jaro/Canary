@@ -35,7 +35,6 @@ class ReportControllerOne: UIViewController {
             if let stopsList = dataManagerOne.stopsInTheArea, let index = dataManagerOne.chosenStopIndex{
                 destinationVC.dataManagerTwo.chosenStopType = stopsList[index].type
                 destinationVC.dataManagerTwo.stopName = stopsList[index].stopName
-                
             }
         }
     }

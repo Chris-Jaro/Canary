@@ -9,6 +9,7 @@ import UIKit
 
 class ReportControllerTwo: UIViewController {
     
+    let errorManager = ErrorManager()// Accessing error-handling methods
     var databaseManager = DatabaseManager()
     var dataManagerTwo = DataManager()
     @IBOutlet weak var tableView: UITableView!
@@ -56,8 +57,10 @@ class ReportControllerTwo: UIViewController {
 //MARK: - Database Manager Delegate methods
 
 extension ReportControllerTwo: DatabaseManagerDelegate{
+    ///# - Function is triggered by DatabaseManager if fails with error and performs action:
+        // -> shows an alert with the error message
     func failedWithError(error: Error) {
-        print ("There was an error")
+        errorManager.displayBasicAlert(title: "Błąd", subtitle: "Prosimy o przesłanie błędu na nasz adres email.\n\(error.localizedDescription)", controller: self)
     }
     
     func updateUI(list: [Any]) {
