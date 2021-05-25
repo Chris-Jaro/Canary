@@ -22,7 +22,7 @@ class ReportControllerThree: UIViewController {
         // -> requests loading of the directionsList for the chosen line number in the current city from the Database
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let lineNumber = dataManagerThree.lineNr, let cityName = userDefaults.string(forKey: K.UserDefaults.cityName) else {
+        guard let lineNumber = dataManagerThree.lineNr, let cityName = userDefaults.string(forKey: K.UserDefaults.cityName), dataManagerThree.lineMessage == nil else {
             errorManager.displayBasicAlert(title: "Błąd", subtitle: "Użytkownik jest po za obszarem dostępnego miasta.", controller: self)
             return
         } // Guards from no data -> To avoid error from database

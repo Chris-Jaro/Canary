@@ -45,10 +45,15 @@ class ReportControllerTwo: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToReportThree"{
             let destinationVC = segue.destination as! ReportControllerThree
-            if let _ = dataManagerTwo.linesList, let line = dataManagerTwo.selectedLine, let stopName = dataManagerTwo.stopName{
-                destinationVC.dataManagerThree.lineNr = line
+            if let _ = dataManagerTwo.linesList, let stopName = dataManagerTwo.stopName{
+                if let line = dataManagerTwo.selectedLine{
+                    destinationVC.dataManagerThree.lineNr = line
+                } else if let message = dataManagerTwo.stopMessage{
+                    destinationVC.dataManagerThree.lineMessage = message
+                }
                 destinationVC.dataManagerThree.chosenStopName = stopName
-
+                dataManagerTwo.selectedLine = nil // TO avoid saving value of a stop
+                dataManagerTwo.stopMessage = nil // TO avoid saving value of a stop
             }
         }
     }
@@ -155,13 +160,13 @@ extension ReportControllerTwo: ReportTwoTableViewCellDelegate{
         // -> performs segue
     func performAction(with selectedLine:Int?, or message:String?) {
         if let lineNumber = selectedLine {
-            print(lineNumber)
+            print("Clicked report button -> \(lineNumber)")
             dataManagerTwo.selectedLine = lineNumber
         } else if let message = message?.trimmingCharacters(in: .whitespaces) {
-            print(message)
+            print("Clicked report button -> \(message)")
             dataManagerTwo.stopMessage = message
         }
-//        performSegue(withIdentifier: K.Segues.toReportThree, sender: self)
+        performSegue(withIdentifier: K.Segues.toReportThree, sender: self)
         
     }
 }

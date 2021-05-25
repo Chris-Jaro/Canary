@@ -24,6 +24,7 @@ struct DataManager{
     var chosenStopName: String?
     var lineNr: Int?
     var directionIndex: Int?
+    var lineMessage: String?
     
 //_____MainController Variables______________
     var startLocationLoaded = false
