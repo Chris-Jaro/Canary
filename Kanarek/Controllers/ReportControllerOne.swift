@@ -19,7 +19,6 @@ class ReportControllerOne: UIViewController {
         // -> registering custom text cell
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 80
@@ -27,8 +26,7 @@ class ReportControllerOne: UIViewController {
     }
     
     ///# - Function is triggered right before the segue and performs action:
-        // -> filters the list for night lines (depending on the time) and passes it to dataManager of ReportViewControllerTwo
-        // -> passes the name of the chosen stop to the dataManager of ReportViewControllerTwo
+        // -> passes the type and name of the chosen stop to the dataManager of ReportViewControllerTwo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToReportTwo"{
             let destinationVC = segue.destination as! ReportControllerTwo
@@ -47,7 +45,6 @@ extension ReportControllerOne: UITableViewDataSource{
     ///# - Function returns number of rows to be displayed on the TableView (if there is nothing to displayed error message will be displayed)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let stopsList = dataManagerOne.stopsInTheArea, stopsList.count > 0  else { return 1 }
-        
         return stopsList.count
     }
     
@@ -78,7 +75,6 @@ extension ReportControllerOne: UITableViewDataSource{
         } else {
             cell.typeImage.image = UIImage(systemName: "face.smiling")
         }
-        
         return cell
     }
 }

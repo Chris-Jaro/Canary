@@ -49,7 +49,7 @@ class MapManager {
         if let location = reportLocation{
             for stop in stops{
                 let distance = location.distance(from: CLLocation(latitude: stop.location.latitude, longitude: stop.location.longitude))
-                if distance < 500 {
+                if distance <= 500 {
                     stopsInMyArea.append(stop)
                 }
             }

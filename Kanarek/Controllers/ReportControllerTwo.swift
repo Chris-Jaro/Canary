@@ -14,16 +14,13 @@ class ReportControllerTwo: UIViewController {
     var dataManagerTwo = DataManager()
     @IBOutlet weak var tableView: UITableView!
     
-    ///## - Function is triggered then the view is loaded and performs actions:
+    ///## - Function is triggered when the view is loaded and performs actions:
+        // -> Guard statement - the stop type is needed to load up the appropriate data (line numbers for bus or tram)
         // -> sets the dataSource and the delegate for tableView
-        // -> sets row height to 100 (for the numbers)
-        // -> registers both custom cells (text - for error message; number - for line numbers)
+        // -> registers all custom cells (text - for error message; number - for line numbers, message for "standing on the stop" message)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let chosenStopType = dataManagerTwo.chosenStopType else {
-            return
-        }
+        guard let chosenStopType = dataManagerTwo.chosenStopType else { return }
         databaseManager.loadLineNumbers(for: chosenStopType)
         
         databaseManager.delegate = self
@@ -34,30 +31,29 @@ class ReportControllerTwo: UIViewController {
         tableView.register(UINib(nibName: K.CustomCell.numberNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.numberIdentifier)
         
         // "Standing on the stop" Message cell
-        tableView.register(UINib(nibName: "LineMessageCell", bundle: nil), forCellReuseIdentifier: "LineMessageCell")
+        tableView.register(UINib(nibName: K.CustomCell.lineMessageNibName , bundle: nil), forCellReuseIdentifier: K.CustomCell.lineMessageIdentifier)
         
         // Stop cell - used to display error message
         tableView.register(UINib(nibName: K.CustomCell.textNibName, bundle: nil), forCellReuseIdentifier: K.CustomCell.textIdentifier)
     }
 
     ///# - Function is triggered right before the segue and performs action:
-        // -> passes the chosen data (line number; stop name) to the dataManagerThree
+        // -> passes the chosen data (line number / line message ; stop name) to the dataManagerThree
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToReportThree"{
             let destinationVC = segue.destination as! ReportControllerThree
             if let _ = dataManagerTwo.linesList, let stopName = dataManagerTwo.stopName{
+                destinationVC.dataManagerThree.chosenStopName = stopName
                 if let line = dataManagerTwo.selectedLine{
                     destinationVC.dataManagerThree.lineNr = line
                 } else if let message = dataManagerTwo.stopMessage{
                     destinationVC.dataManagerThree.lineMessage = message
                 }
-                destinationVC.dataManagerThree.chosenStopName = stopName
                 dataManagerTwo.selectedLine = nil // TO avoid saving value of a stop
                 dataManagerTwo.stopMessage = nil // TO avoid saving value of a stop
             }
         }
     }
-
 }
 
 //MARK: - Database Manager Delegate methods
@@ -83,13 +79,14 @@ extension ReportControllerTwo: UITableViewDataSource{
         guard let lines = dataManagerTwo.linesList, lines.count > 0 else {return 1}
         let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
         
-        return adjustedLines.count + 1 //# TO MAKE UP FOR THE ONE CELL -> "STANDING ON THE STOP"
+        return adjustedLines.count + 1 //# TO MAKE UP FOR THE FIRST CELL -> "STANDING ON THE STOP"
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    ///# - Functions determines exactly what is to be displayed on every cell one by one:
+    ///# - Function determines exactly what is to be displayed on every cell one by one:
+        // -> "Standing on the stop" message cell is displayed at the top of the table view
         // -> If there are no lines -> error message is displayed
         // -> If there are lines the list is adjusted to conform with the two columns (list dimensions are changed [1,2,3,4] -> [[1,2][3,4]])
         // -> If lines.count is odd -> 0 is appended to the list and is button label is equal to 0 the button is disabled
@@ -108,8 +105,7 @@ extension ReportControllerTwo: UITableViewDataSource{
         
         if indexPath.section == 0 {
             tableView.rowHeight = 100
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LineMessageCell", for: indexPath) as! LineMessageCell
-    
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.lineMessageIdentifier, for: indexPath) as! LineMessageCell
             cell.delegate = self
             return cell
             

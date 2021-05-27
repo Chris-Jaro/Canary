@@ -80,7 +80,7 @@ class DatabaseManager {
     ///# - Function is triggered by loadPoints method and performs action:
         // -> returns all stops if it is between 04:00-24:00
         // -> returns only nightStops if it is between 00:00-04:00
-    func filterStops(stops: [Stop]) -> [Stop] {
+    func filterStops(stops: [Stop]) -> [Stop]{
         //Accessing the current hour of the device
         let now = Calendar.current.dateComponents(in: .current, from: Date())
         if let currentHour = now.hour {
@@ -106,6 +106,10 @@ class DatabaseManager {
         }
     }
     
+    ///# - Function is triggered by ReportTwoController (depending on the type of the chosen stop the function either loads the tram lines or bus lines):
+        // -> if the chosen stop type is == to "tramwaj" -> it connects to poznan_tram_lines collection and loads the data
+        // -> if the chosen stop type is == to "autobus" -> it connects to poznan_bus_lines collection and loads the data
+        // -> returns loaded data to be displayed in the TableView of ReportTwo
     func loadLineNumbers(for stopType: String){
         if stopType == "tramwaj" {
             db.collection("poznan_tram_lines")
@@ -148,7 +152,8 @@ class DatabaseManager {
     
     ///# - Function is triggered by ReportManagerThree with a lineNumber and cityName and performs action:
         // -> connects to the database of the city
-        // -> reads the directionsList document for provided line number
+        // -> connects to the bus lines or tram lines
+        // -> reads the directionsList document for provided line number (bus or tram)
         // -> triggers updateUI method of ReportManagerThree (delegate) which refreshes the tableView data gathered from the database
     func loadLineDirections(for chosenLineNumber: Int, city: String){
         if "\(chosenLineNumber)".count < 3 || chosenLineNumber == 201 {
@@ -209,7 +214,7 @@ class DatabaseManager {
                                          K.FirebaseQuery.reportDetails: reportDetails], merge: true)
     }
     
-    ///# - Function is triggered by timer in MainController (only if the user allowed location services) and performs action:
+    ///# - Function is triggered by the timer in MainController (only if the user allowed location services) and performs action:
         // -> if the stop was reported more than 3 minutes (180s) ago its neutral status gets restored
     func renewStopStatus(){
         guard dangerousStops.count > 0 else {return}
@@ -223,6 +228,7 @@ class DatabaseManager {
     }
     
     ///# - Function is triggered by ReportControllerThree and performs action:
+        // -> calculates the proper report/stop details based on user's choice (tram -> line number + direction | message -> message)
         // -> connects to the database
         // -> takes the data and creates a new document in the history database collection for the current city
     func saveReport(stop:String, line:Int?, direction:String?, message: String?, city: String){

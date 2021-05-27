@@ -10,27 +10,28 @@ import CoreLocation
 
 struct DataManager{
 //_____ReportControllerOne Variables and Methods_____________
-    var stopsInTheArea: [Stop]?
-    var chosenStopIndex: Int?
+    var stopsInTheArea: [Stop]?         /// - List of stops in the area of 500m from the user - objects from this list are displayed in the TableView of ReportOne
+    var chosenStopIndex: Int?           /// - Index of the stop that is chosen by the user in ReportOne - used to access selected stop in prepareForSegue
     
 //_____ReportControllerTwo Variables_____________
-    var linesList: [Int]?
-    var chosenStopType: String?
-    var stopName: String?
-    var selectedLine: Int?
-    var stopMessage: String?
+    var linesList: [Int]?               /// - List of line numbers loaded when the viewLoads from the database (depending on the  stop type (tram/bus))
+    var chosenStopType: String?         /// - Type property of the stop selected by the user in ReportOne - data for ReportTwo depends on this value ("tramwaj" / "autobus") to load the line numbers
+    var stopName: String?               /// - Passing  the stop name to the ReportTwo and then ReportThree  - stop name is needed for updating the database
+    var selectedLine: Int?              /// - Selected line number - used to load line directions in ReportThree (passed to ReportThree in prepareForSegue)
+    var stopMessage: String?            /// - Selected "Standing on the stop" message - used to perform action in ReportThree (passed to ReportThree in prepareForSegue)
     
 //_____ReportControllerThree Variables______________
-    var chosenStopName: String?
-    var lineNr: Int?
-    var directionIndex: Int?
-    var lineMessage: String?
+    var chosenStopName: String?         /// - Name of the selected stop - used to update this stop in the database and to save report to report history
+    var lineMessage: String?            /// - Selected "Standing on the stop" message - used to enable report button & setSelect the button
+    var lineNr: Int?                    /// - Selected line number - used to load line directions data from the database
+    var directionIndex: Int?            /// - Index of the selected direction - used to access chosen direction in the report process
+
     
 //_____MainController Variables______________
-    var startLocationLoaded = false
-    var hiddenLocationButton = true
-    var currentLocation: CLLocation?
-    var defaultLocation: CLLocation?//If the user choses the city from the pop-up and did not allow location services
+    var startLocationLoaded = false     /// - When the mapView is loaded for the first time - the user is centred on the map
+    var hiddenLocationButton = true     /// - When the user taps "my location button" in the top-left cornet of the mapView - it hides the button
+    var currentLocation: CLLocation?    /// - Used to determine the list of the stops within 500m from the user - needed for the reportOne
+    var defaultLocation: CLLocation?    /// If the user choses the city from the pop-up and did not allow location services
 }
 
 //MARK: - ReportControllerOne Methods

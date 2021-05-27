@@ -39,6 +39,8 @@ struct K {
         static let textIdentifier = "TextCell"
         static let numberNibName = "NumberCell"
         static let numberIdentifier = "NumberCell"
+        static let lineMessageNibName = "LineMessageCell"
+        static let lineMessageIdentifier = "LineMessageCell"
     }
     
     struct FirebaseQuery {
