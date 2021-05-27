@@ -152,14 +152,12 @@ extension ReportControllerTwo: ReportTwoTableViewCellDelegate{
     }
     
     ///# - Function is triggered by tapping on one of the buttons in the number cell and performs actions:
-        // -> saves data of the user's choice of line number
+        // -> saves data of the user's choice of line number or line message
         // -> performs segue
     func performAction(with selectedLine:Int?, or message:String?) {
         if let lineNumber = selectedLine {
-            print("Clicked report button -> \(lineNumber)")
             dataManagerTwo.selectedLine = lineNumber
         } else if let message = message?.trimmingCharacters(in: .whitespaces) {
-            print("Clicked report button -> \(message)")
             dataManagerTwo.stopMessage = message
         }
         performSegue(withIdentifier: K.Segues.toReportThree, sender: self)
