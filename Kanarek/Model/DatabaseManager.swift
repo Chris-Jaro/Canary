@@ -225,9 +225,16 @@ class DatabaseManager {
     ///# - Function is triggered by ReportControllerThree and performs action:
         // -> connects to the database
         // -> takes the data and creates a new document in the history database collection for the current city
-    func saveReport(stop:String, line:Int, direction:String, city: String){
+    func saveReport(stop:String, line:Int?, direction:String?, message: String?, city: String){
         let date = Date()
         let dateFormatter = DateFormatter()
+        var detailsText = String()
+        if let lineNumber = line, let lineDirection = direction{
+           detailsText = "nr \(lineNumber) w kierunku \(lineDirection)"
+        } else if let lineMessage = message{
+            detailsText = lineMessage
+        }
+        // Stop details variants depending on the nil or not nil value of the line? and message?
         dateFormatter.dateFormat = "HH:mm E, d MMM y" // "12:05 Tue, 16 Feb 2021" - format
         db.collection("\(city)\(K.FirebaseQuery.historyCollectionName)").document().setData([
             "user_email" : userLoginDetails.value(forKey: "UserEmail")!, // For history + purposes
@@ -235,7 +242,7 @@ class DatabaseManager {
             "stop_name":stop, // In the title of the notification
             "latitude":52.1231241231223, // For setting the map center on this stop on clicking
             "longitude":16.214124123861289, // For setting the map center on this stop on clicking
-            "details":"Linia nr \(line) w kierunku \(direction)"
+            "details": detailsText
         ], merge : true)
     }
     

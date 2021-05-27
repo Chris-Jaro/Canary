@@ -22,13 +22,16 @@ class ReportControllerThree: UIViewController {
         // -> requests loading of the directionsList for the chosen line number in the current city from the Database
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let lineNumber = dataManagerThree.lineNr, let cityName = userDefaults.string(forKey: K.UserDefaults.cityName), dataManagerThree.lineMessage == nil else {
+        if dataManagerThree.lineNr == nil && dataManagerThree.lineMessage == nil || userDefaults.string(forKey: K.UserDefaults.cityName) == nil{
+            // The  user did not choose a number nor the message and there is no city saved in the defaults
             errorManager.displayBasicAlert(title: "Błąd", subtitle: "Użytkownik jest po za obszarem dostępnego miasta.", controller: self)
-            return
-        } // Guards from no data -> To avoid error from database
-        
-        //# Loads the directions for given line number from the database for given city | If there is a city value in the defaults (to reach this stage there has to be)
-        databaseManager.loadLineDirections(for: lineNumber, city: cityName)
+        } else if dataManagerThree.lineNr != nil && dataManagerThree.lineMessage == nil{
+            print("User has chosen the number")
+            //# Loads the directions for given line number from the database for given city | If there is a city value in the defaults (to reach this stage there has to be)
+            databaseManager.loadLineDirections(for: dataManagerThree.lineNr!, city: userDefaults.string(forKey: K.UserDefaults.cityName)!)
+        } else if dataManagerThree.lineNr == nil && dataManagerThree.lineMessage != nil {
+            print("User has chosen the message")
+        }
     }
     
     ///# - Function triggers when the view is loaded and performs actions:
@@ -57,13 +60,22 @@ class ReportControllerThree: UIViewController {
         // -> pops the user to root view in the current navigation controller (mainView with the map of stops)
     @IBAction func reportButtonPressed(_ sender: UIButton) {
         //## This guard statement is an additional precaution to disable the user from reporting without having chosen a valid direction and without providing cityName
-        guard let stopName = dataManagerThree.chosenStopName, let lineNumber = dataManagerThree.lineNr, let cityName = userDefaults.string(forKey: K.UserDefaults.cityName) else {return}
-        let direction = databaseManager.getDirections()[dataManagerThree.directionIndex!]
-        
-        //## saves the report and updates the stopStatus provided there is cityName (which has to be provided to start the reporting process)
-        databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "\(lineNumber) w kierunku \(direction)", date: Date.timeIntervalSinceReferenceDate, city: cityName)
-        databaseManager.saveReport(stop: stopName, line: lineNumber, direction: direction, city: cityName)
-        
+        guard let stopName = dataManagerThree.chosenStopName, let cityName = userDefaults.string(forKey: K.UserDefaults.cityName) else {return}
+        if dataManagerThree.lineNr == nil && dataManagerThree.lineMessage != nil {
+            // USER CHOSE THE MESSAGE
+            
+            databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: dataManagerThree.lineMessage!, date: Date.timeIntervalSinceReferenceDate, city: cityName)
+            databaseManager.saveReport(stop: stopName, line: nil, direction: nil, message: dataManagerThree.lineMessage!, city: cityName)
+            
+        } else if dataManagerThree.lineNr != nil && dataManagerThree.lineMessage == nil {
+            // USER CHOSE THE LINE NUMBER
+            
+            let direction = databaseManager.getDirections()[dataManagerThree.directionIndex!]
+            //## saves the report and updates the stopStatus provided there is cityName (which has to be provided to start the reporting process)
+            databaseManager.updatePointStatus(documentID: stopName, status: true, reportDetails: "nr \(dataManagerThree.lineNr!) w kierunku \(direction)", date: Date.timeIntervalSinceReferenceDate, city: cityName)
+            databaseManager.saveReport(stop: stopName, line: dataManagerThree.lineNr!, direction: direction, message: nil, city: cityName)
+        }
+
         //## calls reviewManager to save the number of reports
         reviewManager.saveReportNumber()
         
@@ -92,9 +104,13 @@ extension ReportControllerThree: UITableViewDataSource{
     
     ///# - Function returns number of rows to be presented by the TableView (if no data one row is returned to display error message)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let directions = databaseManager.getDirections()
-        if directions.count > 0{
-            return directions.count
+        if dataManagerThree.lineNr != nil && dataManagerThree.lineMessage == nil{
+            let directions = databaseManager.getDirections()
+            if directions.count > 0{
+                return directions.count
+            } else {
+                return 1
+            }
         } else {
             return 1
         }
@@ -104,18 +120,28 @@ extension ReportControllerThree: UITableViewDataSource{
         // -> If there are directions for the chosen line number -> return cell for every direction and fill it with direction data
         // -> Else (there are no directions to display) -> error message is displayed
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let directions = databaseManager.getDirections() // Loads the data from the manager
-        
-        //If there is no data error message is displayed
-        if directions.count > 0{
+        if dataManagerThree.lineNr != nil && dataManagerThree.lineMessage == nil{
+            let directions = databaseManager.getDirections() // Loads the data from the manager
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
-            if directions[indexPath.row] == "nan"{
-                cell.isHidden = true
+            if directions.count > 0{
+                if directions[indexPath.row] == "nan"{
+                    cell.isHidden = true
+                }
+                cell.label?.text = directions[indexPath.row]
             }
-            cell.label?.text = directions[indexPath.row]
             //##Because the data needs to load -> First cell is the error cell for split second and it blocks userInteraction and reveals the image, therefore this has to be taken back while loading of the proper cells
             cell.typeImage.isHidden = true
             cell.isUserInteractionEnabled = true
+            return cell
+            
+        } else if dataManagerThree.lineNr == nil && dataManagerThree.lineMessage != nil{
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
+            cell.label?.text = "Stoją na przystanku"
+            cell.isUserInteractionEnabled = false
+            cell.typeImage.image = UIImage(systemName: "figure.stand")
+            cell.typeImage.isHidden = false
+            reportButton.isEnabled = true
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
@@ -126,17 +152,32 @@ extension ReportControllerThree: UITableViewDataSource{
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let _ = dataManagerThree.lineMessage {
+            cell.setSelected(true, animated: true)
+        }
+    }
 }
 
 //MARK: - TableViewDelegate Methods
 extension ReportControllerThree: UITableViewDelegate{
     ///# - Function is triggered when on of the cells is selected by the user and performs actions:
-        // -> saves the data about the direction selection of the user
-        // -> enables the functionality of the report button
+    // -> saves the data about the direction selection of the user
+    // -> enables the functionality of the report button
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard databaseManager.getDirections().count > 0 else { return }
-        
-        reportButton.isEnabled = true
-        dataManagerThree.directionIndex = indexPath.row
+        if dataManagerThree.lineNr == nil && dataManagerThree.lineMessage == nil{
+            print("NO DATA - PROBLEM")
+        } else if dataManagerThree.lineNr != nil && dataManagerThree.lineMessage == nil{
+            print("A line number was chosen -> selected a direction cell")
+            
+            guard databaseManager.getDirections().count > 0 else { return }
+            reportButton.isEnabled = true
+            dataManagerThree.directionIndex = indexPath.row
+            
+        } else if dataManagerThree.lineNr == nil && dataManagerThree.lineMessage != nil{
+            print("A line message was chosen -> selected line message cell")
+            // Do nothing ??
+        }
     }
 }
