@@ -15,6 +15,7 @@ struct DataManager{
     
 //_____ReportControllerTwo Variables_____________
     var linesList: [Int]?               /// - List of line numbers loaded when the viewLoads from the database (depending on the  stop type (tram/bus))
+    var adjustedLinesList: [[Int]]?
     var chosenStopType: String?         /// - Type property of the stop selected by the user in ReportOne - data for ReportTwo depends on this value ("tramwaj" / "autobus") to load the line numbers
     var stopName: String?               /// - Passing  the stop name to the ReportTwo and then ReportThree  - stop name is needed for updating the database
     var selectedLine: Int?              /// - Selected line number - used to load line directions in ReportThree (passed to ReportThree in prepareForSegue)
@@ -34,14 +35,14 @@ struct DataManager{
     var defaultLocation: CLLocation?    /// If the user choses the city from the pop-up and did not allow location services
 }
 
-//MARK: - ReportControllerOne Methods
-extension DataManager {
+//MARK: - ReportControllerTwo Methods
+extension DataManager{
     ///# - Function is triggered by ReportOneController when preparing for segue and performs action:
         // -> filters the list of lineNumbers for of the chosen stop depending on the time of the day (night/day lines)
             // - <5:00-22:00) -> returns only day lineNumbers (x < 200  or 300 =< x )
             // - <22:00-00:00) + <04:00-05:00)  -> returns all lineNumbers because some lines are still operating and others already
             // - <00:00-04:00) -> returns only night lineNumbers (200 =< x < 300)
-    func filterLineNumbers(lines: [Int]) -> [Int] {
+    func filterLineNumbers(lines: [Int]) -> [Int]{
         //Accessing the current hour of the device
         let now = Calendar.current.dateComponents(in: .current, from: Date())
         if let currentHour = now.hour {
@@ -81,10 +82,7 @@ extension DataManager {
             return lines // If there is a problem loading the time
         }
     }
-}
-
-//MARK: - ReportControllerTwo Methods
-extension DataManager{
+    
     ///# - Function is triggered by ReportControllerTwo (when loading tableView) and performs action:
         // -> converts the one-dimensional array of lineNumbers into a two-dimensional array to be suitable for two-column table ([1,2,3,4] -> [[1,2],[3,4]])
         // -> if lines list.count is odd zero is appended and then adjusted (and if a button.title == "0" it gets disabled)

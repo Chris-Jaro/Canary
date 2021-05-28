@@ -98,6 +98,7 @@ class NumberCell: UITableViewCell {
         } else if button.isEnabled{
             //Normal not-selected buttons
             button.backgroundColor = UIColor.white
+            button.setTitleColor(UIColor.init(cgColor: CGColor(red:15/255, green:140/255, blue: 207/255, alpha: 1)), for: .normal)
         } else {
             // Disabled buttons
             button.backgroundColor = UIColor.clear

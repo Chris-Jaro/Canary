@@ -66,7 +66,14 @@ extension ReportControllerTwo: DatabaseManagerDelegate{
     
     func updateUI(list: [Any]) {
         guard let linesList = list as? [Int] else { return }
-        dataManagerTwo.linesList = dataManagerTwo.filterLineNumbers(lines: linesList)
+        
+        let filteredList = dataManagerTwo.filterLineNumbers(lines: linesList)
+        let adjustedList = dataManagerTwo.adjustLinesList(list: filteredList)
+        
+        dataManagerTwo.linesList = linesList
+        
+        dataManagerTwo.adjustedLinesList = adjustedList
+        
         tableView.reloadData()
     }
 }
@@ -76,11 +83,11 @@ extension ReportControllerTwo: UITableViewDataSource{
     
     ///# - Function provides the number of section in the TableView | "One Row per Section" policy is applied to enable creating the gap between the rows (by adding invisible headers of certain height)
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let lines = dataManagerTwo.linesList, lines.count > 0 else {return 1}
-        let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
+        guard let lines = dataManagerTwo.adjustedLinesList, lines.count > 0 else {return 1}
         
-        return adjustedLines.count + 1 //# TO MAKE UP FOR THE FIRST CELL -> "STANDING ON THE STOP"
+        return lines.count + 1 //# TO MAKE UP FOR THE FIRST CELL -> "STANDING ON THE STOP"
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -93,7 +100,7 @@ extension ReportControllerTwo: UITableViewDataSource{
         // -> delegate is set for the cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //## - Guard statement protects this function from the lack of data and displays the message accordingly
-        guard let lines = dataManagerTwo.linesList, lines.count > 0 else {
+        guard let lines = dataManagerTwo.adjustedLinesList, lines.count > 0 else {
             tableView.rowHeight = tableView.estimatedRowHeight
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.textIdentifier, for: indexPath) as! TextCell
             cell.label?.text = "Błąd - brak lini do wyświetlenia"
@@ -103,26 +110,28 @@ extension ReportControllerTwo: UITableViewDataSource{
             return cell
         }
         
-        if indexPath.section == 0 {
+        if indexPath.section > 0{
+            if let lineNumberList = dataManagerTwo.adjustedLinesList {
+                tableView.rowHeight = 100
+                let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.numberIdentifier, for: indexPath) as! NumberCell
+                cell.leftButton.setTitle("\(lineNumberList[indexPath.section - 1][0])", for: .normal) // - 1 to count the section that was added for the "Standing on the stop" message
+                cell.rightButton.setTitle("\(lineNumberList[indexPath.section - 1][1])", for: .normal)
+                if cell.rightButton.currentTitle == "0"{
+                    cell.rightButton.isEnabled = false
+                }
+                cell.delegate = self
+                return cell
+            } else {
+                tableView.rowHeight = 100
+                let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.numberIdentifier, for: indexPath) as! NumberCell
+                return cell
+            }
+        } else {
             tableView.rowHeight = 100
             let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.lineMessageIdentifier, for: indexPath) as! LineMessageCell
             cell.delegate = self
             return cell
-            
-        } else {
-            let adjustedLines = dataManagerTwo.adjustLinesList(list: lines)
-            tableView.rowHeight = 100
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.CustomCell.numberIdentifier, for: indexPath) as! NumberCell
-            cell.leftButton.setTitle("\(adjustedLines[indexPath.section][0])", for: .normal)
-            cell.rightButton.setTitle("\(adjustedLines[indexPath.section][1])", for: .normal)
-            if cell.rightButton.currentTitle == "0"{
-                cell.rightButton.isEnabled = false
-            }
-            cell.delegate = self
-            return cell
         }
-        
-        
     }
 }
 
