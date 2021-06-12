@@ -76,7 +76,7 @@ class SubscriptionController: UIViewController {
         // -> IF FAILURE -> displays the alert to the user with the error message
     @IBAction func subscribeButtonPressed(_ sender: UIButton) {
         
-        let alert = UIAlertController(title: "Miesięczna Subskrypcja Canary" , message: "Po próbnym okresie (1 miesiąca) użytkownik zostanie obciążony 1.99PLN. Subskrypcja odnawia się automatycznie, można ją anulować w dowolnym momencie w App Store", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Miesięczna Subskrypcja Canary" , message: "Po próbnym okresie (3 miesięcy) użytkownik zostanie obciążony 1.99PLN. Subskrypcja odnawia się automatycznie, można ją anulować w dowolnym momencie w App Store", preferredStyle: .alert)
         
         //Loading the points for the current default location in central Poznan
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
